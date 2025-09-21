@@ -42,14 +42,11 @@ def load_dialogs(data_file: str) -> list[Dialog]:
 
 def process_dialog(model: SubmitModelWithMemory, dialog: Dialog) -> str:
     """Обрабатывает один диалог и возвращает промпт"""
-    # Получаем все сообщения диалога
-    messages = dialog.get_messages()
-    
-    # Обрабатываем сообщения парами (user + assistant)
-    for i in range(0, len(messages), 2):
-        if i + 1 < len(messages):
-            message_pair = [messages[i], messages[i + 1]]
-            model.write_to_memory(message_pair, dialog.id)
+    # Обрабатываем каждую сессию отдельно
+    for session in dialog.sessions:
+        # Получаем все сообщения из сессии
+        session_messages = session.messages
+        model.write_to_memory(session_messages, dialog.id)
     
     # Получаем промпт (не ответ!)
     prompt = model.answer_to_question_mock(dialog.id, dialog.question)
