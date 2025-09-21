@@ -1,65 +1,72 @@
-from collections import defaultdict
 from dataclasses import asdict
 from typing import List
-
-from transformers import AutoTokenizer
-from vllm import LLM, SamplingParams
 
 from models import Message
 from submit_interface import ModelWithMemory
 
+from .memory_storage import MemoryStorage
+from .message_filter import filter_user_message
+from .prompts import (
+    get_memory_extraction_prompt,
+    get_session_marker_prompt
+)
+from .llm_inference import ModelInference
+
 
 class SubmitModelWithMemory(ModelWithMemory):
+    """
+    Класс для работы с долгосрочной памятью в диалоговой системе
+    """
 
     def __init__(self, model_path: str) -> None:
-        self.basic_memory = defaultdict(list)
-        self.model_path = model_path
-        try:
-            self.tokenizer = AutoTokenizer.from_pretrained(self.model_path, trust_remote_code=True)
-            self.model = LLM(model=self.model_path, trust_remote_code=True)
-            self.sampling_params = SamplingParams(temperature=0.0, max_tokens=100, seed=42, truncate_prompt_tokens=131072)
-        except Exception as e:
-            raise RuntimeError(f"Ошибка загрузки модели {self.model_path}: {str(e)}")
+        self.storage = MemoryStorage()
+        self.model_inference = ModelInference(model_path)
 
     def write_to_memory(self, messages: List[Message], dialogue_id: str) -> None:
-        self.basic_memory[dialogue_id] += messages
-
-    def extract(self, dialogue_id: str) -> List[Message]:
-        memory = self.basic_memory.get(dialogue_id, [])
-        memory = [asdict(msg) for msg in memory]
-        memory = "\n".join([f"{msg['role']}: {msg['content']}" for msg in memory])
-        system_memory_prompt = "Твоя задача - ответить на вопрос пользователя. Для этого тебе подается на вход твоя история общения с пользователем." \
-                               "Пользователь разрешил использовать ее для ответа на вопрос. Используй историю диалога, чтобы ответить на вопрос.\n" \
-                               f"История диалога: \n{memory}"
-
-        context_with_memory = [Message('system', system_memory_prompt)]
-
-        return context_with_memory
+        """
+        Фильтрует и сохраняет личную информацию из сообщений
+        """
+        current_session = self.storage.increment_session(dialogue_id)
+        
+        processed_messages = []
+        for msg in messages:
+            if msg.role == "user":
+                # Проверяем кэш для ускорения
+                cached_result = self.storage.check_cache(msg.content)
+                
+                if cached_result is None:
+                    filter_result = filter_user_message(msg.content)
+                    self.storage.add_to_cache(msg.content, filter_result)
+                    cached_result = filter_result
+                
+                if cached_result:
+                    processed_msg = Message(
+                        role=msg.role,
+                        content=f"{get_session_marker_prompt(current_session)} {msg.content}"
+                    )
+                    processed_messages.append(processed_msg)
+        
+        self.storage.add_to_memory(dialogue_id, processed_messages)
 
     def clear_memory(self, dialogue_id: str) -> None:
-        self.basic_memory[dialogue_id] = []
+        """
+        Очищает память диалога и кэш при необходимости
+        """
+        self.storage.clear_dialogue_memory(dialogue_id)
+        
+        if self.storage.get_cache_size() > 1000:
+            self.storage.clear_all_cache()
 
     def answer_to_question(self, dialogue_id: str, question: str) -> str:
-        user_promt = "Отвечай КРАТКО без предложений и размышлений, используй ТОЛЬКО ОДНО предложение для ответа.\n"
-        context = self.extract(dialogue_id)
-        context.append(Message(
-            role="user",
-            content=user_promt + question
-        ))
-        answer = self._inference(context)
-
+        """
+        Генерирует ответ на вопрос используя накопленную память
+        """
+        memory = self.storage.get_memory(dialogue_id)
+        memory = [asdict(msg) for msg in memory]
+        memory_text = "\n".join([msg['content'] for msg in memory])
+        
+        system_memory_prompt = get_memory_extraction_prompt(question, memory_text)
+        context_with_memory = [Message('system', system_memory_prompt)]
+        
+        answer = self.model_inference.inference(context_with_memory)
         return answer
-
-    def _inference(self, messages: List[Message]) -> str:
-        try:
-            msg_dicts = [asdict(m) for m in messages]
-            input_tensor = self.tokenizer.apply_chat_template(
-                msg_dicts,
-                add_generation_prompt=True,
-            )
-            outputs = self.model.generate(prompt_token_ids=input_tensor, sampling_params=self.sampling_params, use_tqdm=False)
-            result = outputs[0].outputs[0].text
-            return result.strip()
-
-        except Exception as e:
-            return f"Ошибка при инференсе локальной модели: {str(e)}"

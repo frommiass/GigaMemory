@@ -1,0 +1,64 @@
+"""
+Модуль для инференса и работы с языковой моделью GigaChat
+"""
+from dataclasses import asdict
+from typing import List
+from transformers import AutoTokenizer
+from vllm import LLM, SamplingParams
+from models import Message
+
+
+class ModelInference:
+    """Класс для работы с языковой моделью"""
+    
+    def __init__(self, model_path: str):
+        """
+        Инициализация модели
+        
+        Args:
+            model_path: Путь к модели
+        """
+        self.model_path = model_path
+        try:
+            self.tokenizer = AutoTokenizer.from_pretrained(
+                self.model_path, 
+                trust_remote_code=True
+            )
+            self.model = LLM(
+                model=self.model_path, 
+                trust_remote_code=True
+            )
+            self.sampling_params = SamplingParams(
+                temperature=0.0, 
+                max_tokens=100, 
+                seed=42, 
+                truncate_prompt_tokens=131072
+            )
+        except Exception as e:
+            raise RuntimeError(f"Ошибка загрузки модели {self.model_path}: {str(e)}")
+    
+    def inference(self, messages: List[Message]) -> str:
+        """
+        Выполняет инференс модели
+        
+        Args:
+            messages: Список сообщений для модели
+            
+        Returns:
+            Ответ модели
+        """
+        try:
+            msg_dicts = [asdict(m) for m in messages]
+            input_tensor = self.tokenizer.apply_chat_template(
+                msg_dicts,
+                add_generation_prompt=True,
+            )
+            outputs = self.model.generate(
+                prompt_token_ids=input_tensor, 
+                sampling_params=self.sampling_params, 
+                use_tqdm=False
+            )
+            result = outputs[0].outputs[0].text
+            return result.strip()
+        except Exception as e:
+            return f"Ошибка при инференсе локальной модели: {str(e)}"
