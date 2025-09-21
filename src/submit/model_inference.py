@@ -70,3 +70,14 @@ class SubmitModelWithMemory(ModelWithMemory):
         
         answer = self.model_inference.inference(context_with_memory)
         return answer
+
+    def answer_to_question_mock(self, dialogue_id: str, question: str) -> str:
+        """
+        Возвращает промпт который отправляется в модель (не ответ!)
+        """
+        memory = self.storage.get_memory(dialogue_id)
+        memory = [asdict(msg) for msg in memory]
+        memory_text = "\n".join([msg['content'] for msg in memory])
+        
+        system_memory_prompt = get_memory_extraction_prompt(question, memory_text)
+        return system_memory_prompt
