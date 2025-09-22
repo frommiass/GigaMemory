@@ -8,6 +8,7 @@ from models import Message
 
 from ..prompts import get_session_marker_prompt
 from ..storage import SessionManager
+from .message_cleaner import is_copy_paste_content
 
 
 class SessionGrouper:
@@ -33,7 +34,7 @@ class SessionGrouper:
         sessions = defaultdict(list)
         
         for msg in messages:
-            if msg.role == "user":
+            if msg.role == "user" and msg.content.strip():
                 # Используем session_id из сообщения, если он есть
                 if msg.session_id:
                     session_id = msg.session_id
@@ -149,22 +150,48 @@ def group_messages_by_sessions_simple(messages: List[Message], dialogue_id: str)
 
 def extract_session_content(session_messages: List[Message]) -> str:
     """
-    Извлекает текстовое содержимое сессии
+    Извлекает текстовое содержимое сессии (только сообщения пользователя)
     
     Args:
         session_messages: Список сообщений сессии
         
     Returns:
-        Объединенный текст сессии
+        Объединенный текст сессии (только user сообщения)
     """
     if not session_messages:
         return ""
     
-    # Объединяем содержимое всех сообщений
+    # Объединяем содержимое только сообщений пользователя
+    content_parts = []
+    for msg in session_messages:
+        if msg.role == "user" and msg.content.strip():
+            # Фильтруем копипаст для промптов
+            if not is_copy_paste_content(msg.content):
+                content_parts.append(msg.content.strip())
+    
+    return " ".join(content_parts)
+
+
+def extract_session_content_for_search(session_messages: List[Message]) -> str:
+    """
+    Извлекает текстовое содержимое сессии для поиска ключевых слов (все сообщения)
+    
+    Args:
+        session_messages: Список сообщений сессии
+        
+    Returns:
+        Объединенный текст сессии (все сообщения для поиска)
+    """
+    if not session_messages:
+        return ""
+    
+    # Объединяем содержимое всех сообщений для поиска ключевых слов
     content_parts = []
     for msg in session_messages:
         if msg.content.strip():
-            content_parts.append(msg.content.strip())
+            # Фильтруем копипаст при поиске ключевых слов
+            if not is_copy_paste_content(msg.content):
+                content_parts.append(msg.content.strip())
     
     return " ".join(content_parts)
 

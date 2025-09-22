@@ -1,0 +1,299 @@
+{
+  "dialog_id": 4,
+  "question": "Сигареты какой марки я предпочитаю?",
+  "analysis": {
+    "question": "Сигареты какой марки я предпочитаю?",
+    "topic": "work",
+    "confidence": 0.041999999999999996,
+    "strategy": "fallback",
+    "total_sessions": 25,
+    "relevance_scores": {
+      "1": {
+        "score": 0,
+        "status": "низкая релевантность",
+        "matched_keywords": [],
+        "content_length": 85,
+        "message_count": 1
+      },
+      "2": {
+        "score": 0,
+        "status": "низкая релевантность",
+        "matched_keywords": [],
+        "content_length": 261,
+        "message_count": 1
+      },
+      "3": {
+        "score": 0,
+        "status": "низкая релевантность",
+        "matched_keywords": [],
+        "content_length": 178,
+        "message_count": 2
+      },
+      "4": {
+        "score": 0,
+        "status": "низкая релевантность",
+        "matched_keywords": [],
+        "content_length": 52,
+        "message_count": 1
+      },
+      "5": {
+        "score": 0,
+        "status": "низкая релевантность",
+        "matched_keywords": [],
+        "content_length": 109,
+        "message_count": 1
+      },
+      "6": {
+        "score": 1,
+        "status": "релевантная",
+        "matched_keywords": [
+          "отчеты"
+        ],
+        "content_length": 111,
+        "message_count": 1
+      },
+      "7": {
+        "score": 0,
+        "status": "низкая релевантность",
+        "matched_keywords": [],
+        "content_length": 216,
+        "message_count": 1
+      },
+      "8": {
+        "score": 0,
+        "status": "низкая релевантность",
+        "matched_keywords": [],
+        "content_length": 128,
+        "message_count": 2
+      },
+      "9": {
+        "score": 0,
+        "status": "низкая релевантность",
+        "matched_keywords": [],
+        "content_length": 413,
+        "message_count": 1
+      },
+      "10": {
+        "score": 0,
+        "status": "низкая релевантность",
+        "matched_keywords": [],
+        "content_length": 264,
+        "message_count": 2
+      },
+      "11": {
+        "score": 0,
+        "status": "низкая релевантность",
+        "matched_keywords": [],
+        "content_length": 32,
+        "message_count": 1
+      },
+      "12": {
+        "score": 0,
+        "status": "низкая релевантность",
+        "matched_keywords": [],
+        "content_length": 156,
+        "message_count": 1
+      },
+      "14": {
+        "score": 0,
+        "status": "низкая релевантность",
+        "matched_keywords": [],
+        "content_length": 62,
+        "message_count": 1
+      },
+      "15": {
+        "score": 0,
+        "status": "низкая релевантность",
+        "matched_keywords": [],
+        "content_length": 261,
+        "message_count": 2
+      },
+      "22": {
+        "score": 0,
+        "status": "низкая релевантность",
+        "matched_keywords": [],
+        "content_length": 99,
+        "message_count": 1
+      },
+      "24": {
+        "score": 0,
+        "status": "низкая релевантность",
+        "matched_keywords": [],
+        "content_length": 319,
+        "message_count": 3
+      },
+      "25": {
+        "score": 0,
+        "status": "низкая релевантность",
+        "matched_keywords": [],
+        "content_length": 243,
+        "message_count": 2
+      },
+      "26": {
+        "score": 0,
+        "status": "низкая релевантность",
+        "matched_keywords": [],
+        "content_length": 412,
+        "message_count": 5
+      },
+      "27": {
+        "score": 0,
+        "status": "низкая релевантность",
+        "matched_keywords": [],
+        "content_length": 339,
+        "message_count": 4
+      },
+      "28": {
+        "score": 0,
+        "status": "низкая релевантность",
+        "matched_keywords": [],
+        "content_length": 61,
+        "message_count": 1
+      },
+      "30": {
+        "score": 0,
+        "status": "низкая релевантность",
+        "matched_keywords": [],
+        "content_length": 35,
+        "message_count": 1
+      },
+      "32": {
+        "score": 0,
+        "status": "низкая релевантность",
+        "matched_keywords": [],
+        "content_length": 186,
+        "message_count": 1
+      },
+      "33": {
+        "score": 0,
+        "status": "низкая релевантность",
+        "matched_keywords": [],
+        "content_length": 35,
+        "message_count": 1
+      },
+      "35": {
+        "score": 0,
+        "status": "низкая релевантность",
+        "matched_keywords": [],
+        "content_length": 194,
+        "message_count": 2
+      },
+      "37": {
+        "score": 0,
+        "status": "низкая релевантность",
+        "matched_keywords": [],
+        "content_length": 131,
+        "message_count": 1
+      }
+    },
+    "sorted_sessions": [
+      [
+        6,
+        1
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        2,
+        0
+      ],
+      [
+        3,
+        0
+      ],
+      [
+        4,
+        0
+      ],
+      [
+        5,
+        0
+      ],
+      [
+        7,
+        0
+      ],
+      [
+        8,
+        0
+      ],
+      [
+        9,
+        0
+      ],
+      [
+        10,
+        0
+      ],
+      [
+        11,
+        0
+      ],
+      [
+        12,
+        0
+      ],
+      [
+        14,
+        0
+      ],
+      [
+        15,
+        0
+      ],
+      [
+        22,
+        0
+      ],
+      [
+        24,
+        0
+      ],
+      [
+        25,
+        0
+      ],
+      [
+        26,
+        0
+      ],
+      [
+        27,
+        0
+      ],
+      [
+        28,
+        0
+      ],
+      [
+        30,
+        0
+      ],
+      [
+        32,
+        0
+      ],
+      [
+        33,
+        0
+      ],
+      [
+        35,
+        0
+      ],
+      [
+        37,
+        0
+      ]
+    ]
+  },
+  "summary": {
+    "total_sessions": 25,
+    "relevant_sessions": 1,
+    "topic": "work",
+    "confidence": 0.041999999999999996,
+    "strategy": "fallback"
+  }
+}

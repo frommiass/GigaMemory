@@ -8,7 +8,8 @@ from models import Message
 from ..questions.classifier import QuestionClassifier
 from ..questions.confidence import calculate_confidence_with_threshold
 from .keyword_matcher import KeywordMatcher
-from .session_grouper import extract_session_content
+from .session_grouper import extract_session_content, extract_session_content_for_search
+from .message_cleaner import is_copy_paste_content
 
 
 class RelevanceFilter:
@@ -22,7 +23,7 @@ class RelevanceFilter:
     def _get_default_config(self):
         """Получает конфигурацию по умолчанию без циклического импорта"""
         class DefaultConfig:
-            classification_confidence_threshold = 0.7
+            classification_confidence_threshold = 0.1
             max_relevant_sessions = 5
             min_relevant_sessions = 1
         
@@ -153,9 +154,32 @@ class RelevanceFilter:
         
         # Извлекаем слова из вопроса
         question_words = self.keyword_matcher._extract_words(question.lower())
+        all_keywords_lower = {kw.lower() for kw in all_keywords}
         
-        # Находим пересечение
-        return set(question_words) & all_keywords
+        # Находим пересечение (точные совпадения и по корням)
+        matches = set()
+        for word in question_words:
+            # Точные совпадения
+            if word in all_keywords_lower:
+                matches.add(word)
+            else:
+                # Совпадения по корням (более гибкий поиск)
+                for keyword in all_keywords_lower:
+                    if len(word) > 2 and len(keyword) > 2:
+                        # Проверяем разные варианты совпадений
+                        if (word.startswith(keyword[:3]) or 
+                            keyword.startswith(word[:3]) or
+                            word.endswith(keyword[-3:]) or
+                            keyword.endswith(word[-3:]) or
+                            # Добавляем проверку на общий корень (убираем окончания)
+                            word.rstrip('аеиоуыэюя') == keyword.rstrip('аеиоуыэюя') or
+                            keyword.rstrip('аеиоуыэюя') == word.rstrip('аеиоуыэюя') or
+                            # Добавляем поиск подстроки (для случаев как "спортом" -> "спорт")
+                            word in keyword or keyword in word):
+                            matches.add(keyword)
+                            break
+        
+        return matches
     
     def get_relevance_scores(self, question: str, sessions: Dict[str, List[Message]]) -> Dict[str, float]:
         """
@@ -174,16 +198,19 @@ class RelevanceFilter:
         topic, confidence = self.classifier.classify_question(question)
         
         for session_id, session_messages in sessions.items():
-            session_content = extract_session_content(session_messages)
+            # Для поиска ключевых слов используем все сообщения
+            session_content_for_search = extract_session_content_for_search(session_messages)
             
             if topic and confidence >= self.config.classification_confidence_threshold:
-                # Тематический поиск
-                score = self.keyword_matcher.calculate_topic_relevance(session_content, topic)
+                # Тематический поиск - score = количество найденных ключевых слов
+                matched_keywords = self.keyword_matcher.get_topic_matches(session_content_for_search, topic)
+                score = len(matched_keywords)
             else:
-                # Общий поиск
+                # Общий поиск - score = количество найденных ключевых слов
                 question_keywords = self._extract_question_keywords(question)
                 if question_keywords:
-                    score = self.keyword_matcher.calculate_relevance_score(session_content, question_keywords)
+                    matched_keywords = self.keyword_matcher.get_keyword_matches(session_content_for_search, question_keywords)
+                    score = len(matched_keywords)
                 else:
                     score = 0.0
             
@@ -231,16 +258,21 @@ class RelevanceFilter:
         topic, confidence = self.classifier.classify_question(question)
         
         for session_id, session_messages in sessions.items():
+            # Для поиска ключевых слов используем все сообщения
+            session_content_for_search = extract_session_content_for_search(session_messages)
+            # Для промпта используем только сообщения пользователя
             session_content = extract_session_content(session_messages)
             
             # Рассчитываем релевантность
             if topic and confidence >= self.config.classification_confidence_threshold:
-                relevance_score = self.keyword_matcher.calculate_topic_relevance(session_content, topic)
-                matched_keywords = self.keyword_matcher.get_topic_matches(session_content, topic)
+                matched_keywords = self.keyword_matcher.get_topic_matches(session_content_for_search, topic)
+                # Score = количество найденных ключевых слов
+                relevance_score = len(matched_keywords)
             else:
                 question_keywords = self._extract_question_keywords(question)
-                relevance_score = self.keyword_matcher.calculate_relevance_score(session_content, question_keywords)
-                matched_keywords = self.keyword_matcher.get_keyword_matches(session_content, question_keywords)
+                matched_keywords = self.keyword_matcher.get_keyword_matches(session_content_for_search, question_keywords)
+                # Score = количество найденных ключевых слов
+                relevance_score = len(matched_keywords)
             
             info[session_id] = {
                 'relevance_score': relevance_score,

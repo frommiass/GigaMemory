@@ -118,3 +118,4 @@ TOPIC_SPECIFIC_PROMPTS = {
 def get_all_topic_names() -> list:
     """Получить список всех доступных тем"""
     return list(TOPIC_SPECIFIC_PROMPTS.keys())
+

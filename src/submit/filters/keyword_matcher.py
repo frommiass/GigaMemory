@@ -31,7 +31,8 @@ class KeywordMatcher:
         matching_messages = []
         
         for msg in messages:
-            if msg.role == "user" and self._contains_keywords(msg.content, keywords):
+            # Ищем по обоим ролям - и user, и assistant
+            if self._contains_keywords(msg.content, keywords):
                 matching_messages.append(msg)
         
         return matching_messages
@@ -110,17 +111,36 @@ class KeywordMatcher:
         if not content_words:
             return 0.0
         
-        # Подсчитываем совпадения
-        matches = 0
+        # Приводим ключевые слова к нижнему регистру для сравнения
+        keywords_lower = {kw.lower() for kw in keywords}
+        
+        # Подсчитываем совпадения (точные и по корням) - только уникальные
+        matched_words = set()
+        
         for word in content_words:
-            if word in keywords:
-                matches += 1
+            # Точные совпадения
+            if word in keywords_lower:
+                matched_words.add(word)
+            else:
+                # Совпадения по корням (более гибкий поиск)
+                for keyword in keywords_lower:
+                    if len(word) > 2 and len(keyword) > 2:
+                        # Проверяем разные варианты совпадений
+                        if (word.startswith(keyword[:3]) or 
+                            keyword.startswith(word[:3]) or
+                            word.endswith(keyword[-3:]) or
+                            keyword.endswith(word[-3:])):
+                            matched_words.add(keyword)  # Добавляем оригинальное ключевое слово
+                            break
+        
+        # Считаем совпадения только по уникальным словам
+        matches = len(matched_words)
         
         # Рассчитываем базовую релевантность
         relevance = matches / len(content_words)
         
         # Бонус за уникальные совпадения
-        unique_matches = len(set(content_words) & keywords)
+        unique_matches = len(matched_words)
         if unique_matches > 0:
             relevance += unique_matches * 0.1
         
@@ -205,7 +225,24 @@ class KeywordMatcher:
         content_lower = content.lower()
         content_words = self._extract_words(content_lower)
         
-        return bool(set(content_words) & keywords)
+        # Приводим ключевые слова к нижнему регистру для сравнения
+        keywords_lower = {kw.lower() for kw in keywords}
+        
+        # Проверяем точные совпадения
+        if set(content_words) & keywords_lower:
+            return True
+        
+        # Проверяем совпадения по корням (более гибкий поиск)
+        for word in content_words:
+            for keyword in keywords_lower:
+                if len(word) > 2 and len(keyword) > 2:
+                    if (word.startswith(keyword[:3]) or 
+                        keyword.startswith(word[:3]) or
+                        word.endswith(keyword[-3:]) or
+                        keyword.endswith(word[-3:])):
+                        return True
+        
+        return False
     
     def _extract_words(self, text: str) -> List[str]:
         """
@@ -236,9 +273,70 @@ class KeywordMatcher:
             return []
         
         content_lower = content.lower()
-        content_words = set(self._extract_words(content_lower))
+        content_words = self._extract_words(content_lower)
+        keywords_lower = {kw.lower() for kw in keywords}
         
-        return list(content_words & keywords)
+        matches = []
+        matched_keywords = set()  # Используем set для избежания дубликатов
+        
+        for word in content_words:
+            # Точные совпадения
+            if word in keywords_lower:
+                matched_keywords.add(word)
+            else:
+                # Совпадения по корням (более гибкий поиск)
+                for keyword in keywords_lower:
+                    if len(word) > 2 and len(keyword) > 2:
+                        if (word.startswith(keyword[:3]) or 
+                            keyword.startswith(word[:3]) or
+                            word.endswith(keyword[-3:]) or
+                            keyword.endswith(word[-3:])):
+                            matched_keywords.add(keyword)  # Добавляем в set
+                            break
+        
+        return list(matched_keywords)  # Возвращаем список уникальных ключевых слов
+    
+    def _get_topic_keyword_matches(self, content: str, topic_keywords: Set[str]) -> List[str]:
+        """
+        Получает только тематические ключевые слова, которые найдены в контенте
+        
+        Args:
+            content: Текст для поиска
+            topic_keywords: Множество тематических ключевых слов
+            
+        Returns:
+            Список найденных тематических ключевых слов
+        """
+        if not content or not topic_keywords:
+            return []
+        
+        content_lower = content.lower()
+        content_words = self._extract_words(content_lower)
+        keywords_lower = {kw.lower() for kw in topic_keywords}
+        
+        matched_topic_keywords = set()
+        
+        for word in content_words:
+            # Точные совпадения с тематическими ключевыми словами
+            if word in keywords_lower:
+                matched_topic_keywords.add(word)
+            else:
+                # Совпадения по корням с тематическими ключевыми словами
+                for keyword in keywords_lower:
+                    if len(word) > 2 and len(keyword) > 2:
+                        if (word.startswith(keyword[:3]) or 
+                            keyword.startswith(word[:3]) or
+                            word.endswith(keyword[-3:]) or
+                            keyword.endswith(word[-3:]) or
+                            # Добавляем проверку на общий корень (убираем окончания)
+                            word.rstrip('аеиоуыэюя') == keyword.rstrip('аеиоуыэюя') or
+                            keyword.rstrip('аеиоуыэюя') == word.rstrip('аеиоуыэюя') or
+                            # Добавляем поиск подстроки (для случаев как "спортом" -> "спорт")
+                            word in keyword or keyword in word):
+                            matched_topic_keywords.add(keyword)
+                            break
+        
+        return list(matched_topic_keywords)
     
     def get_topic_matches(self, content: str, topic_name: str) -> List[str]:
         """
@@ -255,7 +353,8 @@ class KeywordMatcher:
             return []
         
         keywords = self.topic_keywords[topic_name]
-        return self.get_keyword_matches(content, keywords)
+        # Возвращаем только тематические ключевые слова, которые действительно найдены
+        return self._get_topic_keyword_matches(content, keywords)
 
 
 # Глобальный экземпляр для удобства использования

@@ -10,6 +10,7 @@ from ..questions.classifier import QuestionClassifier
 from ..questions.confidence import calculate_confidence_with_threshold
 from ..filters.relevance_filter import RelevanceFilter
 from ..filters.session_grouper import SessionGrouper, extract_session_content
+from ..core.message_filter import MessageFilter
 from ..ranking.session_ranker import SessionRanker
 from ..prompts.topic_prompts import get_topic_prompt
 from ..prompts.fallback_prompts import get_fallback_prompt
@@ -24,6 +25,7 @@ class RAGEngine:
         self.relevance_filter = RelevanceFilter(config)
         self.session_grouper = SessionGrouper()
         self.session_ranker = SessionRanker(config)
+        self.message_filter = MessageFilter()
     
     def process_question(self, question: str, dialogue_id: str, 
                         all_messages: List[Message]) -> Tuple[str, Dict]:
@@ -41,7 +43,7 @@ class RAGEngine:
         if not question or not all_messages:
             return "У меня нет информации для ответа на этот вопрос.", {}
         
-        # 1. Классифицируем вопрос
+        # 1. Классифицируем вопрос (фильтрация уже применена в DataLoader)
         topic, confidence = self.classifier.classify_question(question)
         
         # 2. Группируем сообщения по сессиям
@@ -192,7 +194,7 @@ class RAGEngine:
         if not question or not all_messages:
             return {'error': 'Нет данных для анализа'}
         
-        # 1. Классификация
+        # 1. Классификация (фильтрация уже применена в DataLoader)
         topic, confidence = self.classifier.classify_question(question)
         
         # 2. Группировка сессий
@@ -256,6 +258,7 @@ class RAGEngine:
                 'total_dialogues': len(self.session_grouper.grouped_sessions)
             }
         }
+    
 
 
 # Глобальный экземпляр для удобства использования

@@ -57,6 +57,70 @@ class RAGInterface:
         
         return analysis
     
+    def get_all_session_scores(self, question: str, dialogue_id: str, 
+                              all_messages: List[Message]) -> Dict:
+        """
+        Получает оценки релевантности для ВСЕХ сессий
+        
+        Args:
+            question: Вопрос пользователя
+            dialogue_id: ID диалога
+            all_messages: Все сообщения диалога
+            
+        Returns:
+            Словарь с оценками всех сессий
+        """
+        if not question or not all_messages:
+            return {'error': 'Нет данных для анализа'}
+        
+        # Группируем сообщения по сессиям (фильтрация уже применена в DataLoader)
+        sessions = self.rag_engine.session_grouper.group_messages_by_sessions(all_messages, dialogue_id)
+        
+        # Классифицируем вопрос
+        topic, confidence = self.rag_engine.classifier.classify_question(question)
+        
+        # Получаем оценки релевантности для всех сессий
+        all_scores = self.rag_engine.relevance_filter.get_relevance_scores(question, sessions)
+        
+        # Получаем детальную информацию о каждой сессии
+        session_info = self.rag_engine.relevance_filter.get_session_relevance_info(question, sessions)
+        
+        # Создаем полный словарь оценок
+        full_scores = {}
+        for session_id in sessions.keys():
+            score = all_scores.get(session_id, 0.0)
+            info = session_info.get(session_id, {})
+            
+            full_scores[session_id] = {
+                'relevance_score': score,
+                'is_relevant': score > 0.1,
+                'status': 'релевантная' if score > 0.1 else 'низкая релевантность',
+                'matched_keywords': info.get('matched_keywords', []),
+                'content_length': info.get('content_length', 0),
+                'message_count': info.get('message_count', 0)
+            }
+        
+        # Создаем список сессий, отсортированных по score (убывание) - только ID и score
+        sorted_sessions = sorted(
+            full_scores.items(), 
+            key=lambda x: x[1]['relevance_score'], 
+            reverse=True
+        )
+        # Упрощаем до [session_id, score]
+        sorted_sessions = [[int(session_id), info['relevance_score']] for session_id, info in sorted_sessions]
+        
+        return {
+            'question': question,
+            'topic': topic,
+            'confidence': confidence,
+            'strategy': 'topic_rag' if confidence >= self.config.classification_confidence_threshold else 'fallback',
+            'total_sessions': len(sessions),
+            'relevant_sessions': len([s for s in full_scores.values() if s['is_relevant']]),
+            'all_scores': full_scores,
+            'sessions': sessions,
+            'sorted_sessions': sorted_sessions
+        }
+    
     def classify_question(self, question: str) -> Tuple[Optional[str], float]:
         """
         Классифицирует вопрос по темам
@@ -85,7 +149,7 @@ class RAGInterface:
         if not question or not all_messages:
             return {}
         
-        # Группируем сообщения по сессиям
+        # Группируем сообщения по сессиям (фильтрация уже применена в DataLoader)
         sessions = self.rag_engine.session_grouper.group_messages_by_sessions(all_messages, dialogue_id)
         
         # Находим релевантные сессии
@@ -111,7 +175,7 @@ class RAGInterface:
         if not question or not all_messages:
             return []
         
-        # Группируем сообщения по сессиям
+        # Группируем сообщения по сессиям (фильтрация уже применена в DataLoader)
         sessions = self.rag_engine.session_grouper.group_messages_by_sessions(all_messages, dialogue_id)
         
         # Ранжируем сессии

@@ -83,11 +83,20 @@ class QuestionClassifier:
         topic_keywords = self.topic_keywords[topic_name]
         topic = self.topics[topic_name]
         
-        # Подсчитываем точные совпадения
+        # Подсчитываем точные совпадения и совпадения по корням (приводим к нижнему регистру)
+        keywords_lower = {kw.lower() for kw in topic_keywords}
         exact_matches = 0
         for word in question_words:
-            if word in topic_keywords:
+            word_lower = word.lower()
+            if word_lower in keywords_lower:
                 exact_matches += 1
+            else:
+                # Проверяем совпадения по корням (убираем окончания)
+                for keyword in keywords_lower:
+                    if len(keyword) > 3 and len(word_lower) > 3:
+                        if word_lower.startswith(keyword[:4]) or keyword.startswith(word_lower[:4]):
+                            exact_matches += 0.5  # Частичное совпадение
+                            break
         
         if exact_matches == 0:
             return 0.0

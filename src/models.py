@@ -10,13 +10,13 @@ class Message:
 
 
 def process_first_assistant_message(messages: List[Message]):
-    if messages[0].role == "assistant":
+    if messages and messages[0].role == "assistant":
         messages = messages[1:]
     return messages
 
 
 def process_last_user_message(messages: List[Message], placeholder="<нет ответа>"):
-    if messages[-1].role == "user":
+    if messages and messages[-1].role == "user":
         messages.append(
             Message(
                 session_id=messages[-1].session_id,

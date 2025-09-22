@@ -9,7 +9,7 @@ class RAGConfig:
     """Основные настройки RAG системы"""
     
     # Настройки классификации
-    classification_confidence_threshold: float = 0.7
+    classification_confidence_threshold: float = 0.1
     
     # Настройки фильтрации
     max_relevant_sessions: int = 5

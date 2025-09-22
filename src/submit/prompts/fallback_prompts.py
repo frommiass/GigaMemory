@@ -65,3 +65,4 @@ def get_all_topic_names() -> list:
     """Получить список всех доступных тем"""
     from .topic_prompts import get_all_topic_names
     return get_all_topic_names()
+

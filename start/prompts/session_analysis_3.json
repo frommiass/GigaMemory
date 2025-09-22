@@ -1,0 +1,730 @@
+{
+  "dialog_id": 3,
+  "question": "Какая порода у моей собаки?",
+  "analysis": {
+    "question": "Какая порода у моей собаки?",
+    "topic": "pets",
+    "confidence": 0.27999999999999997,
+    "strategy": "topic_rag",
+    "total_sessions": 43,
+    "relevance_scores": {
+      "1": {
+        "score": 4,
+        "status": "релевантная",
+        "matched_keywords": [
+          "кормила",
+          "прогулка",
+          "кормить",
+          "клички"
+        ],
+        "content_length": 283,
+        "message_count": 7
+      },
+      "2": {
+        "score": 6,
+        "status": "релевантная",
+        "matched_keywords": [
+          "вакцина",
+          "прогулка",
+          "здоровая",
+          "животные",
+          "гулять",
+          "гуляла"
+        ],
+        "content_length": 463,
+        "message_count": 8
+      },
+      "3": {
+        "score": 4,
+        "status": "релевантная",
+        "matched_keywords": [
+          "лечение",
+          "животные",
+          "здоровый",
+          "поводок"
+        ],
+        "content_length": 376,
+        "message_count": 7
+      },
+      "4": {
+        "score": 4,
+        "status": "релевантная",
+        "matched_keywords": [
+          "кошка",
+          "кличка",
+          "гулять",
+          "кормить"
+        ],
+        "content_length": 413,
+        "message_count": 10
+      },
+      "5": {
+        "score": 9,
+        "status": "релевантная",
+        "matched_keywords": [
+          "щенок",
+          "прогулка",
+          "прививки",
+          "клички",
+          "животные",
+          "кормить",
+          "здоровый",
+          "кормила",
+          "ошейник"
+        ],
+        "content_length": 660,
+        "message_count": 12
+      },
+      "6": {
+        "score": 4,
+        "status": "релевантная",
+        "matched_keywords": [
+          "прогулка",
+          "вакцины",
+          "котенок",
+          "кормить"
+        ],
+        "content_length": 304,
+        "message_count": 9
+      },
+      "7": {
+        "score": 5,
+        "status": "релевантная",
+        "matched_keywords": [
+          "котенка",
+          "прививки",
+          "лечу",
+          "здоровый",
+          "гулять"
+        ],
+        "content_length": 288,
+        "message_count": 7
+      },
+      "8": {
+        "score": 3,
+        "status": "релевантная",
+        "matched_keywords": [
+          "здоровое",
+          "кормить",
+          "животные"
+        ],
+        "content_length": 399,
+        "message_count": 7
+      },
+      "9": {
+        "score": 3,
+        "status": "релевантная",
+        "matched_keywords": [
+          "гуляла",
+          "прогулка",
+          "лечение"
+        ],
+        "content_length": 398,
+        "message_count": 8
+      },
+      "10": {
+        "score": 6,
+        "status": "релевантная",
+        "matched_keywords": [
+          "вакцина",
+          "прогулка",
+          "поводок",
+          "прививки",
+          "клички",
+          "ошейник"
+        ],
+        "content_length": 356,
+        "message_count": 7
+      },
+      "11": {
+        "score": 4,
+        "status": "релевантная",
+        "matched_keywords": [
+          "собаки",
+          "ошейник",
+          "кормить",
+          "здоровье"
+        ],
+        "content_length": 291,
+        "message_count": 5
+      },
+      "12": {
+        "score": 6,
+        "status": "релевантная",
+        "matched_keywords": [
+          "собаки",
+          "прививки",
+          "порода",
+          "животные",
+          "кормила",
+          "вакцины"
+        ],
+        "content_length": 608,
+        "message_count": 14
+      },
+      "13": {
+        "score": 5,
+        "status": "релевантная",
+        "matched_keywords": [
+          "коты",
+          "клиника",
+          "животные",
+          "здоровый",
+          "кормила"
+        ],
+        "content_length": 434,
+        "message_count": 7
+      },
+      "14": {
+        "score": 8,
+        "status": "релевантная",
+        "matched_keywords": [
+          "лечение",
+          "прогулка",
+          "коты",
+          "прививки",
+          "порода",
+          "кормить",
+          "гулять",
+          "вакцины"
+        ],
+        "content_length": 384,
+        "message_count": 7
+      },
+      "15": {
+        "score": 3,
+        "status": "релевантная",
+        "matched_keywords": [
+          "болезнь",
+          "болеет",
+          "кормить"
+        ],
+        "content_length": 306,
+        "message_count": 5
+      },
+      "16": {
+        "score": 8,
+        "status": "релевантная",
+        "matched_keywords": [
+          "прогулка",
+          "поводок",
+          "болеет",
+          "животное",
+          "клиника",
+          "котенок",
+          "кормить",
+          "порода"
+        ],
+        "content_length": 485,
+        "message_count": 7
+      },
+      "17": {
+        "score": 5,
+        "status": "релевантная",
+        "matched_keywords": [
+          "лечение",
+          "прогулка",
+          "здоровое",
+          "гулять",
+          "породы"
+        ],
+        "content_length": 413,
+        "message_count": 8
+      },
+      "18": {
+        "score": 3,
+        "status": "релевантная",
+        "matched_keywords": [
+          "прививки",
+          "кормить",
+          "животное"
+        ],
+        "content_length": 301,
+        "message_count": 5
+      },
+      "19": {
+        "score": 4,
+        "status": "релевантная",
+        "matched_keywords": [
+          "коты",
+          "гуляла",
+          "ошейник",
+          "кормить"
+        ],
+        "content_length": 348,
+        "message_count": 9
+      },
+      "20": {
+        "score": 4,
+        "status": "релевантная",
+        "matched_keywords": [
+          "кормила",
+          "прививки",
+          "собаки",
+          "кормить"
+        ],
+        "content_length": 336,
+        "message_count": 7
+      },
+      "21": {
+        "score": 8,
+        "status": "релевантная",
+        "matched_keywords": [
+          "прогулка",
+          "породы",
+          "коты",
+          "прививки",
+          "кличка",
+          "кормить",
+          "кормила",
+          "порода"
+        ],
+        "content_length": 331,
+        "message_count": 8
+      },
+      "22": {
+        "score": 8,
+        "status": "релевантная",
+        "matched_keywords": [
+          "лечение",
+          "прогулка",
+          "клички",
+          "клиника",
+          "имена",
+          "кормить",
+          "гулять",
+          "котенок"
+        ],
+        "content_length": 546,
+        "message_count": 8
+      },
+      "23": {
+        "score": 3,
+        "status": "релевантная",
+        "matched_keywords": [
+          "прогулка",
+          "кормить",
+          "болеет"
+        ],
+        "content_length": 290,
+        "message_count": 9
+      },
+      "24": {
+        "score": 7,
+        "status": "релевантная",
+        "matched_keywords": [
+          "собаки",
+          "прогулка",
+          "породы",
+          "болеет",
+          "щенка",
+          "животные",
+          "порода"
+        ],
+        "content_length": 275,
+        "message_count": 7
+      },
+      "25": {
+        "score": 3,
+        "status": "релевантная",
+        "matched_keywords": [
+          "имена",
+          "лечение",
+          "животное"
+        ],
+        "content_length": 129,
+        "message_count": 3
+      },
+      "26": {
+        "score": 1,
+        "status": "релевантная",
+        "matched_keywords": [
+          "породы"
+        ],
+        "content_length": 262,
+        "message_count": 6
+      },
+      "27": {
+        "score": 5,
+        "status": "релевантная",
+        "matched_keywords": [
+          "прогулка",
+          "прививки",
+          "здоровый",
+          "кормить",
+          "кормила"
+        ],
+        "content_length": 525,
+        "message_count": 8
+      },
+      "28": {
+        "score": 7,
+        "status": "релевантная",
+        "matched_keywords": [
+          "кошка",
+          "щенок",
+          "собаки",
+          "прививки",
+          "болеет",
+          "кормить",
+          "кормила"
+        ],
+        "content_length": 337,
+        "message_count": 6
+      },
+      "29": {
+        "score": 4,
+        "status": "релевантная",
+        "matched_keywords": [
+          "кошка",
+          "прививки",
+          "гуляла",
+          "животные"
+        ],
+        "content_length": 148,
+        "message_count": 3
+      },
+      "30": {
+        "score": 1,
+        "status": "релевантная",
+        "matched_keywords": [
+          "кличка"
+        ],
+        "content_length": 37,
+        "message_count": 1
+      },
+      "31": {
+        "score": 3,
+        "status": "релевантная",
+        "matched_keywords": [
+          "прогулка",
+          "болеет",
+          "животное"
+        ],
+        "content_length": 310,
+        "message_count": 3
+      },
+      "32": {
+        "score": 1,
+        "status": "релевантная",
+        "matched_keywords": [
+          "животные"
+        ],
+        "content_length": 162,
+        "message_count": 3
+      },
+      "33": {
+        "score": 4,
+        "status": "релевантная",
+        "matched_keywords": [
+          "прогулка",
+          "животные",
+          "кормить",
+          "котенка"
+        ],
+        "content_length": 262,
+        "message_count": 6
+      },
+      "34": {
+        "score": 5,
+        "status": "релевантная",
+        "matched_keywords": [
+          "прогулка",
+          "прививки",
+          "животное",
+          "животные",
+          "кормить"
+        ],
+        "content_length": 449,
+        "message_count": 7
+      },
+      "35": {
+        "score": 3,
+        "status": "релевантная",
+        "matched_keywords": [
+          "кормила",
+          "имена",
+          "вакцина"
+        ],
+        "content_length": 74,
+        "message_count": 2
+      },
+      "36": {
+        "score": 4,
+        "status": "релевантная",
+        "matched_keywords": [
+          "клички",
+          "прививки",
+          "прогулка",
+          "имена"
+        ],
+        "content_length": 230,
+        "message_count": 4
+      },
+      "37": {
+        "score": 6,
+        "status": "релевантная",
+        "matched_keywords": [
+          "лечение",
+          "прогулка",
+          "прививки",
+          "кормлю",
+          "животные",
+          "здоровый"
+        ],
+        "content_length": 540,
+        "message_count": 8
+      },
+      "38": {
+        "score": 4,
+        "status": "релевантная",
+        "matched_keywords": [
+          "щенок",
+          "прогулка",
+          "животные",
+          "кличка"
+        ],
+        "content_length": 245,
+        "message_count": 6
+      },
+      "39": {
+        "score": 2,
+        "status": "релевантная",
+        "matched_keywords": [
+          "прививки",
+          "животные"
+        ],
+        "content_length": 475,
+        "message_count": 10
+      },
+      "40": {
+        "score": 1,
+        "status": "релевантная",
+        "matched_keywords": [
+          "прогулка"
+        ],
+        "content_length": 135,
+        "message_count": 4
+      },
+      "41": {
+        "score": 5,
+        "status": "релевантная",
+        "matched_keywords": [
+          "прогулка",
+          "прививки",
+          "животные",
+          "гулять",
+          "породы"
+        ],
+        "content_length": 510,
+        "message_count": 5
+      },
+      "42": {
+        "score": 7,
+        "status": "релевантная",
+        "matched_keywords": [
+          "лечение",
+          "прогулка",
+          "поводок",
+          "прививки",
+          "кормлю",
+          "животные",
+          "болезнь"
+        ],
+        "content_length": 378,
+        "message_count": 5
+      },
+      "43": {
+        "score": 2,
+        "status": "релевантная",
+        "matched_keywords": [
+          "прививки",
+          "порода"
+        ],
+        "content_length": 43,
+        "message_count": 2
+      }
+    },
+    "sorted_sessions": [
+      [
+        5,
+        9
+      ],
+      [
+        14,
+        8
+      ],
+      [
+        16,
+        8
+      ],
+      [
+        21,
+        8
+      ],
+      [
+        22,
+        8
+      ],
+      [
+        24,
+        7
+      ],
+      [
+        28,
+        7
+      ],
+      [
+        42,
+        7
+      ],
+      [
+        2,
+        6
+      ],
+      [
+        10,
+        6
+      ],
+      [
+        12,
+        6
+      ],
+      [
+        37,
+        6
+      ],
+      [
+        7,
+        5
+      ],
+      [
+        13,
+        5
+      ],
+      [
+        17,
+        5
+      ],
+      [
+        27,
+        5
+      ],
+      [
+        34,
+        5
+      ],
+      [
+        41,
+        5
+      ],
+      [
+        1,
+        4
+      ],
+      [
+        3,
+        4
+      ],
+      [
+        4,
+        4
+      ],
+      [
+        6,
+        4
+      ],
+      [
+        11,
+        4
+      ],
+      [
+        19,
+        4
+      ],
+      [
+        20,
+        4
+      ],
+      [
+        29,
+        4
+      ],
+      [
+        33,
+        4
+      ],
+      [
+        36,
+        4
+      ],
+      [
+        38,
+        4
+      ],
+      [
+        8,
+        3
+      ],
+      [
+        9,
+        3
+      ],
+      [
+        15,
+        3
+      ],
+      [
+        18,
+        3
+      ],
+      [
+        23,
+        3
+      ],
+      [
+        25,
+        3
+      ],
+      [
+        31,
+        3
+      ],
+      [
+        35,
+        3
+      ],
+      [
+        39,
+        2
+      ],
+      [
+        43,
+        2
+      ],
+      [
+        26,
+        1
+      ],
+      [
+        30,
+        1
+      ],
+      [
+        32,
+        1
+      ],
+      [
+        40,
+        1
+      ]
+    ]
+  },
+  "summary": {
+    "total_sessions": 43,
+    "relevant_sessions": 43,
+    "topic": "pets",
+    "confidence": 0.27999999999999997,
+    "strategy": "topic_rag"
+  }
+}
