@@ -4,15 +4,12 @@ from typing import List
 from models import Message
 from submit_interface import ModelWithMemory
 
-from .memory_storage import MemoryStorage
-from .message_filter import filter_user_message, _check_markers
-from .regex_patterns import PERSONAL_MARKERS
-from .prompts import (
-    get_session_marker_prompt,
-    get_personal_info_marker
-)
+from .storage import MemoryStorage
+from .filters.message_cleaner import is_personal_message
+from .prompts import get_session_marker_prompt
 from .prompts.fallback_prompts import get_fallback_prompt
-from .llm_inference import ModelInference
+from .rag import RAGInterface
+# from .llm_inference import ModelInference  # Временно закомментировано для тестирования
 
 
 class SubmitModelWithMemory(ModelWithMemory):
@@ -23,6 +20,7 @@ class SubmitModelWithMemory(ModelWithMemory):
     def __init__(self, model_path: str) -> None:
         self.storage = MemoryStorage()
         self.model_inference = ModelInference(model_path)
+        self.rag_interface = RAGInterface()
 
     def write_to_memory(self, messages: List[Message], dialogue_id: str) -> None:
         """
@@ -39,7 +37,7 @@ class SubmitModelWithMemory(ModelWithMemory):
                 cached_result = self.storage.check_cache(msg.content)
                 
                 if cached_result is None:
-                    filter_result = filter_user_message(msg.content)
+                    filter_result = is_personal_message(msg.content)
                     self.storage.add_to_cache(msg.content, filter_result)
                     cached_result = filter_result
                 
@@ -56,10 +54,8 @@ class SubmitModelWithMemory(ModelWithMemory):
                         session_messages[session_id] = []
                         session_has_personal[session_id] = False
                     
-                    # Проверяем, содержит ли сообщение личные местоимения
-                    if _check_markers(msg.content.lower(), PERSONAL_MARKERS):
-                        session_has_personal[session_id] = True
-                    
+                    # Если сообщение прошло фильтрацию, значит содержит личную информацию
+                    session_has_personal[session_id] = True
                     session_messages[session_id].append(msg.content)
         
         # Склеиваем сообщения по сессиям
@@ -120,25 +116,82 @@ class SubmitModelWithMemory(ModelWithMemory):
 
     def answer_to_question(self, dialogue_id: str, question: str) -> str:
         """
-        Генерирует ответ на вопрос используя накопленную память
+        Генерирует ответ на вопрос используя RAG систему
         """
+        # Получаем все сообщения из памяти
         memory = self.storage.get_memory(dialogue_id)
-        memory = [asdict(msg) for msg in memory]
-        memory_text = "\n".join([msg['content'] for msg in memory])
         
-        system_memory_prompt = get_fallback_prompt(question, memory_text)
-        context_with_memory = [Message('system', system_memory_prompt)]
+        if not memory:
+            return "У меня нет информации для ответа на этот вопрос."
         
+        # Используем RAG систему для генерации промпта
+        rag_prompt = self.rag_interface.answer_question(question, dialogue_id, memory)
+        
+        # Создаем контекст для модели
+        context_with_memory = [Message('system', rag_prompt)]
+        
+        # Генерируем ответ через модель
         answer = self.model_inference.inference(context_with_memory)
         return answer
 
     def answer_to_question_mock(self, dialogue_id: str, question: str) -> str:
         """
         Возвращает промпт который отправляется в модель (не ответ!)
+        Использует RAG систему для генерации умного промпта
+        """
+        # Получаем все сообщения из памяти
+        memory = self.storage.get_memory(dialogue_id)
+        
+        if not memory:
+            return "У меня нет информации для ответа на этот вопрос."
+        
+        # Используем RAG систему для генерации промпта
+        rag_prompt = self.rag_interface.answer_question(question, dialogue_id, memory)
+        return rag_prompt
+    
+    def get_rag_stats(self, dialogue_id: str) -> dict:
+        """
+        Получает статистику RAG системы для диалога
+        
+        Args:
+            dialogue_id: ID диалога
+            
+        Returns:
+            Словарь со статистикой
         """
         memory = self.storage.get_memory(dialogue_id)
-        memory = [asdict(msg) for msg in memory]
-        memory_text = "\n".join([msg['content'] for msg in memory])
+        if not memory:
+            return {'error': 'Нет данных в памяти'}
         
-        system_memory_prompt = get_fallback_prompt(question, memory_text)
-        return system_memory_prompt
+        # Получаем статистику RAG системы
+        rag_stats = self.rag_interface.get_system_stats()
+        
+        # Добавляем статистику по диалогу
+        dialogue_stats = {
+            'dialogue_id': dialogue_id,
+            'memory_messages': len(memory),
+            'sessions_count': self.rag_interface.get_session_count(dialogue_id),
+            'rag_config': rag_stats.get('config', {}),
+            'available_topics': rag_stats.get('available_topics', [])
+        }
+        
+        return dialogue_stats
+    
+    def analyze_question(self, dialogue_id: str, question: str) -> dict:
+        """
+        Анализирует вопрос с помощью RAG системы
+        
+        Args:
+            dialogue_id: ID диалога
+            question: Вопрос пользователя
+            
+        Returns:
+            Словарь с анализом вопроса
+        """
+        memory = self.storage.get_memory(dialogue_id)
+        if not memory:
+            return {'error': 'Нет данных в памяти'}
+        
+        # Получаем анализ вопроса
+        analysis = self.rag_interface.get_question_context(question, dialogue_id, memory)
+        return analysis

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Скрипт для тестирования модели памяти на 4 диалогах
-Читает данные, обрабатывает через SubmitModelWithMemory, сохраняет промпты
+Скрипт для тестирования RAG системы на 4 диалогах
+Читает данные, обрабатывает через RAG систему, сохраняет промпты
 """
 import os
 import sys
@@ -22,8 +22,8 @@ sys.modules['transformers'] = mock_transformers
 sys.modules['vllm'] = mock_vllm
 
 # Теперь импортируем модули проекта
-from models import Dialog
-from submit import SubmitModelWithMemory
+from models import Dialog, Message
+from submit.rag import RAGInterface
 
 
 def load_dialogs(data_file: str) -> list[Dialog]:
@@ -40,19 +40,15 @@ def load_dialogs(data_file: str) -> list[Dialog]:
     return dialogs
 
 
-def process_dialog(model: SubmitModelWithMemory, dialog: Dialog) -> str:
-    """Обрабатывает один диалог и возвращает промпт"""
-    # Обрабатываем каждую сессию отдельно
+def process_dialog(rag: RAGInterface, dialog: Dialog) -> str:
+    """Обрабатывает один диалог через RAG систему и возвращает промпт"""
+    # Собираем все сообщения из всех сессий
+    all_messages = []
     for session in dialog.sessions:
-        # Получаем все сообщения из сессии
-        session_messages = session.messages
-        model.write_to_memory(session_messages, dialog.id)
+        all_messages.extend(session.messages)
     
-    # Получаем промпт (не ответ!)
-    prompt = model.answer_to_question_mock(dialog.id, dialog.question)
-    
-    # Очищаем память
-    model.clear_memory(dialog.id)
+    # Получаем промпт через RAG систему
+    prompt = rag.answer_question(dialog.question, str(dialog.id), all_messages)
     
     return prompt
 
@@ -73,7 +69,6 @@ def main():
     # Пути к файлам
     data_file = "../data/format_example.jsonl"
     output_dir = "prompts"
-    model_path = "/app/models/GigaChat-20B-A3B-instruct-v1.5-bf16"  # Мок-путь
     
     # Создаем папку для результатов
     os.makedirs(output_dir, exist_ok=True)
@@ -82,25 +77,42 @@ def main():
     dialogs = load_dialogs(data_file)
     print(f"Загружено {len(dialogs)} диалогов")
     
-    print("Инициализируем модель...")
-    model = SubmitModelWithMemory(model_path)
+    print("Инициализируем RAG систему...")
+    rag = RAGInterface()
     
-    print("Обрабатываем диалоги...")
+    print("Обрабатываем диалоги через RAG систему...")
     for i, dialog in enumerate(dialogs, 1):
         print(f"Обрабатываем диалог {i}/{len(dialogs)} (ID: {dialog.id})")
         
         try:
-            prompt = process_dialog(model, dialog)
+            # Получаем анализ вопроса
+            validation = rag.validate_question(dialog.question)
+            print(f"  Тема: {validation.get('topic', 'None')}")
+            print(f"  Уверенность: {validation.get('confidence', 0):.2f}")
+            print(f"  Стратегия: {validation.get('strategy', 'unknown')}")
+            
+            # Обрабатываем диалог
+            prompt = process_dialog(rag, dialog)
+            
+            # Отладочная информация
+            print(f"  Длина промпта: {len(prompt)} символов")
+            if len(prompt) < 100:
+                print(f"  ВНИМАНИЕ: Промпт слишком короткий!")
+                print(f"  Полный промпт: {prompt}")
+            
             save_prompt(dialog.id, dialog.question, prompt, output_dir)
             print(f"  Вопрос: {dialog.question}")
-            print(f"  Промпт: {prompt[:100]}...")
+            print(f"  Промпт: {prompt[:150]}...")
             print()
             
         except Exception as e:
             print(f"  Ошибка при обработке диалога {dialog.id}: {e}")
+            import traceback
+            traceback.print_exc()
             continue
     
     print("Обработка завершена!")
+    print(f"Промпты сохранены в папке: {output_dir}")
 
 
 if __name__ == "__main__":
