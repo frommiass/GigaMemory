@@ -141,11 +141,11 @@ def save_session_analysis(dialog_id: int, question: str, session_analysis: dict,
         sorted_sessions = sorted(all_scores.items(), key=lambda x: x[1]['relevance_score'], reverse=True)
         
         print("  Все сессии с оценками:")
-        for session_id, info in sorted_sessions:
+        for i, (session_id, info) in enumerate(sorted_sessions, 1):
             relevance = info['relevance_score']
             status = info['status']
             keywords = info['matched_keywords']
-            print(f"    Сессия {session_id}: {relevance:.3f} ({status}, ключевые слова: {keywords})")
+            print(f"    {i:2d}. Сессия {session_id}: {relevance:.3f} ({status}, ключевые слова: {keywords})")
     else:
         print("  Нет данных о релевантности сессий")
 

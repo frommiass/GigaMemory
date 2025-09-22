@@ -236,3 +236,65 @@ def filter_messages(messages: List[Message]) -> List[Message]:
         Список отфильтрованных сообщений
     """
     return message_filter.filter_messages(messages)
+
+
+def calculate_personal_markers_score(messages: List[Message]) -> Dict[str, any]:
+    """
+    Анализирует личные сообщения пользователя и подсчитывает скор по PERSONAL_MARKERS
+    
+    Args:
+        messages: Список сообщений для анализа
+        
+    Returns:
+        Словарь с анализом личных маркеров
+    """
+    from ..filters.regex_patterns import PERSONAL_MARKERS
+    import re
+    
+    # Получаем только сообщения пользователя
+    user_messages = [msg for msg in messages if msg.role == "user" and msg.content.strip()]
+    
+    if not user_messages:
+        return {
+            'total_user_messages': 0,
+            'personal_markers_found': 0,
+            'personal_score': 0.0,
+            'messages_with_personal_markers': 0,
+            'personal_markers_per_message': 0.0,
+            'top_personal_markers': []
+        }
+    
+    total_personal_markers = 0
+    messages_with_markers = 0
+    marker_counts = {}
+    
+    for msg in user_messages:
+        content = msg.content.lower()
+        message_markers = 0
+        
+        # Ищем личные маркеры в сообщении
+        for marker in PERSONAL_MARKERS:
+            # Используем регулярное выражение для точного поиска слов
+            pattern = r'\b' + re.escape(marker) + r'\b'
+            matches = re.findall(pattern, content)
+            count = len(matches)
+            
+            if count > 0:
+                message_markers += count
+                total_personal_markers += count
+                marker_counts[marker] = marker_counts.get(marker, 0) + count
+        
+        if message_markers > 0:
+            messages_with_markers += 1
+    
+    # Сортируем маркеры по частоте
+    top_markers = sorted(marker_counts.items(), key=lambda x: x[1], reverse=True)[:10]
+    
+    return {
+        'total_user_messages': len(user_messages),
+        'personal_markers_found': total_personal_markers,
+        'personal_score': total_personal_markers,
+        'messages_with_personal_markers': messages_with_markers,
+        'personal_markers_per_message': total_personal_markers / len(user_messages) if user_messages else 0.0,
+        'top_personal_markers': [{'marker': marker, 'count': count} for marker, count in top_markers]
+    }

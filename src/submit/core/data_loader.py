@@ -88,10 +88,6 @@ class DataLoader:
                     # Проверяем, не является ли сообщение копипастом (для всех ролей)
                     is_copypaste = is_copy_paste_content(content)
                     
-                    # Если предыдущее сообщение было копипастом, то и это тоже копипаст
-                    if previous_was_copypaste:
-                        is_copypaste = True
-                    
                     # Фильтруем копипаст
                     if not is_copypaste:
                         # Сохраняем сообщения, если не копипаст

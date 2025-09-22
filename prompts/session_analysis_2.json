@@ -6,14 +6,19 @@
     "topic": "work",
     "confidence": 0.11666666666666665,
     "strategy": "topic_rag",
-    "total_sessions": 32,
+    "total_sessions": 35,
     "relevance_scores": {
       "1": {
-        "score": 0,
-        "status": "низкая релевантность",
-        "matched_keywords": [],
-        "content_length": 57,
-        "message_count": 1
+        "score": 4,
+        "status": "релевантная",
+        "matched_keywords": [
+          "сделка",
+          "департамент",
+          "проект",
+          "отдел"
+        ],
+        "content_length": 269,
+        "message_count": 4
       },
       "2": {
         "score": 1,
@@ -21,30 +26,49 @@
         "matched_keywords": [
           "начальница"
         ],
-        "content_length": 109,
-        "message_count": 3
+        "content_length": 205,
+        "message_count": 6
       },
-      "4": {
-        "score": 2,
-        "status": "релевантная",
-        "matched_keywords": [
-          "компания",
-          "департамент"
-        ],
-        "content_length": 195,
-        "message_count": 3
-      },
-      "5": {
+      "3": {
         "score": 4,
         "status": "релевантная",
         "matched_keywords": [
-          "должности",
-          "презентация",
+          "заказчики",
+          "проект",
           "предприятие",
-          "проект"
+          "увольнение"
         ],
-        "content_length": 153,
-        "message_count": 3
+        "content_length": 253,
+        "message_count": 4
+      },
+      "4": {
+        "score": 6,
+        "status": "релевантная",
+        "matched_keywords": [
+          "проект",
+          "компания",
+          "карьера",
+          "департамент",
+          "зарплата",
+          "уволили"
+        ],
+        "content_length": 533,
+        "message_count": 8
+      },
+      "5": {
+        "score": 7,
+        "status": "релевантная",
+        "matched_keywords": [
+          "презентация",
+          "проект",
+          "должности",
+          "должность",
+          "увольнение",
+          "департамент",
+          "предприятие"
+        ],
+        "content_length": 467,
+        "message_count": 6
       },
       "6": {
         "score": 1,
@@ -52,29 +76,36 @@
         "matched_keywords": [
           "отчет"
         ],
-        "content_length": 72,
-        "message_count": 1
+        "content_length": 272,
+        "message_count": 5
       },
       "7": {
-        "score": 0,
-        "status": "низкая релевантность",
-        "matched_keywords": [],
-        "content_length": 30,
-        "message_count": 1
+        "score": 2,
+        "status": "релевантная",
+        "matched_keywords": [
+          "компания",
+          "проект"
+        ],
+        "content_length": 193,
+        "message_count": 4
       },
       "8": {
         "score": 0,
         "status": "низкая релевантность",
         "matched_keywords": [],
-        "content_length": 60,
-        "message_count": 1
+        "content_length": 102,
+        "message_count": 2
       },
       "9": {
-        "score": 0,
-        "status": "низкая релевантность",
-        "matched_keywords": [],
-        "content_length": 34,
-        "message_count": 1
+        "score": 3,
+        "status": "релевантная",
+        "matched_keywords": [
+          "начальница",
+          "компания",
+          "работа"
+        ],
+        "content_length": 288,
+        "message_count": 6
       },
       "10": {
         "score": 1,
@@ -82,41 +113,59 @@
         "matched_keywords": [
           "должности"
         ],
-        "content_length": 36,
-        "message_count": 1
+        "content_length": 229,
+        "message_count": 5
       },
       "11": {
-        "score": 0,
-        "status": "низкая релевантность",
-        "matched_keywords": [],
-        "content_length": 64,
-        "message_count": 2
+        "score": 4,
+        "status": "релевантная",
+        "matched_keywords": [
+          "отчет",
+          "должность",
+          "отчеты",
+          "увольнение"
+        ],
+        "content_length": 228,
+        "message_count": 4
       },
       "12": {
-        "score": 0,
-        "status": "низкая релевантность",
-        "matched_keywords": [],
-        "content_length": 25,
-        "message_count": 1
+        "score": 3,
+        "status": "релевантная",
+        "matched_keywords": [
+          "коллега",
+          "презентация",
+          "начальник"
+        ],
+        "content_length": 228,
+        "message_count": 4
       },
       "13": {
-        "score": 1,
+        "score": 7,
         "status": "релевантная",
         "matched_keywords": [
-          "департамент"
+          "должность",
+          "проект",
+          "коллега",
+          "заказчики",
+          "департамент",
+          "задачи",
+          "сделка"
         ],
-        "content_length": 100,
-        "message_count": 2
+        "content_length": 541,
+        "message_count": 10
       },
       "14": {
-        "score": 2,
+        "score": 5,
         "status": "релевантная",
         "matched_keywords": [
-          "компания",
-          "департамент"
+          "должности",
+          "работа",
+          "заказчики",
+          "департамент",
+          "компания"
         ],
-        "content_length": 75,
-        "message_count": 2
+        "content_length": 575,
+        "message_count": 8
       },
       "15": {
         "score": 0,
@@ -126,13 +175,14 @@
         "message_count": 1
       },
       "16": {
-        "score": 1,
+        "score": 2,
         "status": "релевантная",
         "matched_keywords": [
-          "сделка"
+          "сделка",
+          "встреча"
         ],
-        "content_length": 136,
-        "message_count": 3
+        "content_length": 171,
+        "message_count": 4
       },
       "17": {
         "score": 0,
@@ -145,23 +195,25 @@
         "score": 4,
         "status": "релевантная",
         "matched_keywords": [
-          "должности",
           "департамент",
-          "предприятие",
-          "должность"
+          "должности",
+          "должность",
+          "предприятие"
         ],
-        "content_length": 159,
-        "message_count": 3
+        "content_length": 191,
+        "message_count": 4
       },
       "19": {
-        "score": 2,
+        "score": 4,
         "status": "релевантная",
         "matched_keywords": [
-          "задача",
-          "должность"
+          "проект",
+          "должности",
+          "должность",
+          "задачи"
         ],
-        "content_length": 153,
-        "message_count": 5
+        "content_length": 379,
+        "message_count": 9
       },
       "20": {
         "score": 1,
@@ -169,8 +221,8 @@
         "matched_keywords": [
           "совещание"
         ],
-        "content_length": 68,
-        "message_count": 2
+        "content_length": 151,
+        "message_count": 4
       },
       "21": {
         "score": 1,
@@ -182,252 +234,1019 @@
         "message_count": 6
       },
       "22": {
-        "score": 0,
-        "status": "низкая релевантность",
-        "matched_keywords": [],
-        "content_length": 116,
-        "message_count": 4
-      },
-      "24": {
-        "score": 3,
+        "score": 1,
         "status": "релевантная",
         "matched_keywords": [
-          "работа",
-          "должности",
-          "департамент"
+          "отчеты"
         ],
-        "content_length": 141,
-        "message_count": 3
+        "content_length": 173,
+        "message_count": 7
       },
-      "25": {
-        "score": 2,
-        "status": "релевантная",
-        "matched_keywords": [
-          "проект",
-          "задача"
-        ],
-        "content_length": 33,
-        "message_count": 1
-      },
-      "27": {
-        "score": 0,
-        "status": "низкая релевантность",
-        "matched_keywords": [],
-        "content_length": 32,
-        "message_count": 1
-      },
-      "28": {
-        "score": 0,
-        "status": "низкая релевантность",
-        "matched_keywords": [],
-        "content_length": 52,
-        "message_count": 1
-      },
-      "29": {
-        "score": 2,
-        "status": "релевантная",
-        "matched_keywords": [
-          "проект",
-          "совещание"
-        ],
-        "content_length": 62,
-        "message_count": 1
-      },
-      "30": {
-        "score": 2,
-        "status": "релевантная",
-        "matched_keywords": [
-          "сделка",
-          "проект"
-        ],
-        "content_length": 164,
-        "message_count": 3
-      },
-      "31": {
+      "23": {
         "score": 4,
         "status": "релевантная",
         "matched_keywords": [
-          "должности",
-          "зарплата",
-          "совещание",
-          "заказчики"
+          "проект",
+          "отчеты",
+          "компания",
+          "уволили"
         ],
-        "content_length": 181,
+        "content_length": 191,
         "message_count": 4
       },
-      "32": {
-        "score": 1,
+      "24": {
+        "score": 4,
         "status": "релевантная",
         "matched_keywords": [
+          "проект",
+          "департамент",
+          "должности",
+          "работа"
+        ],
+        "content_length": 298,
+        "message_count": 6
+      },
+      "25": {
+        "score": 6,
+        "status": "релевантная",
+        "matched_keywords": [
+          "проект",
+          "должность",
+          "контракт",
+          "организация",
+          "задачи",
+          "уволили"
+        ],
+        "content_length": 365,
+        "message_count": 4
+      },
+      "26": {
+        "score": 3,
+        "status": "релевантная",
+        "matched_keywords": [
+          "контракт",
+          "сделка",
           "проект"
         ],
-        "content_length": 208,
-        "message_count": 3
+        "content_length": 246,
+        "message_count": 5
       },
-      "33": {
+      "27": {
+        "score": 5,
+        "status": "релевантная",
+        "matched_keywords": [
+          "проект",
+          "карьера",
+          "начальница",
+          "департамент",
+          "предприятие"
+        ],
+        "content_length": 348,
+        "message_count": 6
+      },
+      "28": {
         "score": 1,
         "status": "релевантная",
         "matched_keywords": [
-          "начальница"
+          "должность"
         ],
-        "content_length": 97,
-        "message_count": 1
+        "content_length": 315,
+        "message_count": 5
+      },
+      "29": {
+        "score": 5,
+        "status": "релевантная",
+        "matched_keywords": [
+          "проект",
+          "работа",
+          "совещание",
+          "отдел",
+          "предприятие"
+        ],
+        "content_length": 334,
+        "message_count": 5
+      },
+      "30": {
+        "score": 4,
+        "status": "релевантная",
+        "matched_keywords": [
+          "сделка",
+          "коллега",
+          "департамент",
+          "проект"
+        ],
+        "content_length": 442,
+        "message_count": 8
+      },
+      "31": {
+        "score": 7,
+        "status": "релевантная",
+        "matched_keywords": [
+          "должности",
+          "должность",
+          "проект",
+          "начальница",
+          "увольнение",
+          "заказчики",
+          "зарплату"
+        ],
+        "content_length": 590,
+        "message_count": 11
+      },
+      "32": {
+        "score": 4,
+        "status": "релевантная",
+        "matched_keywords": [
+          "компания",
+          "проект",
+          "должность",
+          "работа"
+        ],
+        "content_length": 568,
+        "message_count": 12
+      },
+      "33": {
+        "score": 2,
+        "status": "релевантная",
+        "matched_keywords": [
+          "начальница",
+          "работа"
+        ],
+        "content_length": 459,
+        "message_count": 7
       },
       "34": {
         "score": 3,
         "status": "релевантная",
         "matched_keywords": [
+          "сроки",
           "проект",
-          "повысили",
-          "сроки"
+          "повысили"
         ],
-        "content_length": 148,
-        "message_count": 2
+        "content_length": 589,
+        "message_count": 9
       },
       "35": {
-        "score": 1,
+        "score": 2,
         "status": "релевантная",
         "matched_keywords": [
+          "контракт",
           "совещание"
         ],
-        "content_length": 76,
-        "message_count": 1
+        "content_length": 577,
+        "message_count": 8
       }
     },
     "sorted_sessions": [
-      [
-        5,
-        4
-      ],
-      [
-        18,
-        4
-      ],
-      [
-        31,
-        4
-      ],
-      [
-        24,
-        3
-      ],
-      [
-        34,
-        3
-      ],
-      [
-        4,
-        2
-      ],
-      [
-        14,
-        2
-      ],
-      [
-        19,
-        2
-      ],
-      [
-        25,
-        2
-      ],
-      [
-        29,
-        2
-      ],
-      [
-        30,
-        2
-      ],
-      [
-        2,
-        1
-      ],
-      [
-        6,
-        1
-      ],
-      [
-        10,
-        1
-      ],
-      [
-        13,
-        1
-      ],
-      [
-        16,
-        1
-      ],
-      [
-        20,
-        1
-      ],
-      [
-        21,
-        1
-      ],
-      [
-        32,
-        1
-      ],
-      [
-        33,
-        1
-      ],
-      [
-        35,
-        1
-      ],
-      [
-        1,
-        0
-      ],
-      [
-        7,
-        0
-      ],
-      [
-        8,
-        0
-      ],
-      [
-        9,
-        0
-      ],
-      [
-        11,
-        0
-      ],
-      [
-        12,
-        0
-      ],
-      [
-        15,
-        0
-      ],
-      [
-        17,
-        0
-      ],
-      [
-        22,
-        0
-      ],
-      [
-        27,
-        0
-      ],
-      [
-        28,
-        0
-      ]
+      {
+        "rank": 1,
+        "session_id": 5,
+        "score": 7,
+        "status": "релевантная",
+        "keywords": [
+          "презентация",
+          "проект",
+          "должности",
+          "должность",
+          "увольнение",
+          "департамент",
+          "предприятие"
+        ],
+        "personal_score": 1,
+        "personal_markers_found": 1,
+        "personal_markers_per_message": 0.16666666666666666,
+        "top_personal_markers": [
+          {
+            "marker": "меня",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 2,
+        "session_id": 13,
+        "score": 7,
+        "status": "релевантная",
+        "keywords": [
+          "должность",
+          "проект",
+          "коллега",
+          "заказчики",
+          "департамент",
+          "задачи",
+          "сделка"
+        ],
+        "personal_score": 2,
+        "personal_markers_found": 2,
+        "personal_markers_per_message": 0.2,
+        "top_personal_markers": [
+          {
+            "marker": "моей",
+            "count": 1
+          },
+          {
+            "marker": "я",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 3,
+        "session_id": 31,
+        "score": 7,
+        "status": "релевантная",
+        "keywords": [
+          "должности",
+          "должность",
+          "проект",
+          "начальница",
+          "увольнение",
+          "заказчики",
+          "зарплату"
+        ],
+        "personal_score": 4,
+        "personal_markers_found": 4,
+        "personal_markers_per_message": 0.36363636363636365,
+        "top_personal_markers": [
+          {
+            "marker": "я",
+            "count": 2
+          },
+          {
+            "marker": "мы",
+            "count": 1
+          },
+          {
+            "marker": "мне",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 4,
+        "session_id": 4,
+        "score": 6,
+        "status": "релевантная",
+        "keywords": [
+          "проект",
+          "компания",
+          "карьера",
+          "департамент",
+          "зарплата",
+          "уволили"
+        ],
+        "personal_score": 5,
+        "personal_markers_found": 5,
+        "personal_markers_per_message": 0.625,
+        "top_personal_markers": [
+          {
+            "marker": "я",
+            "count": 3
+          },
+          {
+            "marker": "мне",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "rank": 5,
+        "session_id": 25,
+        "score": 6,
+        "status": "релевантная",
+        "keywords": [
+          "проект",
+          "должность",
+          "контракт",
+          "организация",
+          "задачи",
+          "уволили"
+        ],
+        "personal_score": 7,
+        "personal_markers_found": 7,
+        "personal_markers_per_message": 1.75,
+        "top_personal_markers": [
+          {
+            "marker": "сами",
+            "count": 2
+          },
+          {
+            "marker": "мне",
+            "count": 2
+          },
+          {
+            "marker": "я",
+            "count": 2
+          },
+          {
+            "marker": "мы",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 6,
+        "session_id": 14,
+        "score": 5,
+        "status": "релевантная",
+        "keywords": [
+          "должности",
+          "работа",
+          "заказчики",
+          "департамент",
+          "компания"
+        ],
+        "personal_score": 5,
+        "personal_markers_found": 5,
+        "personal_markers_per_message": 0.625,
+        "top_personal_markers": [
+          {
+            "marker": "я",
+            "count": 2
+          },
+          {
+            "marker": "меня",
+            "count": 2
+          },
+          {
+            "marker": "мне",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 7,
+        "session_id": 27,
+        "score": 5,
+        "status": "релевантная",
+        "keywords": [
+          "проект",
+          "карьера",
+          "начальница",
+          "департамент",
+          "предприятие"
+        ],
+        "personal_score": 5,
+        "personal_markers_found": 5,
+        "personal_markers_per_message": 0.8333333333333334,
+        "top_personal_markers": [
+          {
+            "marker": "я",
+            "count": 3
+          },
+          {
+            "marker": "свой",
+            "count": 1
+          },
+          {
+            "marker": "мне",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 8,
+        "session_id": 29,
+        "score": 5,
+        "status": "релевантная",
+        "keywords": [
+          "проект",
+          "работа",
+          "совещание",
+          "отдел",
+          "предприятие"
+        ],
+        "personal_score": 8,
+        "personal_markers_found": 8,
+        "personal_markers_per_message": 1.6,
+        "top_personal_markers": [
+          {
+            "marker": "я",
+            "count": 4
+          },
+          {
+            "marker": "моё",
+            "count": 1
+          },
+          {
+            "marker": "мне",
+            "count": 1
+          },
+          {
+            "marker": "меня",
+            "count": 1
+          },
+          {
+            "marker": "нашу",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 9,
+        "session_id": 1,
+        "score": 4,
+        "status": "релевантная",
+        "keywords": [
+          "сделка",
+          "департамент",
+          "проект",
+          "отдел"
+        ],
+        "personal_score": 0,
+        "personal_markers_found": 0,
+        "personal_markers_per_message": 0.0,
+        "top_personal_markers": []
+      },
+      {
+        "rank": 10,
+        "session_id": 3,
+        "score": 4,
+        "status": "релевантная",
+        "keywords": [
+          "заказчики",
+          "проект",
+          "предприятие",
+          "увольнение"
+        ],
+        "personal_score": 3,
+        "personal_markers_found": 3,
+        "personal_markers_per_message": 0.75,
+        "top_personal_markers": [
+          {
+            "marker": "мне",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "rank": 11,
+        "session_id": 11,
+        "score": 4,
+        "status": "релевантная",
+        "keywords": [
+          "отчет",
+          "должность",
+          "отчеты",
+          "увольнение"
+        ],
+        "personal_score": 1,
+        "personal_markers_found": 1,
+        "personal_markers_per_message": 0.25,
+        "top_personal_markers": [
+          {
+            "marker": "мне",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 12,
+        "session_id": 18,
+        "score": 4,
+        "status": "релевантная",
+        "keywords": [
+          "департамент",
+          "должности",
+          "должность",
+          "предприятие"
+        ],
+        "personal_score": 4,
+        "personal_markers_found": 4,
+        "personal_markers_per_message": 1.0,
+        "top_personal_markers": [
+          {
+            "marker": "меня",
+            "count": 2
+          },
+          {
+            "marker": "я",
+            "count": 1
+          },
+          {
+            "marker": "мне",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 13,
+        "session_id": 19,
+        "score": 4,
+        "status": "релевантная",
+        "keywords": [
+          "проект",
+          "должности",
+          "должность",
+          "задачи"
+        ],
+        "personal_score": 6,
+        "personal_markers_found": 6,
+        "personal_markers_per_message": 0.6666666666666666,
+        "top_personal_markers": [
+          {
+            "marker": "мы",
+            "count": 3
+          },
+          {
+            "marker": "сам",
+            "count": 1
+          },
+          {
+            "marker": "я",
+            "count": 1
+          },
+          {
+            "marker": "своей",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 14,
+        "session_id": 23,
+        "score": 4,
+        "status": "релевантная",
+        "keywords": [
+          "проект",
+          "отчеты",
+          "компания",
+          "уволили"
+        ],
+        "personal_score": 1,
+        "personal_markers_found": 1,
+        "personal_markers_per_message": 0.25,
+        "top_personal_markers": [
+          {
+            "marker": "я",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 15,
+        "session_id": 24,
+        "score": 4,
+        "status": "релевантная",
+        "keywords": [
+          "проект",
+          "департамент",
+          "должности",
+          "работа"
+        ],
+        "personal_score": 5,
+        "personal_markers_found": 5,
+        "personal_markers_per_message": 0.8333333333333334,
+        "top_personal_markers": [
+          {
+            "marker": "я",
+            "count": 3
+          },
+          {
+            "marker": "моё",
+            "count": 1
+          },
+          {
+            "marker": "мне",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 16,
+        "session_id": 30,
+        "score": 4,
+        "status": "релевантная",
+        "keywords": [
+          "сделка",
+          "коллега",
+          "департамент",
+          "проект"
+        ],
+        "personal_score": 3,
+        "personal_markers_found": 3,
+        "personal_markers_per_message": 0.375,
+        "top_personal_markers": [
+          {
+            "marker": "меня",
+            "count": 1
+          },
+          {
+            "marker": "сам",
+            "count": 1
+          },
+          {
+            "marker": "я",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 17,
+        "session_id": 32,
+        "score": 4,
+        "status": "релевантная",
+        "keywords": [
+          "компания",
+          "проект",
+          "должность",
+          "работа"
+        ],
+        "personal_score": 7,
+        "personal_markers_found": 7,
+        "personal_markers_per_message": 0.5833333333333334,
+        "top_personal_markers": [
+          {
+            "marker": "мне",
+            "count": 3
+          },
+          {
+            "marker": "я",
+            "count": 1
+          },
+          {
+            "marker": "сам",
+            "count": 1
+          },
+          {
+            "marker": "моими",
+            "count": 1
+          },
+          {
+            "marker": "нас",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 18,
+        "session_id": 9,
+        "score": 3,
+        "status": "релевантная",
+        "keywords": [
+          "начальница",
+          "компания",
+          "работа"
+        ],
+        "personal_score": 2,
+        "personal_markers_found": 2,
+        "personal_markers_per_message": 0.3333333333333333,
+        "top_personal_markers": [
+          {
+            "marker": "меня",
+            "count": 1
+          },
+          {
+            "marker": "я",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 19,
+        "session_id": 12,
+        "score": 3,
+        "status": "релевантная",
+        "keywords": [
+          "коллега",
+          "презентация",
+          "начальник"
+        ],
+        "personal_score": 0,
+        "personal_markers_found": 0,
+        "personal_markers_per_message": 0.0,
+        "top_personal_markers": []
+      },
+      {
+        "rank": 20,
+        "session_id": 26,
+        "score": 3,
+        "status": "релевантная",
+        "keywords": [
+          "контракт",
+          "сделка",
+          "проект"
+        ],
+        "personal_score": 3,
+        "personal_markers_found": 3,
+        "personal_markers_per_message": 0.6,
+        "top_personal_markers": [
+          {
+            "marker": "я",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "rank": 21,
+        "session_id": 34,
+        "score": 3,
+        "status": "релевантная",
+        "keywords": [
+          "сроки",
+          "проект",
+          "повысили"
+        ],
+        "personal_score": 6,
+        "personal_markers_found": 6,
+        "personal_markers_per_message": 0.6666666666666666,
+        "top_personal_markers": [
+          {
+            "marker": "мне",
+            "count": 3
+          },
+          {
+            "marker": "я",
+            "count": 2
+          },
+          {
+            "marker": "меня",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 22,
+        "session_id": 7,
+        "score": 2,
+        "status": "релевантная",
+        "keywords": [
+          "компания",
+          "проект"
+        ],
+        "personal_score": 0,
+        "personal_markers_found": 0,
+        "personal_markers_per_message": 0.0,
+        "top_personal_markers": []
+      },
+      {
+        "rank": 23,
+        "session_id": 16,
+        "score": 2,
+        "status": "релевантная",
+        "keywords": [
+          "сделка",
+          "встреча"
+        ],
+        "personal_score": 2,
+        "personal_markers_found": 2,
+        "personal_markers_per_message": 0.5,
+        "top_personal_markers": [
+          {
+            "marker": "мой",
+            "count": 1
+          },
+          {
+            "marker": "я",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 24,
+        "session_id": 33,
+        "score": 2,
+        "status": "релевантная",
+        "keywords": [
+          "начальница",
+          "работа"
+        ],
+        "personal_score": 3,
+        "personal_markers_found": 3,
+        "personal_markers_per_message": 0.42857142857142855,
+        "top_personal_markers": [
+          {
+            "marker": "я",
+            "count": 1
+          },
+          {
+            "marker": "мне",
+            "count": 1
+          },
+          {
+            "marker": "свой",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 25,
+        "session_id": 35,
+        "score": 2,
+        "status": "релевантная",
+        "keywords": [
+          "контракт",
+          "совещание"
+        ],
+        "personal_score": 6,
+        "personal_markers_found": 6,
+        "personal_markers_per_message": 0.75,
+        "top_personal_markers": [
+          {
+            "marker": "я",
+            "count": 2
+          },
+          {
+            "marker": "мне",
+            "count": 1
+          },
+          {
+            "marker": "своем",
+            "count": 1
+          },
+          {
+            "marker": "мы",
+            "count": 1
+          },
+          {
+            "marker": "нас",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 26,
+        "session_id": 2,
+        "score": 1,
+        "status": "релевантная",
+        "keywords": [
+          "начальница"
+        ],
+        "personal_score": 1,
+        "personal_markers_found": 1,
+        "personal_markers_per_message": 0.16666666666666666,
+        "top_personal_markers": [
+          {
+            "marker": "меня",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 27,
+        "session_id": 6,
+        "score": 1,
+        "status": "релевантная",
+        "keywords": [
+          "отчет"
+        ],
+        "personal_score": 6,
+        "personal_markers_found": 6,
+        "personal_markers_per_message": 1.2,
+        "top_personal_markers": [
+          {
+            "marker": "я",
+            "count": 2
+          },
+          {
+            "marker": "нам",
+            "count": 1
+          },
+          {
+            "marker": "нас",
+            "count": 1
+          },
+          {
+            "marker": "сама",
+            "count": 1
+          },
+          {
+            "marker": "мне",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 28,
+        "session_id": 10,
+        "score": 1,
+        "status": "релевантная",
+        "keywords": [
+          "должности"
+        ],
+        "personal_score": 0,
+        "personal_markers_found": 0,
+        "personal_markers_per_message": 0.0,
+        "top_personal_markers": []
+      },
+      {
+        "rank": 29,
+        "session_id": 20,
+        "score": 1,
+        "status": "релевантная",
+        "keywords": [
+          "совещание"
+        ],
+        "personal_score": 0,
+        "personal_markers_found": 0,
+        "personal_markers_per_message": 0.0,
+        "top_personal_markers": []
+      },
+      {
+        "rank": 30,
+        "session_id": 21,
+        "score": 1,
+        "status": "релевантная",
+        "keywords": [
+          "заказчики"
+        ],
+        "personal_score": 2,
+        "personal_markers_found": 2,
+        "personal_markers_per_message": 0.3333333333333333,
+        "top_personal_markers": [
+          {
+            "marker": "сам",
+            "count": 1
+          },
+          {
+            "marker": "я",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 31,
+        "session_id": 22,
+        "score": 1,
+        "status": "релевантная",
+        "keywords": [
+          "отчеты"
+        ],
+        "personal_score": 2,
+        "personal_markers_found": 2,
+        "personal_markers_per_message": 0.2857142857142857,
+        "top_personal_markers": [
+          {
+            "marker": "моё",
+            "count": 1
+          },
+          {
+            "marker": "меня",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 32,
+        "session_id": 28,
+        "score": 1,
+        "status": "релевантная",
+        "keywords": [
+          "должность"
+        ],
+        "personal_score": 0,
+        "personal_markers_found": 0,
+        "personal_markers_per_message": 0.0,
+        "top_personal_markers": []
+      },
+      {
+        "rank": 33,
+        "session_id": 8,
+        "score": 0,
+        "status": "низкая релевантность",
+        "keywords": [],
+        "personal_score": 1,
+        "personal_markers_found": 1,
+        "personal_markers_per_message": 0.5,
+        "top_personal_markers": [
+          {
+            "marker": "я",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 34,
+        "session_id": 15,
+        "score": 0,
+        "status": "низкая релевантность",
+        "keywords": [],
+        "personal_score": 0,
+        "personal_markers_found": 0,
+        "personal_markers_per_message": 0.0,
+        "top_personal_markers": []
+      },
+      {
+        "rank": 35,
+        "session_id": 17,
+        "score": 0,
+        "status": "низкая релевантность",
+        "keywords": [],
+        "personal_score": 1,
+        "personal_markers_found": 1,
+        "personal_markers_per_message": 0.25,
+        "top_personal_markers": [
+          {
+            "marker": "я",
+            "count": 1
+          }
+        ]
+      }
     ]
   },
   "summary": {
-    "total_sessions": 32,
-    "relevant_sessions": 21,
+    "total_sessions": 35,
+    "relevant_sessions": 32,
     "topic": "work",
     "confidence": 0.11666666666666665,
     "strategy": "topic_rag"

@@ -91,23 +91,47 @@ class RAGInterface:
             score = all_scores.get(session_id, 0.0)
             info = session_info.get(session_id, {})
             
+            # Получаем сообщения сессии для анализа личных маркеров
+            session_messages = sessions.get(session_id, [])
+            
+            # Анализируем личные маркеры
+            from ..core.message_filter import calculate_personal_markers_score
+            personal_analysis = calculate_personal_markers_score(session_messages)
+            
             full_scores[session_id] = {
                 'relevance_score': score,
                 'is_relevant': score > 0.1,
                 'status': 'релевантная' if score > 0.1 else 'низкая релевантность',
                 'matched_keywords': info.get('matched_keywords', []),
                 'content_length': info.get('content_length', 0),
-                'message_count': info.get('message_count', 0)
+                'message_count': info.get('message_count', 0),
+                'personal_score': personal_analysis['personal_score'],
+                'personal_markers_found': personal_analysis['personal_markers_found'],
+                'personal_markers_per_message': personal_analysis['personal_markers_per_message'],
+                'top_personal_markers': personal_analysis['top_personal_markers']
             }
         
-        # Создаем список сессий, отсортированных по score (убывание) - только ID и score
+        # Создаем список сессий, отсортированных по score (убывание) - с полной информацией
         sorted_sessions = sorted(
             full_scores.items(), 
             key=lambda x: x[1]['relevance_score'], 
             reverse=True
         )
-        # Упрощаем до [session_id, score]
-        sorted_sessions = [[int(session_id), info['relevance_score']] for session_id, info in sorted_sessions]
+        # Форматируем с порядковым номером, ID сессии, score и статусом
+        sorted_sessions = [
+            {
+                'rank': i + 1,
+                'session_id': int(session_id),
+                'score': info['relevance_score'],
+                'status': info['status'],
+                'keywords': info['matched_keywords'],
+                'personal_score': info['personal_score'],
+                'personal_markers_found': info['personal_markers_found'],
+                'personal_markers_per_message': info['personal_markers_per_message'],
+                'top_personal_markers': info['top_personal_markers']
+            }
+            for i, (session_id, info) in enumerate(sorted_sessions)
+        ]
         
         return {
             'question': question,

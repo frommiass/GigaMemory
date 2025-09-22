@@ -6,134 +6,229 @@
     "topic": "sports",
     "confidence": 0.175,
     "strategy": "topic_rag",
-    "total_sessions": 27,
+    "total_sessions": 33,
     "relevance_scores": {
       "1": {
-        "score": 2,
+        "score": 9,
         "status": "релевантная",
         "matched_keywords": [
-          "поднять",
-          "спорт"
+          "скалолазание",
+          "спорт",
+          "стоять",
+          "гимнастика",
+          "толкать",
+          "атлетика",
+          "пробежать",
+          "перчатки",
+          "заниматься"
         ],
-        "content_length": 145,
-        "message_count": 1
+        "content_length": 647,
+        "message_count": 7
       },
       "2": {
-        "score": 1,
+        "score": 2,
         "status": "релевантная",
         "matched_keywords": [
-          "ползать"
+          "ползти",
+          "толкать"
         ],
-        "content_length": 93,
-        "message_count": 1
+        "content_length": 226,
+        "message_count": 2
       },
       "3": {
-        "score": 4,
+        "score": 7,
         "status": "релевантная",
         "matched_keywords": [
+          "сесть",
+          "стоять",
           "стадион",
-          "заниматься",
           "сидеть",
-          "стоять"
+          "ездить",
+          "заниматься",
+          "тренажер"
         ],
-        "content_length": 144,
-        "message_count": 1
+        "content_length": 549,
+        "message_count": 7
       },
       "4": {
-        "score": 2,
+        "score": 6,
         "status": "релевантная",
         "matched_keywords": [
           "поднимать",
-          "атлетика"
+          "ездить",
+          "спортзал",
+          "атлетика",
+          "пробежать",
+          "перчатки"
         ],
-        "content_length": 102,
-        "message_count": 1
+        "content_length": 537,
+        "message_count": 6
       },
       "5": {
-        "score": 2,
-        "status": "релевантная",
-        "matched_keywords": [
-          "пробежать",
-          "бросать"
-        ],
-        "content_length": 125,
-        "message_count": 1
-      },
-      "7": {
-        "score": 1,
-        "status": "релевантная",
-        "matched_keywords": [
-          "бросать"
-        ],
-        "content_length": 144,
-        "message_count": 2
-      },
-      "8": {
-        "score": 0,
-        "status": "низкая релевантность",
-        "matched_keywords": [],
-        "content_length": 55,
-        "message_count": 1
-      },
-      "9": {
         "score": 5,
         "status": "релевантная",
         "matched_keywords": [
-          "сидеть",
-          "стоять",
-          "бросать",
+          "толкать",
           "ездить",
-          "гантели"
+          "сидеть",
+          "пробежать",
+          "перчатки"
         ],
-        "content_length": 570,
-        "message_count": 4
+        "content_length": 425,
+        "message_count": 8
       },
-      "10": {
+      "6": {
         "score": 1,
         "status": "релевантная",
         "matched_keywords": [
-          "ходить"
+          "ползти"
         ],
-        "content_length": 50,
-        "message_count": 1
+        "content_length": 107,
+        "message_count": 2
       },
-      "12": {
+      "7": {
         "score": 3,
         "status": "релевантная",
         "matched_keywords": [
           "пробежать",
-          "бросать",
-          "прыгнуть"
+          "заниматься",
+          "толкать"
         ],
-        "content_length": 117,
-        "message_count": 1
+        "content_length": 312,
+        "message_count": 4
       },
-      "14": {
+      "8": {
         "score": 9,
         "status": "релевантная",
         "matched_keywords": [
-          "поднимать",
-          "вставать",
-          "пробежать",
-          "бросать",
+          "спорт",
+          "ходить",
           "ездить",
-          "плыть",
-          "ползать",
-          "площадка",
-          "сесть"
+          "прыгнуть",
+          "ползти",
+          "атлетика",
+          "футбол",
+          "бросить",
+          "заниматься"
         ],
-        "content_length": 405,
-        "message_count": 3
+        "content_length": 386,
+        "message_count": 6
       },
-      "16": {
-        "score": 2,
+      "9": {
+        "score": 11,
+        "status": "релевантная",
+        "matched_keywords": [
+          "поднимать",
+          "сесть",
+          "гантели",
+          "плавание",
+          "скалолазание",
+          "стоять",
+          "стадион",
+          "толкать",
+          "ездить",
+          "сидеть",
+          "атлетика"
+        ],
+        "content_length": 1015,
+        "message_count": 8
+      },
+      "10": {
+        "score": 10,
+        "status": "релевантная",
+        "matched_keywords": [
+          "поднимать",
+          "гантели",
+          "бросать",
+          "ходить",
+          "стоять",
+          "футбол",
+          "толкать",
+          "ползти",
+          "пробежать",
+          "бег"
+        ],
+        "content_length": 528,
+        "message_count": 5
+      },
+      "11": {
+        "score": 4,
         "status": "релевантная",
         "matched_keywords": [
           "ездить",
+          "пробежать",
+          "площадка",
+          "перчатки"
+        ],
+        "content_length": 217,
+        "message_count": 2
+      },
+      "12": {
+        "score": 12,
+        "status": "релевантная",
+        "matched_keywords": [
+          "сесть",
+          "ходить",
+          "стоять",
+          "стадион",
+          "гимнастика",
+          "толкать",
+          "ездить",
+          "заниматься",
+          "прыгнуть",
+          "атлетика",
+          "пробежать",
+          "перчатки"
+        ],
+        "content_length": 766,
+        "message_count": 9
+      },
+      "13": {
+        "score": 3,
+        "status": "релевантная",
+        "matched_keywords": [
+          "стоять",
+          "пробежать",
+          "ездить"
+        ],
+        "content_length": 539,
+        "message_count": 10
+      },
+      "14": {
+        "score": 12,
+        "status": "релевантная",
+        "matched_keywords": [
+          "поднимать",
+          "сесть",
+          "плавание",
+          "поднять",
+          "стоять",
+          "плыть",
+          "толкать",
+          "ездить",
+          "площадка",
+          "ползти",
+          "вставать",
+          "пробежать"
+        ],
+        "content_length": 876,
+        "message_count": 11
+      },
+      "16": {
+        "score": 8,
+        "status": "релевантная",
+        "matched_keywords": [
+          "сесть",
+          "бросать",
+          "стоять",
+          "ходить",
+          "ездить",
+          "атлетика",
+          "пробежать",
           "заниматься"
         ],
-        "content_length": 123,
-        "message_count": 1
+        "content_length": 308,
+        "message_count": 4
       },
       "17": {
         "score": 3,
@@ -143,151 +238,233 @@
           "пробежать",
           "сесть"
         ],
-        "content_length": 243,
-        "message_count": 3
+        "content_length": 333,
+        "message_count": 6
       },
       "18": {
-        "score": 4,
+        "score": 5,
         "status": "релевантная",
         "matched_keywords": [
-          "толкнуть",
-          "спортзал",
+          "толкать",
           "ездить",
-          "сидеть"
+          "сидеть",
+          "спортзал",
+          "пробежать"
         ],
-        "content_length": 144,
-        "message_count": 1
+        "content_length": 207,
+        "message_count": 2
       },
       "19": {
-        "score": 4,
+        "score": 6,
         "status": "релевантная",
         "matched_keywords": [
           "ходить",
-          "бросать",
+          "стоять",
+          "плыть",
+          "толкать",
           "ездить",
-          "плыть"
+          "заниматься"
         ],
-        "content_length": 199,
-        "message_count": 5
+        "content_length": 465,
+        "message_count": 11
       },
-      "21": {
-        "score": 1,
-        "status": "релевантная",
-        "matched_keywords": [
-          "ездить"
-        ],
-        "content_length": 143,
-        "message_count": 1
-      },
-      "23": {
-        "score": 3,
-        "status": "релевантная",
-        "matched_keywords": [
-          "толкнуть",
-          "заниматься",
-          "перчатки"
-        ],
-        "content_length": 152,
-        "message_count": 1
-      },
-      "24": {
-        "score": 5,
-        "status": "релевантная",
-        "matched_keywords": [
-          "теннис",
-          "бросать",
-          "заниматься",
-          "атлетика",
-          "ползать"
-        ],
-        "content_length": 101,
-        "message_count": 1
-      },
-      "25": {
+      "20": {
         "score": 0,
         "status": "низкая релевантность",
         "matched_keywords": [],
-        "content_length": 87,
+        "content_length": 47,
         "message_count": 1
       },
-      "26": {
-        "score": 3,
+      "21": {
+        "score": 7,
         "status": "релевантная",
         "matched_keywords": [
-          "пробежать",
-          "атлетика",
-          "перчатки"
+          "сесть",
+          "ходить",
+          "стоять",
+          "ездить",
+          "сидеть",
+          "ползти",
+          "вставать"
         ],
-        "content_length": 141,
-        "message_count": 2
+        "content_length": 790,
+        "message_count": 5
       },
-      "27": {
-        "score": 2,
+      "22": {
+        "score": 11,
         "status": "релевантная",
         "matched_keywords": [
-          "пробежать",
-          "ездить"
+          "сесть",
+          "кататься",
+          "гантели",
+          "спорт",
+          "ходить",
+          "стадион",
+          "толкать",
+          "сидеть",
+          "ездить",
+          "прыгнуть",
+          "пробежать"
         ],
-        "content_length": 156,
-        "message_count": 1
+        "content_length": 929,
+        "message_count": 10
       },
-      "29": {
+      "23": {
         "score": 4,
+        "status": "релевантная",
+        "matched_keywords": [
+          "заниматься",
+          "ездить",
+          "перчатки",
+          "толкать"
+        ],
+        "content_length": 308,
+        "message_count": 4
+      },
+      "24": {
+        "score": 10,
+        "status": "релевантная",
+        "matched_keywords": [
+          "спорт",
+          "стоять",
+          "стадион",
+          "толкать",
+          "тренировка",
+          "теннис",
+          "ракетка",
+          "атлетика",
+          "ползти",
+          "заниматься"
+        ],
+        "content_length": 444,
+        "message_count": 8
+      },
+      "25": {
+        "score": 2,
         "status": "релевантная",
         "matched_keywords": [
           "поднимать",
-          "бросать",
-          "спорт",
-          "сесть"
+          "плавание"
         ],
-        "content_length": 183,
-        "message_count": 4
-      },
-      "30": {
-        "score": 2,
-        "status": "релевантная",
-        "matched_keywords": [
-          "пробежать",
-          "ездить"
-        ],
-        "content_length": 85,
+        "content_length": 188,
         "message_count": 3
       },
-      "31": {
+      "26": {
+        "score": 6,
+        "status": "релевантная",
+        "matched_keywords": [
+          "плавание",
+          "ездить",
+          "атлетика",
+          "ползти",
+          "пробежать",
+          "перчатки"
+        ],
+        "content_length": 372,
+        "message_count": 8
+      },
+      "27": {
+        "score": 3,
+        "status": "релевантная",
+        "matched_keywords": [
+          "ездить",
+          "пробежать",
+          "сесть"
+        ],
+        "content_length": 199,
+        "message_count": 2
+      },
+      "28": {
         "score": 4,
         "status": "релевантная",
         "matched_keywords": [
-          "пробежать",
-          "бросать",
           "ездить",
-          "поднять"
+          "сидеть",
+          "плавание",
+          "толкать"
         ],
-        "content_length": 204,
-        "message_count": 3
+        "content_length": 360,
+        "message_count": 10
       },
-      "32": {
+      "29": {
         "score": 5,
         "status": "релевантная",
         "matched_keywords": [
+          "сесть",
           "поднимать",
-          "бросать",
-          "толкнуть",
-          "стадион",
-          "гимнастика"
+          "спорт",
+          "толкать",
+          "ездить"
         ],
-        "content_length": 312,
-        "message_count": 2
+        "content_length": 362,
+        "message_count": 8
       },
-      "33": {
-        "score": 3,
+      "30": {
+        "score": 10,
         "status": "релевантная",
         "matched_keywords": [
+          "поднимать",
+          "гантели",
+          "бассейн",
+          "стадион",
+          "плыть",
+          "толкать",
           "ездить",
-          "ползать",
-          "футбол"
+          "теннис",
+          "пробежать",
+          "перчатки"
         ],
-        "content_length": 119,
-        "message_count": 1
+        "content_length": 903,
+        "message_count": 25
+      },
+      "31": {
+        "score": 5,
+        "status": "релевантная",
+        "matched_keywords": [
+          "сесть",
+          "стоять",
+          "толкать",
+          "ездить",
+          "пробежать"
+        ],
+        "content_length": 419,
+        "message_count": 6
+      },
+      "32": {
+        "score": 8,
+        "status": "релевантная",
+        "matched_keywords": [
+          "поднимать",
+          "скалолазание",
+          "стадион",
+          "плыть",
+          "гимнастика",
+          "толкать",
+          "ездить",
+          "заниматься"
+        ],
+        "content_length": 619,
+        "message_count": 6
+      },
+      "33": {
+        "score": 12,
+        "status": "релевантная",
+        "matched_keywords": [
+          "поднимать",
+          "сесть",
+          "спорт",
+          "зал",
+          "кататься",
+          "ходить",
+          "толкать",
+          "ездить",
+          "ползти",
+          "футбол",
+          "пробежать",
+          "бег"
+        ],
+        "content_length": 953,
+        "message_count": 11
       },
       "34": {
         "score": 1,
@@ -295,124 +472,1023 @@
         "matched_keywords": [
           "сесть"
         ],
-        "content_length": 144,
-        "message_count": 2
+        "content_length": 199,
+        "message_count": 3
       }
     },
     "sorted_sessions": [
-      [
-        14,
-        9
-      ],
-      [
-        9,
-        5
-      ],
-      [
-        24,
-        5
-      ],
-      [
-        32,
-        5
-      ],
-      [
-        3,
-        4
-      ],
-      [
-        18,
-        4
-      ],
-      [
-        19,
-        4
-      ],
-      [
-        29,
-        4
-      ],
-      [
-        31,
-        4
-      ],
-      [
-        12,
-        3
-      ],
-      [
-        17,
-        3
-      ],
-      [
-        23,
-        3
-      ],
-      [
-        26,
-        3
-      ],
-      [
-        33,
-        3
-      ],
-      [
-        1,
-        2
-      ],
-      [
-        4,
-        2
-      ],
-      [
-        5,
-        2
-      ],
-      [
-        16,
-        2
-      ],
-      [
-        27,
-        2
-      ],
-      [
-        30,
-        2
-      ],
-      [
-        2,
-        1
-      ],
-      [
-        7,
-        1
-      ],
-      [
-        10,
-        1
-      ],
-      [
-        21,
-        1
-      ],
-      [
-        34,
-        1
-      ],
-      [
-        8,
-        0
-      ],
-      [
-        25,
-        0
-      ]
+      {
+        "rank": 1,
+        "session_id": 12,
+        "score": 12,
+        "status": "релевантная",
+        "keywords": [
+          "сесть",
+          "ходить",
+          "стоять",
+          "стадион",
+          "гимнастика",
+          "толкать",
+          "ездить",
+          "заниматься",
+          "прыгнуть",
+          "атлетика",
+          "пробежать",
+          "перчатки"
+        ],
+        "personal_score": 7,
+        "personal_markers_found": 7,
+        "personal_markers_per_message": 0.7777777777777778,
+        "top_personal_markers": [
+          {
+            "marker": "мы",
+            "count": 2
+          },
+          {
+            "marker": "я",
+            "count": 2
+          },
+          {
+            "marker": "моя",
+            "count": 1
+          },
+          {
+            "marker": "меня",
+            "count": 1
+          },
+          {
+            "marker": "нас",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 2,
+        "session_id": 14,
+        "score": 12,
+        "status": "релевантная",
+        "keywords": [
+          "поднимать",
+          "сесть",
+          "плавание",
+          "поднять",
+          "стоять",
+          "плыть",
+          "толкать",
+          "ездить",
+          "площадка",
+          "ползти",
+          "вставать",
+          "пробежать"
+        ],
+        "personal_score": 9,
+        "personal_markers_found": 9,
+        "personal_markers_per_message": 0.8181818181818182,
+        "top_personal_markers": [
+          {
+            "marker": "мне",
+            "count": 3
+          },
+          {
+            "marker": "я",
+            "count": 3
+          },
+          {
+            "marker": "меня",
+            "count": 2
+          },
+          {
+            "marker": "сам",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 3,
+        "session_id": 33,
+        "score": 12,
+        "status": "релевантная",
+        "keywords": [
+          "поднимать",
+          "сесть",
+          "спорт",
+          "зал",
+          "кататься",
+          "ходить",
+          "толкать",
+          "ездить",
+          "ползти",
+          "футбол",
+          "пробежать",
+          "бег"
+        ],
+        "personal_score": 7,
+        "personal_markers_found": 7,
+        "personal_markers_per_message": 0.6363636363636364,
+        "top_personal_markers": [
+          {
+            "marker": "я",
+            "count": 4
+          },
+          {
+            "marker": "меня",
+            "count": 2
+          },
+          {
+            "marker": "мне",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 4,
+        "session_id": 9,
+        "score": 11,
+        "status": "релевантная",
+        "keywords": [
+          "поднимать",
+          "сесть",
+          "гантели",
+          "плавание",
+          "скалолазание",
+          "стоять",
+          "стадион",
+          "толкать",
+          "ездить",
+          "сидеть",
+          "атлетика"
+        ],
+        "personal_score": 9,
+        "personal_markers_found": 9,
+        "personal_markers_per_message": 1.125,
+        "top_personal_markers": [
+          {
+            "marker": "я",
+            "count": 3
+          },
+          {
+            "marker": "мы",
+            "count": 2
+          },
+          {
+            "marker": "нам",
+            "count": 2
+          },
+          {
+            "marker": "моя",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "rank": 5,
+        "session_id": 22,
+        "score": 11,
+        "status": "релевантная",
+        "keywords": [
+          "сесть",
+          "кататься",
+          "гантели",
+          "спорт",
+          "ходить",
+          "стадион",
+          "толкать",
+          "сидеть",
+          "ездить",
+          "прыгнуть",
+          "пробежать"
+        ],
+        "personal_score": 12,
+        "personal_markers_found": 12,
+        "personal_markers_per_message": 1.2,
+        "top_personal_markers": [
+          {
+            "marker": "я",
+            "count": 4
+          },
+          {
+            "marker": "меня",
+            "count": 3
+          },
+          {
+            "marker": "мы",
+            "count": 2
+          },
+          {
+            "marker": "мне",
+            "count": 2
+          },
+          {
+            "marker": "сам",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 6,
+        "session_id": 10,
+        "score": 10,
+        "status": "релевантная",
+        "keywords": [
+          "поднимать",
+          "гантели",
+          "бросать",
+          "ходить",
+          "стоять",
+          "футбол",
+          "толкать",
+          "ползти",
+          "пробежать",
+          "бег"
+        ],
+        "personal_score": 4,
+        "personal_markers_found": 4,
+        "personal_markers_per_message": 0.8,
+        "top_personal_markers": [
+          {
+            "marker": "я",
+            "count": 2
+          },
+          {
+            "marker": "мой",
+            "count": 1
+          },
+          {
+            "marker": "меня",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 7,
+        "session_id": 24,
+        "score": 10,
+        "status": "релевантная",
+        "keywords": [
+          "спорт",
+          "стоять",
+          "стадион",
+          "толкать",
+          "тренировка",
+          "теннис",
+          "ракетка",
+          "атлетика",
+          "ползти",
+          "заниматься"
+        ],
+        "personal_score": 4,
+        "personal_markers_found": 4,
+        "personal_markers_per_message": 0.5,
+        "top_personal_markers": [
+          {
+            "marker": "я",
+            "count": 3
+          },
+          {
+            "marker": "меня",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 8,
+        "session_id": 30,
+        "score": 10,
+        "status": "релевантная",
+        "keywords": [
+          "поднимать",
+          "гантели",
+          "бассейн",
+          "стадион",
+          "плыть",
+          "толкать",
+          "ездить",
+          "теннис",
+          "пробежать",
+          "перчатки"
+        ],
+        "personal_score": 0,
+        "personal_markers_found": 0,
+        "personal_markers_per_message": 0.0,
+        "top_personal_markers": []
+      },
+      {
+        "rank": 9,
+        "session_id": 1,
+        "score": 9,
+        "status": "релевантная",
+        "keywords": [
+          "скалолазание",
+          "спорт",
+          "стоять",
+          "гимнастика",
+          "толкать",
+          "атлетика",
+          "пробежать",
+          "перчатки",
+          "заниматься"
+        ],
+        "personal_score": 8,
+        "personal_markers_found": 8,
+        "personal_markers_per_message": 1.1428571428571428,
+        "top_personal_markers": [
+          {
+            "marker": "мне",
+            "count": 2
+          },
+          {
+            "marker": "меня",
+            "count": 2
+          },
+          {
+            "marker": "я",
+            "count": 1
+          },
+          {
+            "marker": "мы",
+            "count": 1
+          },
+          {
+            "marker": "моя",
+            "count": 1
+          },
+          {
+            "marker": "нас",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 10,
+        "session_id": 8,
+        "score": 9,
+        "status": "релевантная",
+        "keywords": [
+          "спорт",
+          "ходить",
+          "ездить",
+          "прыгнуть",
+          "ползти",
+          "атлетика",
+          "футбол",
+          "бросить",
+          "заниматься"
+        ],
+        "personal_score": 4,
+        "personal_markers_found": 4,
+        "personal_markers_per_message": 0.6666666666666666,
+        "top_personal_markers": [
+          {
+            "marker": "я",
+            "count": 2
+          },
+          {
+            "marker": "меня",
+            "count": 1
+          },
+          {
+            "marker": "мне",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 11,
+        "session_id": 16,
+        "score": 8,
+        "status": "релевантная",
+        "keywords": [
+          "сесть",
+          "бросать",
+          "стоять",
+          "ходить",
+          "ездить",
+          "атлетика",
+          "пробежать",
+          "заниматься"
+        ],
+        "personal_score": 2,
+        "personal_markers_found": 2,
+        "personal_markers_per_message": 0.5,
+        "top_personal_markers": [
+          {
+            "marker": "меня",
+            "count": 1
+          },
+          {
+            "marker": "моего",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 12,
+        "session_id": 32,
+        "score": 8,
+        "status": "релевантная",
+        "keywords": [
+          "поднимать",
+          "скалолазание",
+          "стадион",
+          "плыть",
+          "гимнастика",
+          "толкать",
+          "ездить",
+          "заниматься"
+        ],
+        "personal_score": 10,
+        "personal_markers_found": 10,
+        "personal_markers_per_message": 1.6666666666666667,
+        "top_personal_markers": [
+          {
+            "marker": "я",
+            "count": 3
+          },
+          {
+            "marker": "мне",
+            "count": 3
+          },
+          {
+            "marker": "мы",
+            "count": 1
+          },
+          {
+            "marker": "своего",
+            "count": 1
+          },
+          {
+            "marker": "сам",
+            "count": 1
+          },
+          {
+            "marker": "нас",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 13,
+        "session_id": 3,
+        "score": 7,
+        "status": "релевантная",
+        "keywords": [
+          "сесть",
+          "стоять",
+          "стадион",
+          "сидеть",
+          "ездить",
+          "заниматься",
+          "тренажер"
+        ],
+        "personal_score": 12,
+        "personal_markers_found": 12,
+        "personal_markers_per_message": 1.7142857142857142,
+        "top_personal_markers": [
+          {
+            "marker": "мой",
+            "count": 3
+          },
+          {
+            "marker": "мной",
+            "count": 2
+          },
+          {
+            "marker": "мне",
+            "count": 2
+          },
+          {
+            "marker": "моему",
+            "count": 2
+          },
+          {
+            "marker": "я",
+            "count": 1
+          },
+          {
+            "marker": "моим",
+            "count": 1
+          },
+          {
+            "marker": "меня",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 14,
+        "session_id": 21,
+        "score": 7,
+        "status": "релевантная",
+        "keywords": [
+          "сесть",
+          "ходить",
+          "стоять",
+          "ездить",
+          "сидеть",
+          "ползти",
+          "вставать"
+        ],
+        "personal_score": 14,
+        "personal_markers_found": 14,
+        "personal_markers_per_message": 2.8,
+        "top_personal_markers": [
+          {
+            "marker": "я",
+            "count": 5
+          },
+          {
+            "marker": "меня",
+            "count": 3
+          },
+          {
+            "marker": "моя",
+            "count": 3
+          },
+          {
+            "marker": "своей",
+            "count": 1
+          },
+          {
+            "marker": "мне",
+            "count": 1
+          },
+          {
+            "marker": "своим",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 15,
+        "session_id": 4,
+        "score": 6,
+        "status": "релевантная",
+        "keywords": [
+          "поднимать",
+          "ездить",
+          "спортзал",
+          "атлетика",
+          "пробежать",
+          "перчатки"
+        ],
+        "personal_score": 12,
+        "personal_markers_found": 12,
+        "personal_markers_per_message": 2.0,
+        "top_personal_markers": [
+          {
+            "marker": "я",
+            "count": 5
+          },
+          {
+            "marker": "мой",
+            "count": 3
+          },
+          {
+            "marker": "мне",
+            "count": 2
+          },
+          {
+            "marker": "сам",
+            "count": 1
+          },
+          {
+            "marker": "своему",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 16,
+        "session_id": 19,
+        "score": 6,
+        "status": "релевантная",
+        "keywords": [
+          "ходить",
+          "стоять",
+          "плыть",
+          "толкать",
+          "ездить",
+          "заниматься"
+        ],
+        "personal_score": 1,
+        "personal_markers_found": 1,
+        "personal_markers_per_message": 0.09090909090909091,
+        "top_personal_markers": [
+          {
+            "marker": "я",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 17,
+        "session_id": 26,
+        "score": 6,
+        "status": "релевантная",
+        "keywords": [
+          "плавание",
+          "ездить",
+          "атлетика",
+          "ползти",
+          "пробежать",
+          "перчатки"
+        ],
+        "personal_score": 4,
+        "personal_markers_found": 4,
+        "personal_markers_per_message": 0.5,
+        "top_personal_markers": [
+          {
+            "marker": "меня",
+            "count": 2
+          },
+          {
+            "marker": "мое",
+            "count": 1
+          },
+          {
+            "marker": "я",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 18,
+        "session_id": 5,
+        "score": 5,
+        "status": "релевантная",
+        "keywords": [
+          "толкать",
+          "ездить",
+          "сидеть",
+          "пробежать",
+          "перчатки"
+        ],
+        "personal_score": 1,
+        "personal_markers_found": 1,
+        "personal_markers_per_message": 0.125,
+        "top_personal_markers": [
+          {
+            "marker": "мне",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 19,
+        "session_id": 18,
+        "score": 5,
+        "status": "релевантная",
+        "keywords": [
+          "толкать",
+          "ездить",
+          "сидеть",
+          "спортзал",
+          "пробежать"
+        ],
+        "personal_score": 2,
+        "personal_markers_found": 2,
+        "personal_markers_per_message": 1.0,
+        "top_personal_markers": [
+          {
+            "marker": "мне",
+            "count": 1
+          },
+          {
+            "marker": "я",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 20,
+        "session_id": 29,
+        "score": 5,
+        "status": "релевантная",
+        "keywords": [
+          "сесть",
+          "поднимать",
+          "спорт",
+          "толкать",
+          "ездить"
+        ],
+        "personal_score": 1,
+        "personal_markers_found": 1,
+        "personal_markers_per_message": 0.125,
+        "top_personal_markers": [
+          {
+            "marker": "мне",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 21,
+        "session_id": 31,
+        "score": 5,
+        "status": "релевантная",
+        "keywords": [
+          "сесть",
+          "стоять",
+          "толкать",
+          "ездить",
+          "пробежать"
+        ],
+        "personal_score": 6,
+        "personal_markers_found": 6,
+        "personal_markers_per_message": 1.0,
+        "top_personal_markers": [
+          {
+            "marker": "меня",
+            "count": 2
+          },
+          {
+            "marker": "моё",
+            "count": 1
+          },
+          {
+            "marker": "нам",
+            "count": 1
+          },
+          {
+            "marker": "мне",
+            "count": 1
+          },
+          {
+            "marker": "я",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 22,
+        "session_id": 11,
+        "score": 4,
+        "status": "релевантная",
+        "keywords": [
+          "ездить",
+          "пробежать",
+          "площадка",
+          "перчатки"
+        ],
+        "personal_score": 3,
+        "personal_markers_found": 3,
+        "personal_markers_per_message": 1.5,
+        "top_personal_markers": [
+          {
+            "marker": "мной",
+            "count": 1
+          },
+          {
+            "marker": "я",
+            "count": 1
+          },
+          {
+            "marker": "меня",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 23,
+        "session_id": 23,
+        "score": 4,
+        "status": "релевантная",
+        "keywords": [
+          "заниматься",
+          "ездить",
+          "перчатки",
+          "толкать"
+        ],
+        "personal_score": 3,
+        "personal_markers_found": 3,
+        "personal_markers_per_message": 0.75,
+        "top_personal_markers": [
+          {
+            "marker": "меня",
+            "count": 2
+          },
+          {
+            "marker": "моей",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 24,
+        "session_id": 28,
+        "score": 4,
+        "status": "релевантная",
+        "keywords": [
+          "ездить",
+          "сидеть",
+          "плавание",
+          "толкать"
+        ],
+        "personal_score": 0,
+        "personal_markers_found": 0,
+        "personal_markers_per_message": 0.0,
+        "top_personal_markers": []
+      },
+      {
+        "rank": 25,
+        "session_id": 7,
+        "score": 3,
+        "status": "релевантная",
+        "keywords": [
+          "пробежать",
+          "заниматься",
+          "толкать"
+        ],
+        "personal_score": 6,
+        "personal_markers_found": 6,
+        "personal_markers_per_message": 1.5,
+        "top_personal_markers": [
+          {
+            "marker": "мне",
+            "count": 2
+          },
+          {
+            "marker": "я",
+            "count": 1
+          },
+          {
+            "marker": "самому",
+            "count": 1
+          },
+          {
+            "marker": "мой",
+            "count": 1
+          },
+          {
+            "marker": "моей",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 26,
+        "session_id": 13,
+        "score": 3,
+        "status": "релевантная",
+        "keywords": [
+          "стоять",
+          "пробежать",
+          "ездить"
+        ],
+        "personal_score": 5,
+        "personal_markers_found": 5,
+        "personal_markers_per_message": 0.5,
+        "top_personal_markers": [
+          {
+            "marker": "я",
+            "count": 2
+          },
+          {
+            "marker": "меня",
+            "count": 1
+          },
+          {
+            "marker": "мой",
+            "count": 1
+          },
+          {
+            "marker": "мне",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 27,
+        "session_id": 17,
+        "score": 3,
+        "status": "релевантная",
+        "keywords": [
+          "поднимать",
+          "пробежать",
+          "сесть"
+        ],
+        "personal_score": 2,
+        "personal_markers_found": 2,
+        "personal_markers_per_message": 0.3333333333333333,
+        "top_personal_markers": [
+          {
+            "marker": "мы",
+            "count": 1
+          },
+          {
+            "marker": "нам",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 28,
+        "session_id": 27,
+        "score": 3,
+        "status": "релевантная",
+        "keywords": [
+          "ездить",
+          "пробежать",
+          "сесть"
+        ],
+        "personal_score": 2,
+        "personal_markers_found": 2,
+        "personal_markers_per_message": 1.0,
+        "top_personal_markers": [
+          {
+            "marker": "нам",
+            "count": 1
+          },
+          {
+            "marker": "я",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 29,
+        "session_id": 2,
+        "score": 2,
+        "status": "релевантная",
+        "keywords": [
+          "ползти",
+          "толкать"
+        ],
+        "personal_score": 2,
+        "personal_markers_found": 2,
+        "personal_markers_per_message": 1.0,
+        "top_personal_markers": [
+          {
+            "marker": "мне",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "rank": 30,
+        "session_id": 25,
+        "score": 2,
+        "status": "релевантная",
+        "keywords": [
+          "поднимать",
+          "плавание"
+        ],
+        "personal_score": 0,
+        "personal_markers_found": 0,
+        "personal_markers_per_message": 0.0,
+        "top_personal_markers": []
+      },
+      {
+        "rank": 31,
+        "session_id": 6,
+        "score": 1,
+        "status": "релевантная",
+        "keywords": [
+          "ползти"
+        ],
+        "personal_score": 0,
+        "personal_markers_found": 0,
+        "personal_markers_per_message": 0.0,
+        "top_personal_markers": []
+      },
+      {
+        "rank": 32,
+        "session_id": 34,
+        "score": 1,
+        "status": "релевантная",
+        "keywords": [
+          "сесть"
+        ],
+        "personal_score": 2,
+        "personal_markers_found": 2,
+        "personal_markers_per_message": 0.6666666666666666,
+        "top_personal_markers": [
+          {
+            "marker": "мы",
+            "count": 1
+          },
+          {
+            "marker": "мне",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "rank": 33,
+        "session_id": 20,
+        "score": 0,
+        "status": "низкая релевантность",
+        "keywords": [],
+        "personal_score": 0,
+        "personal_markers_found": 0,
+        "personal_markers_per_message": 0.0,
+        "top_personal_markers": []
+      }
     ]
   },
   "summary": {
-    "total_sessions": 27,
-    "relevant_sessions": 25,
+    "total_sessions": 33,
+    "relevant_sessions": 32,
     "topic": "sports",
     "confidence": 0.175,
     "strategy": "topic_rag"
