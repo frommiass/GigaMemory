@@ -5,11 +5,13 @@ from models import Message
 from submit_interface import ModelWithMemory
 
 from .memory_storage import MemoryStorage
-from .message_filter import filter_user_message
+from .message_filter import filter_user_message, _check_markers
+from .regex_patterns import PERSONAL_MARKERS
 from .prompts import (
-    get_memory_extraction_prompt,
-    get_session_marker_prompt
+    get_session_marker_prompt,
+    get_personal_info_marker
 )
+from .prompts.fallback_prompts import get_fallback_prompt
 from .llm_inference import ModelInference
 
 
@@ -25,10 +27,12 @@ class SubmitModelWithMemory(ModelWithMemory):
     def write_to_memory(self, messages: List[Message], dialogue_id: str) -> None:
         """
         Фильтрует и сохраняет личную информацию из сообщений
+        Группирует сообщения по сессиям и склеивает их
         """
-        current_session = self.storage.increment_session(dialogue_id)
+        # Группируем сообщения по сессиям
+        session_messages = {}
+        session_has_personal = {}  # Отслеживаем, есть ли в сессии личные сообщения
         
-        processed_messages = []
         for msg in messages:
             if msg.role == "user":
                 # Проверяем кэш для ускорения
@@ -40,13 +44,70 @@ class SubmitModelWithMemory(ModelWithMemory):
                     cached_result = filter_result
                 
                 if cached_result:
-                    processed_msg = Message(
-                        role=msg.role,
-                        content=f"{get_session_marker_prompt(current_session)} {msg.content}"
-                    )
-                    processed_messages.append(processed_msg)
+                    # Используем session_id из сообщения, если он есть
+                    session_id = msg.session_id if msg.session_id else self.storage.increment_session(dialogue_id)
+                    
+                    # Регистрируем сессию, если используем session_id из сообщения
+                    if msg.session_id:
+                        self.storage.register_session(dialogue_id, session_id)
+                    
+                    # Группируем по session_id
+                    if session_id not in session_messages:
+                        session_messages[session_id] = []
+                        session_has_personal[session_id] = False
+                    
+                    # Проверяем, содержит ли сообщение личные местоимения
+                    if _check_markers(msg.content.lower(), PERSONAL_MARKERS):
+                        session_has_personal[session_id] = True
+                    
+                    session_messages[session_id].append(msg.content)
+        
+        # Склеиваем сообщения по сессиям
+        processed_messages = []
+        for session_id, contents in session_messages.items():
+            # Склеиваем все сообщения сессии
+            combined_content = self._combine_session_messages(contents)
+            
+            # Маркер [ЛИЧНОЕ] временно отключен
+            # if session_has_personal.get(session_id, False):
+            #     personal_marker = get_personal_info_marker()
+            #     combined_content = f"{personal_marker} {combined_content}"
+            
+            processed_msg = Message(
+                role="user",
+                content=f"{get_session_marker_prompt(int(session_id))} {combined_content}",
+                session_id=session_id
+            )
+            processed_messages.append(processed_msg)
         
         self.storage.add_to_memory(dialogue_id, processed_messages)
+
+    def _combine_session_messages(self, contents: List[str]) -> str:
+        """
+        Склеивает сообщения из одной сессии, добавляя точки где нужно
+        
+        Args:
+            contents: Список содержимого сообщений
+            
+        Returns:
+            Склеенное содержимое
+        """
+        if not contents:
+            return ""
+        
+        # Знаки препинания для проверки
+        punctuation_marks = {'.', '!', '?', ':', ';'}
+        
+        combined_parts = []
+        for content in contents:
+            content = content.strip()
+            if content:
+                # Проверяем последний символ
+                if content and content[-1] not in punctuation_marks:
+                    content += "."
+                combined_parts.append(content)
+        
+        return " ".join(combined_parts)
 
     def clear_memory(self, dialogue_id: str) -> None:
         """
@@ -65,7 +126,7 @@ class SubmitModelWithMemory(ModelWithMemory):
         memory = [asdict(msg) for msg in memory]
         memory_text = "\n".join([msg['content'] for msg in memory])
         
-        system_memory_prompt = get_memory_extraction_prompt(question, memory_text)
+        system_memory_prompt = get_fallback_prompt(question, memory_text)
         context_with_memory = [Message('system', system_memory_prompt)]
         
         answer = self.model_inference.inference(context_with_memory)
@@ -79,5 +140,5 @@ class SubmitModelWithMemory(ModelWithMemory):
         memory = [asdict(msg) for msg in memory]
         memory_text = "\n".join([msg['content'] for msg in memory])
         
-        system_memory_prompt = get_memory_extraction_prompt(question, memory_text)
+        system_memory_prompt = get_fallback_prompt(question, memory_text)
         return system_memory_prompt

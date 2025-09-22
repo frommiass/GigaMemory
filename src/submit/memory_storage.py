@@ -32,9 +32,15 @@ class MemoryStorage:
         return self.basic_memory.get(dialogue_id, [])
     
     def increment_session(self, dialogue_id: str) -> int:
-        """Увеличивает счетчик сессий и возвращает новый номер"""
+        """Увеличивает счетчик сессий и возвращает новый номер (для обратной совместимости)"""
         self.session_counters[dialogue_id] += 1
         return self.session_counters[dialogue_id]
+    
+    def register_session(self, dialogue_id: str, session_id: str) -> None:
+        """Регистрирует сессию с заданным ID"""
+        if session_id not in self.session_counters:
+            # Если это новая сессия, увеличиваем счетчик
+            self.session_counters[dialogue_id] = max(self.session_counters[dialogue_id], int(session_id))
     
     def get_current_session(self, dialogue_id: str) -> int:
         """Возвращает текущий номер сессии"""
