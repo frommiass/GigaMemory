@@ -4,6 +4,7 @@
 
 from .compression_models import (
     CompressionLevel,
+    CompressionMethod,
     CompressionResult,
     CompressionStats,
     CompressionConfig
@@ -33,6 +34,7 @@ from .compression_strategies import (
 __all__ = [
     # Models
     'CompressionLevel',
+    'CompressionMethod',
     'CompressionResult',
     'CompressionStats',
     'CompressionConfig',

@@ -649,3 +649,4 @@ class FactDatabase:
         logger.info(f"База фактов загружена: {self.stats.total_facts} фактов из {filepath}")
 
 
+

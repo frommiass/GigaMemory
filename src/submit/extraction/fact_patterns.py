@@ -278,3 +278,4 @@ def confidence_from_pattern_match(pattern_index: int, total_patterns: int) -> fl
     return max(0.5, min(1.0, confidence))
 
 
+

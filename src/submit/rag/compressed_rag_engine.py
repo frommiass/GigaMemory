@@ -10,8 +10,11 @@ from ..compression import (
     HierarchicalCompressor, 
     CompressionConfig, 
     CompressionLevel,
-    CompressionMethod
+    CompressionMethod,
+    CompressionResult
 )
+from ..prompts.topic_prompts import get_topic_prompt
+from ..prompts.fallback_prompts import get_fallback_prompt
 
 logger = logging.getLogger(__name__)
 
@@ -26,6 +29,9 @@ class CompressedRAGConfig(VectorRAGConfig):
     compression_target_ratio: float = 0.3
     compression_min_length: int = 200
     use_hierarchical: bool = True
+    # Дополнительные флаги совместимости
+    enable_hierarchical_compression: bool = True
+    hierarchical_threshold: int = 5
     
     # Кэширование сжатых данных
     cache_compressed_sessions: bool = True
@@ -56,12 +62,16 @@ class CompressedRAGEngine(VectorRAGEngine):
         
         if self.config.use_hierarchical:
             self.compressor = HierarchicalCompressor(compression_config)
+            # совместимое имя
+            self.hierarchical_compressor = self.compressor
         else:
             from ..compression import SemanticCompressor
             self.compressor = SemanticCompressor(compression_config)
         
         # Кэш сжатых сессий
         self.compressed_cache: Dict[str, str] = {}
+        # Хранилище сжатых сессий по диалогу
+        self.compressed_sessions: Dict[str, Dict[str, str]] = {}
         
         logger.info(f"Инициализирован CompressedRAGEngine с уровнем сжатия {self.config.compression_level.value}")
     
