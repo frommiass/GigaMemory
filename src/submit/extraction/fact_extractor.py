@@ -1,5 +1,5 @@
 """
-Извлекатели фактов из текста
+Извлекатели фактов из текста - УЛУЧШЕННАЯ ВЕРСИЯ
 """
 import json
 import re
@@ -10,7 +10,8 @@ from dataclasses import dataclass
 from .fact_models import Fact, FactType, FactRelation, FactConfidence, TemporalFact
 from .fact_patterns import (
     FACT_PATTERNS, extract_with_pattern, extract_all_with_patterns,
-    detect_temporal_context, normalize_value, confidence_from_pattern_match
+    detect_temporal_context, normalize_value, confidence_from_pattern_match,
+    get_relation_for_type
 )
 
 logger = logging.getLogger(__name__)
@@ -65,7 +66,7 @@ class FactExtractor:
 
 
 class RuleBasedFactExtractor(FactExtractor):
-    """Извлекатель фактов на основе правил (регулярных выражений)"""
+    """Извлекатель фактов на основе правил (регулярных выражений) - УЛУЧШЕННАЯ ВЕРСИЯ"""
     
     def __init__(self, min_confidence: float = 0.5):
         super().__init__()
@@ -87,8 +88,8 @@ class RuleBasedFactExtractor(FactExtractor):
                 confidence_score = confidence_from_pattern_match(i, len(patterns))
                 
                 if confidence_score >= self.min_confidence:
-                    # Определяем отношение
-                    relation = self._get_relation_for_type(fact_type)
+                    # Определяем отношение используя новую функцию
+                    relation = get_relation_for_type(fact_type)
                     
                     # Создаем факт
                     fact = Fact(
@@ -112,33 +113,10 @@ class RuleBasedFactExtractor(FactExtractor):
         
         self.stats.rules_used += 1
         return facts
-    
-    def _get_relation_for_type(self, fact_type: FactType) -> FactRelation:
-        """Определяет отношение для типа факта"""
-        relation_map = {
-            FactType.PERSONAL_NAME: FactRelation.IS,
-            FactType.PERSONAL_AGE: FactRelation.IS,
-            FactType.PERSONAL_LOCATION: FactRelation.LIVES_IN,
-            FactType.WORK_OCCUPATION: FactRelation.WORKS_AS,
-            FactType.WORK_COMPANY: FactRelation.WORKS_AT,
-            FactType.FAMILY_SPOUSE: FactRelation.MARRIED_TO,
-            FactType.FAMILY_CHILDREN: FactRelation.PARENT_OF,
-            FactType.PET_NAME: FactRelation.OWNS,
-            FactType.PET_TYPE: FactRelation.OWNS,
-            FactType.PET_BREED: FactRelation.OWNS,
-            FactType.HOBBY_SPORT: FactRelation.DOES,
-            FactType.HOBBY_ACTIVITY: FactRelation.DOES,
-            FactType.PREFERENCE_FOOD: FactRelation.LIKES,
-            FactType.EDUCATION_INSTITUTION: FactRelation.STUDIED_AT,
-            FactType.HEALTH_CONDITION: FactRelation.HAS,
-            FactType.EVENT_TRAVEL: FactRelation.TRAVELS_TO,
-        }
-        
-        return relation_map.get(fact_type, FactRelation.IS)
 
 
 class SmartFactExtractor(FactExtractor):
-    """Умный извлекатель фактов с использованием LLM"""
+    """Умный извлекатель фактов с использованием LLM - УЛУЧШЕННАЯ ВЕРСИЯ"""
     
     def __init__(self, model_inference, use_rules_first: bool = True):
         super().__init__()
@@ -199,26 +177,61 @@ class SmartFactExtractor(FactExtractor):
             return []
     
     def _create_extraction_prompt(self, text: str) -> str:
-        """Создает промпт для извлечения фактов"""
+        """Создает промпт для извлечения фактов - РАСШИРЕННАЯ ВЕРСИЯ"""
         return f"""
 Извлеки структурированные факты из следующего текста на русском языке.
 
 Текст: "{text}"
 
 Верни результат в формате JSON массива. Каждый факт должен содержать:
-- type: тип факта (personal_name, personal_age, work_occupation, family_spouse, pet_name, hobby_activity, preference_food, education_institution, health_condition, event_travel)
+- type: тип факта (см. список ниже)
 - subject: субъект (обычно "пользователь")
-- relation: отношение (is, has, works_as, works_at, lives_in, married_to, owns, does, likes, studied_at, travels_to)
+- relation: отношение (is, has, works_as, works_at, lives_in, married_to, owns, does, likes, studied_at, travels_to, earns, drinks, drives, invests_in, trains_at, prefers)
 - object: значение факта
 - confidence: уверенность от 0.0 до 1.0
+
+Основные типы фактов:
+ЛИЧНАЯ ИНФОРМАЦИЯ: personal_name, personal_nickname, personal_age, personal_birth, personal_location, personal_hometown, personal_district, personal_gender, personal_nationality, personal_language
+
+РАБОТА: work_occupation, work_company, work_position, work_department, work_salary, work_experience, work_skills, work_schedule, work_project
+
+ТРАНСПОРТ: transport_car_brand, transport_car_model, transport_car_year, transport_car_color, transport_motorcycle, transport_bicycle, transport_license
+
+ФИНАНСЫ: finance_income, finance_savings, finance_investment, finance_stocks, finance_crypto, finance_bank, finance_card, finance_credit, finance_mortgage, finance_debt, finance_budget
+
+ЕДА И НАПИТКИ: food_favorite, food_dislike, food_cuisine, food_restaurant, food_cafe, food_delivery, food_diet, drink_coffee, drink_tea, drink_alcohol, drink_beer, drink_wine
+
+ПУТЕШЕСТВИЯ: travel_country, travel_city, travel_hotel, travel_dream, travel_frequency, travel_budget
+
+СПОРТ: sport_type, sport_team, sport_gym, sport_trainer, sport_frequency, sport_equipment, sport_achievement
+
+СЕМЬЯ: family_status, family_spouse, family_children, family_parents, family_siblings
+
+ОБРАЗОВАНИЕ: education_institution, education_speciality, education_degree, education_course, education_year
+
+ХОББИ: hobby_activity, hobby_gaming, hobby_reading, hobby_music, hobby_instrument, hobby_photography, hobby_art
+
+ТЕХНОЛОГИИ: tech_phone, tech_laptop, tech_programming, tech_software
+
+ЗДОРОВЬЕ: health_condition, health_disease, health_allergy, health_medication, health_doctor
+
+ПИТОМЦЫ: pet_type, pet_name, pet_breed, pet_age
+
+НЕДВИЖИМОСТЬ: property_type, property_ownership, property_rooms, property_area
+
+КОНТАКТЫ: contact_phone, contact_email, contact_telegram, contact_instagram
 
 Пример:
 [
   {{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "Иван", "confidence": 0.9}},
-  {{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.8}}
+  {{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.8}},
+  {{"type": "transport_car_brand", "subject": "пользователь", "relation": "drives", "object": "Toyota", "confidence": 0.85}},
+  {{"type": "drink_coffee", "subject": "пользователь", "relation": "drinks", "object": "капучино", "confidence": 0.75}},
+  {{"type": "finance_bank", "subject": "пользователь", "relation": "banks_with", "object": "Тинькофф", "confidence": 0.8}}
 ]
 
 Извлеки только достоверные факты. Если факт неясен или сомнителен, не включай его.
+Обращай внимание на детали и извлекай максимум информации из текста.
 """
     
     def _parse_llm_response(self, response: str) -> List[Dict]:
@@ -281,7 +294,7 @@ class SmartFactExtractor(FactExtractor):
 
 
 class HybridFactExtractor(FactExtractor):
-    """Гибридный извлекатель, комбинирующий правила и LLM"""
+    """Гибридный извлекатель, комбинирующий правила и LLM - УЛУЧШЕННАЯ ВЕРСИЯ"""
     
     def __init__(self, model_inference, rule_confidence_threshold: float = 0.7):
         super().__init__()
@@ -340,4 +353,97 @@ class HybridFactExtractor(FactExtractor):
         return merged
 
 
-
+class AdvancedFactExtractor(FactExtractor):
+    """Продвинутый извлекатель с дополнительными возможностями"""
+    
+    def __init__(self, model_inference=None, use_context: bool = True, 
+                 context_window: int = 3, min_confidence: float = 0.5):
+        super().__init__()
+        self.model_inference = model_inference
+        self.use_context = use_context
+        self.context_window = context_window
+        self.min_confidence = min_confidence
+        self.rule_extractor = RuleBasedFactExtractor(min_confidence)
+        
+        # Кэш для контекста
+        self.context_cache = []
+    
+    def extract_facts_from_text(self, text: str, session_id: str, dialogue_id: str) -> List[Fact]:
+        """Извлекает факты с учетом контекста"""
+        facts = []
+        
+        # Добавляем текст в контекст
+        if self.use_context:
+            self.context_cache.append(text)
+            if len(self.context_cache) > self.context_window:
+                self.context_cache.pop(0)
+        
+        # Извлекаем базовые факты
+        facts = self.rule_extractor.extract_facts_from_text(text, session_id, dialogue_id)
+        
+        # Анализируем контекст для повышения уверенности
+        if self.use_context and len(self.context_cache) > 1:
+            facts = self._enhance_with_context(facts)
+        
+        # Извлекаем составные факты
+        composite_facts = self._extract_composite_facts(text, facts, session_id, dialogue_id)
+        facts.extend(composite_facts)
+        
+        # Обновляем статистику
+        self.stats.total_extracted += len(facts)
+        for fact in facts:
+            self.stats.facts_by_type[fact.type.value] = \
+                self.stats.facts_by_type.get(fact.type.value, 0) + 1
+        
+        return facts
+    
+    def _enhance_with_context(self, facts: List[Fact]) -> List[Fact]:
+        """Улучшает факты используя контекст"""
+        enhanced_facts = []
+        
+        for fact in facts:
+            # Проверяем, упоминался ли факт в контексте
+            context_mentions = 0
+            for context_text in self.context_cache:
+                if fact.object.lower() in context_text.lower():
+                    context_mentions += 1
+            
+            # Увеличиваем уверенность если факт упоминался ранее
+            if context_mentions > 1:
+                fact.confidence.update(
+                    min(1.0, fact.confidence.score + 0.1 * context_mentions)
+                )
+            
+            enhanced_facts.append(fact)
+        
+        return enhanced_facts
+    
+    def _extract_composite_facts(self, text: str, base_facts: List[Fact], 
+                                session_id: str, dialogue_id: str) -> List[Fact]:
+        """Извлекает составные факты на основе базовых"""
+        composite_facts = []
+        
+        # Пример: если есть марка и модель авто, создаем составной факт
+        car_brand = None
+        car_model = None
+        
+        for fact in base_facts:
+            if fact.type == FactType.TRANSPORT_CAR_BRAND:
+                car_brand = fact.object
+            elif fact.type == FactType.TRANSPORT_CAR_MODEL:
+                car_model = fact.object
+        
+        if car_brand and car_model:
+            composite = Fact(
+                type=FactType.TRANSPORT_CAR_BRAND,
+                subject="пользователь",
+                relation=FactRelation.DRIVES,
+                object=f"{car_brand} {car_model}",
+                confidence=FactConfidence(score=0.9, source="composite"),
+                session_id=session_id,
+                dialogue_id=dialogue_id,
+                raw_text=text
+            )
+            composite_facts.append(composite)
+        
+        return composite_facts
