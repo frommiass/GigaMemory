@@ -1,0 +1,141 @@
+# Конфигурация системы GigaMemory
+
+# Общие настройки
+system:
+  name: "GigaMemory"
+  version: "2.0"
+  debug: false
+  log_level: "INFO"
+  
+# Модель
+model:
+  path: "/app/models/GigaChat-20B-A3B-instruct-v1.5-bf16"
+  device: "cuda"
+  max_tokens: 100
+  temperature: 0.0
+
+# Векторный поиск
+embedding:
+  # Модель эмбеддингов
+  model_name: "cointegrated/rubert-tiny2"
+  device: "cuda"
+  batch_size: 32
+  max_length: 512
+  normalize: true
+  pooling_strategy: "mean"
+  
+  # Кэширование
+  cache_enabled: true
+  cache_dir: ".embedding_cache"
+  
+# Векторное хранилище  
+vector_store:
+  metric: "cosine"
+  top_k: 5
+  threshold: 0.7
+  use_faiss: false  # Для больших объемов включить
+  
+# Извлечение фактов
+fact_extraction:
+  enabled: true
+  use_llm: true
+  use_rules: true
+  batch_size: 5
+  max_facts_per_session: 20
+  min_confidence: 0.5
+  
+  # Разрешение конфликтов
+  conflict_strategy: "latest"  # latest, highest_confidence, most_evidence
+  
+# Семантическое сжатие
+compression:
+  enabled: true
+  level: "moderate"  # none, light, moderate, aggressive, extreme
+  method: "hybrid"    # extractive, abstractive, template, hybrid
+  target_ratio: 0.3
+  min_length: 200
+  max_length: 500
+  
+  # Иерархическое сжатие
+  hierarchical: true
+  hierarchy_levels:
+    - "sentence"
+    - "paragraph"
+    - "section"
+    - "document"
+    
+# RAG система
+rag:
+  # Классификация вопросов
+  classification_threshold: 0.1
+  
+  # Поиск релевантных сессий
+  max_relevant_sessions: 5
+  min_relevant_sessions: 1
+  
+  # Гибридный поиск
+  use_hybrid_search: true
+  keyword_weight: 0.3
+  vector_weight: 0.7
+  
+  # Ранжирование
+  recency_weight: 0.5
+  session_length_weight: 0.3
+  
+# Кэширование
+cache:
+  max_size: 10000
+  max_memory_mb: 1024
+  eviction_strategy: "lru"  # lru, lfu, fifo
+  default_ttl: 3600  # секунды
+  
+  # Типы кэшей
+  embedding_cache: true
+  fact_cache: true
+  compression_cache: true
+  query_cache: true
+  
+# Батчевая обработка  
+batch:
+  enabled: true
+  batch_size: 32
+  max_wait_time: 1.0  # секунды
+  
+  # Параллельная обработка
+  num_workers: 4
+  
+# Оптимизация
+optimization:
+  # Предварительная загрузка
+  preload_embeddings: false
+  preload_facts: false
+  
+  # Инкрементальное обновление
+  incremental_indexing: true
+  
+  # Асинхронная обработка
+  async_processing: false
+  
+# Мониторинг
+monitoring:
+  enabled: true
+  metrics_port: 9090
+  
+  # Метрики
+  track_latency: true
+  track_memory: true
+  track_cache_hits: true
+  
+# Персистентность
+persistence:
+  enabled: true
+  save_dir: "./gigamemory_state"
+  
+  # Автосохранение
+  autosave: true
+  autosave_interval: 300  # секунды
+  
+  # Бэкапы
+  backup_enabled: true
+  backup_dir: "./gigamemory_backups"
+  max_backups: 5
