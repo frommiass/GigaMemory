@@ -20,7 +20,7 @@ def load_dialogue(file_path: str) -> Dict[str, Any]:
 def process_dialogue(dialogue: Dict[str, Any], model_path: str = None) -> Dict[str, Any]:
     """Обрабатывает диалог с помощью системы памяти"""
     try:
-        from submit.model_inference_optimized import SubmitModelWithMemory
+        from submit.model_inference import SubmitModelWithMemory
         
         # Создаем систему с оптимизированной памятью
         system = SubmitModelWithMemory(model_path or "mock_model")
