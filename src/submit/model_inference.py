@@ -1,47 +1,60 @@
-from collections import defaultdict
-from dataclasses import asdict
 from typing import List
-
 from models import Message
 from submit_interface import ModelWithMemory
 
+from .smart_memory import SmartMemory, SmartMemoryConfig
+
 
 class SubmitModelWithMemory(ModelWithMemory):
+    """
+    Интеллектуальная система памяти с векторным поиском, извлечением фактов и сжатием
+    """
 
     def __init__(self, model_path: str) -> None:
-        self.basic_memory = defaultdict(list)
-        self.model_path = model_path
-        print(f"⚠️  ЗАГЛУШКА: Модель {model_path} не загружена, все ответы будут 'У меня нет такой информации'")
-
+        # Конфигурация умной памяти
+        config = SmartMemoryConfig()
+        config.use_vector_search = True
+        config.use_fact_extraction = True
+        config.use_compression = True
+        
+        # Создаем умную память
+        self.smart_memory = SmartMemory(model_path, config)
+        
+        # Временное хранилище для батчевой записи
+        self.pending_messages = {}
+    
     def write_to_memory(self, messages: List[Message], dialogue_id: str) -> None:
-        """Сохраняет сообщения в память (заглушка)"""
-        self.basic_memory[dialogue_id] += messages
-        print(f"📝 ЗАГЛУШКА: Сохранено {len(messages)} сообщений для диалога {dialogue_id}")
-
-    def extract(self, dialogue_id: str) -> List[Message]:
-        """Извлекает историю диалога (заглушка)"""
-        memory = self.basic_memory.get(dialogue_id, [])
-        memory = [asdict(msg) for msg in memory]
-        memory = "\n".join([f"{msg['role']}: {msg['content']}" for msg in memory])
-        system_memory_prompt = "Твоя задача - ответить на вопрос пользователя. Для этого тебе подается на вход твоя история общения с пользователем." \
-                               "Пользователь разрешил использовать ее для ответа на вопрос. Используй историю диалога, чтобы ответить на вопрос.\n" \
-                               f"История диалога: \n{memory}"
-
-        context_with_memory = [Message('system', system_memory_prompt)]
-
-        return context_with_memory
-
+        """Записывает сообщения в интеллектуальную память"""
+        
+        # Накапливаем сообщения для батчевой обработки
+        if dialogue_id not in self.pending_messages:
+            self.pending_messages[dialogue_id] = []
+        
+        self.pending_messages[dialogue_id].extend(messages)
+    
     def clear_memory(self, dialogue_id: str) -> None:
-        """Очищает память диалога (заглушка)"""
-        self.basic_memory[dialogue_id] = []
-        print(f"🗑️  ЗАГЛУШКА: Память диалога {dialogue_id} очищена")
-
+        """Очищает память диалога"""
+        
+        # Обрабатываем накопленные сообщения перед очисткой
+        if dialogue_id in self.pending_messages:
+            messages = self.pending_messages[dialogue_id]
+            if messages:
+                # Обрабатываем диалог полным циклом
+                stats = self.smart_memory.process_dialogue(dialogue_id, messages)
+                print(f"📊 Обработано: {stats['sessions_count']} сессий, "
+                      f"{stats['facts_extracted']} фактов, "
+                      f"сжатие {stats['compression_ratio']:.2f}")
+            
+            del self.pending_messages[dialogue_id]
+    
     def answer_to_question(self, dialogue_id: str, question: str) -> str:
-        """Отвечает на вопрос (заглушка - всегда возвращает 'У меня нет такой информации')"""
-        print(f"❓ ЗАГЛУШКА: Получен вопрос '{question}' для диалога {dialogue_id}")
-        return "У меня нет такой информации"
-
-    def _inference(self, messages: List[Message]) -> str:
-        """Инференс модели (заглушка)"""
-        print(f"🤖 ЗАГЛУШКА: Инференс с {len(messages)} сообщениями")
-        return "У меня нет такой информации"
+        """Отвечает на вопрос используя интеллектуальную систему"""
+        
+        # Сначала обрабатываем накопленные сообщения
+        if dialogue_id in self.pending_messages:
+            messages = self.pending_messages[dialogue_id]
+            if messages:
+                self.smart_memory.process_dialogue(dialogue_id, messages)
+        
+        # Отвечаем на вопрос
+        return self.smart_memory.answer_question(dialogue_id, question)
