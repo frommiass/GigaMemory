@@ -2,59 +2,91 @@ from typing import List
 from models import Message
 from submit_interface import ModelWithMemory
 
-from .smart_memory import SmartMemory, SmartMemoryConfig
+from .storage import MemoryStorage
+from .rag.engine import RAGEngine
+from .llm_inference import ModelInference
 
 
 class SubmitModelWithMemory(ModelWithMemory):
     """
-    Интеллектуальная система памяти с векторным поиском, извлечением фактов и сжатием
+    Система памяти с RAG для обработки вопросов пользователя
     """
 
     def __init__(self, model_path: str) -> None:
-        # Конфигурация умной памяти
-        config = SmartMemoryConfig()
-        config.use_vector_search = True
-        config.use_fact_extraction = True
-        config.use_compression = True
-        
-        # Создаем умную память
-        self.smart_memory = SmartMemory(model_path, config)
-        
-        # Временное хранилище для батчевой записи
-        self.pending_messages = {}
-    
+        self.storage = MemoryStorage()
+        self.model_inference = ModelInference(model_path)
+        self.rag_interface = RAGEngine()
+
     def write_to_memory(self, messages: List[Message], dialogue_id: str) -> None:
-        """Записывает сообщения в интеллектуальную память"""
+        """
+        Фильтрует, сохраняет и группирует личную информацию из сообщений
+        """
+        # Группируем сообщения по сессиям (используем существующую логику)
+        session_messages = {}
         
-        # Накапливаем сообщения для батчевой обработки
-        if dialogue_id not in self.pending_messages:
-            self.pending_messages[dialogue_id] = []
+        for msg in messages:
+            if msg.role == "user":
+                # Проверяем кэш для ускорения
+                cached_result = self.storage.check_cache(msg.content)
+                
+                if cached_result is None:
+                    from .core.message_filter import is_personal_message
+                    filter_result = is_personal_message(msg.content)
+                    self.storage.add_to_cache(msg.content, filter_result)
+                    cached_result = filter_result
+                
+                if cached_result:
+                    # Используем session_id из сообщения, если он есть
+                    session_id = msg.session_id if msg.session_id else str(self.storage.increment_session(dialogue_id))
+                    
+                    # Регистрируем сессию
+                    if msg.session_id:
+                        self.storage.register_session(dialogue_id, session_id)
+                    
+                    # Группируем по session_id
+                    if session_id not in session_messages:
+                        session_messages[session_id] = []
+                    
+                    session_messages[session_id].append(msg)
         
-        self.pending_messages[dialogue_id].extend(messages)
-    
+        # Сохраняем сообщения в память (БЕЗ предварительного склеивания)
+        processed_messages = []
+        for session_id, msgs in session_messages.items():
+            for msg in msgs:
+                processed_msg = Message(
+                    role=msg.role,
+                    content=msg.content,
+                    session_id=session_id
+                )
+                processed_messages.append(processed_msg)
+        
+        self.storage.add_to_memory(dialogue_id, processed_messages)
+
     def clear_memory(self, dialogue_id: str) -> None:
-        """Очищает память диалога"""
+        """
+        Очищает память диалога
+        """
+        self.storage.clear_dialogue_memory(dialogue_id)
         
-        # Обрабатываем накопленные сообщения перед очисткой
-        if dialogue_id in self.pending_messages:
-            messages = self.pending_messages[dialogue_id]
-            if messages:
-                # Обрабатываем диалог полным циклом
-                stats = self.smart_memory.process_dialogue(dialogue_id, messages)
-                print(f"📊 Обработано: {stats['sessions_count']} сессий, "
-                      f"{stats['facts_extracted']} фактов, "
-                      f"сжатие {stats['compression_ratio']:.2f}")
-            
-            del self.pending_messages[dialogue_id]
-    
+        if self.storage.get_cache_size() > 1000:
+            self.storage.clear_all_cache()
+
     def answer_to_question(self, dialogue_id: str, question: str) -> str:
-        """Отвечает на вопрос используя интеллектуальную систему"""
+        """
+        Генерирует ответ на вопрос используя RAG систему
+        """
+        # Получаем все сообщения из памяти
+        memory = self.storage.get_memory(dialogue_id)
         
-        # Сначала обрабатываем накопленные сообщения
-        if dialogue_id in self.pending_messages:
-            messages = self.pending_messages[dialogue_id]
-            if messages:
-                self.smart_memory.process_dialogue(dialogue_id, messages)
+        if not memory:
+            return "У меня нет информации для ответа на этот вопрос."
         
-        # Отвечаем на вопрос
-        return self.smart_memory.answer_question(dialogue_id, question)
+        # Используем RAG систему для генерации промпта
+        rag_prompt, metadata = self.rag_interface.process_question(question, dialogue_id, memory)
+        
+        # Создаем контекст для модели
+        context_with_memory = [Message('system', rag_prompt)]
+        
+        # Генерируем ответ через модель
+        answer = self.model_inference.inference(context_with_memory)
+        return answer
