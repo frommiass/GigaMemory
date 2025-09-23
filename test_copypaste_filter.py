@@ -125,3 +125,5 @@ if __name__ == "__main__":
     test_rag_with_copypaste()
     
     print("Тестирование завершено!")
+
+
