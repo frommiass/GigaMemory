@@ -1,0 +1,14 @@
+{
+  "dialogue_id": "test_100k",
+  "question": "Как меня зовут?",
+  "answer": "Вас зовут Александр Петров.",
+  "stats": {
+    "total_messages": 4308,
+    "filtered_messages": 4308,
+    "copypaste_filtered": 0,
+    "sessions_created": 1,
+    "facts_extracted": 1376,
+    "compression_ratio": 1.0
+  },
+  "total_messages": 4308
+}
