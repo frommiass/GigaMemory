@@ -1,0 +1,837 @@
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_1", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_1", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_1", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_1", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_1", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_1", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_1", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_1", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_1", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_1", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_2", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_2", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_2", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_3", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_3", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_3", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_3", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_3", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_4", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_4", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_4", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_4", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_4", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_5", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_5", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_5", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_5", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_5", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_5", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_5", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_5", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_6", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_6", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_6", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_6", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_6", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_6", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_7", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_7", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_7", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_7", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_7", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_7", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_7", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_7", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_8", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_8", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_8", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_9", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_9", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_9", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_9", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_9", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_9", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_10", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_10", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_10", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_10", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_11", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_11", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_11", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_12", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_12", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_12", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_12", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_12", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_12", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_13", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_13", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_13", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_13", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_14", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_14", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_14", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_15", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_15", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_15", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_15", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_15", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_15", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_15", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_16", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_16", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_16", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_16", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_16", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_16", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_16", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_16", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_17", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_17", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_17", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_17", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_17", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_17", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_18", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_18", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_18", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_18", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_18", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_18", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_18", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_18", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_19", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_19", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_19", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_19", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_20", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_20", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_20", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_20", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_21", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_21", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_21", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_21", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_22", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_22", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_22", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_22", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_22", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_22", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_23", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_23", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_23", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_23", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_23", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_24", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_24", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_24", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_24", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_24", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_25", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_25", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_25", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_25", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_25", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_25", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_26", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_26", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_26", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_26", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_27", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_27", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_27", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_27", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_27", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_28", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_28", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_28", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_28", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_28", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_29", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_29", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_29", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_30", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_30", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_30", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_30", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_31", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_31", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_31", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_31", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_31", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_32", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_32", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_32", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_32", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_33", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_33", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_33", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_33", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_33", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_33", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_33", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_34", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_34", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_34", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_34", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_35", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_35", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_35", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_35", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_35", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_35", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_36", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_36", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_36", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_36", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_36", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_36", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_36", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_37", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_37", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_37", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_38", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_38", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_38", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_39", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_39", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_39", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_39", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_39", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_39", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_39", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_40", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_40", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_40", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_40", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_41", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_41", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_41", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_41", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_41", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_41", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_42", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_43", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_43", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_44", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_44", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_44", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_44", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_44", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_45", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_45", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_45", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_45", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_45", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_46", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_46", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_46", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_46", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_47", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_47", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_48", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_48", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_48", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_48", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_48", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_49", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_49", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_49", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_49", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_50", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_50", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_50", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_50", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_50", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_50", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_50", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_50", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_51", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_51", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_51", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_52", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_52", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_52", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_52", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_52", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_52", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_52", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_53", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_53", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_53", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_53", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_53", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_53", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_53", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_54", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_55", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_55", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_55", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_55", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_56", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_56", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_56", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_56", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_56", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_56", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_57", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_57", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_57", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_57", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_58", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_58", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_58", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_58", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_58", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_58", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_59", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_59", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_59", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_59", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_59", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_59", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_59", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_60", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_60", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_60", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_60", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_60", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_60", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_61", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_61", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_61", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_61", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_61", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_62", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_62", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_62", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_62", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_62", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_63", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_63", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_63", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_63", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_63", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_64", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_64", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_64", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_64", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_65", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_65", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_65", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_65", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_66", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_66", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_66", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_66", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_66", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_66", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_67", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_67", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_67", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_67", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_68", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_68", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_68", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_68", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_69", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_69", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_69", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_70", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_70", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_70", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_70", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_70", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_70", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_71", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_71", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_71", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_71", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_71", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_72", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_72", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_72", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_73", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_73", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_73", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_74", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_74", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_74", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_74", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_74", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_75", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_75", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_76", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_76", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_76", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_77", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_77", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_77", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_77", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_77", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_78", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_78", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_78", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_79", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_79", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_79", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_79", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_79", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_79", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_80", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_80", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_80", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_80", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_80", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_80", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_80", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_81", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_81", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_81", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_81", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_81", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_81", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_81", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_81", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_81", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_82", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_82", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_83", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_83", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_83", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_83", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_84", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_84", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_84", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_84", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_85", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_85", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_85", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_85", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_85", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_86", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_86", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_86", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_86", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_86", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_86", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_86", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_87", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_87", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_87", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_88", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_88", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_88", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_88", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_89", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_89", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_89", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_89", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_89", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_90", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_90", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_90", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_90", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_90", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_91", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_91", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_91", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_91", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_91", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_91", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_92", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_92", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_92", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_93", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_93", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_93", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_93", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_93", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_93", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_94", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_94", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_94", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_94", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_94", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_94", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_94", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_95", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_95", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_95", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_95", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_95", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_95", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_96", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_96", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_96", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_96", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_96", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_97", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_97", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_97", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_97", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_97", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_98", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_98", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_98", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_98", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_98", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_99", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_99", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_99", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_99", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_99", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_100", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_100", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_100", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_100", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_101", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_101", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_101", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_101", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_101", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_101", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_102", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_102", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_102", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_102", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_102", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_102", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_102", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_102", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_103", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_103", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_103", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_103", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_103", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_103", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_104", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_104", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_104", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_104", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_104", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_105", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_105", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_105", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_105", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_105", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_106", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_106", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_106", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_106", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_106", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_106", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_106", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_107", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_107", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_107", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_107", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_108", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_108", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_108", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_108", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_108", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_109", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_109", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_109", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_109", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_109", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_110", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_110", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_111", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_111", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_111", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_111", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_111", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_111", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_112", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_112", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_112", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_112", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_112", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_113", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_113", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_113", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_113", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_114", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_114", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_114", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_114", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_114", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_114", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_115", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_115", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_116", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_116", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_116", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_116", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_117", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_117", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_117", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_117", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_117", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_117", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_118", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_118", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_118", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_119", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_119", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_119", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_119", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_119", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_120", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_120", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_120", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_120", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_120", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_120", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_120", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_121", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_121", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_122", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_122", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_122", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_123", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_123", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_123", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_123", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_123", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_123", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_123", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_123", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_124", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_124", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_124", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_125", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_125", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_125", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_126", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_126", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_126", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_127", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_127", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_127", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_127", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_127", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_128", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_128", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_128", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_128", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_128", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_129", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_129", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_129", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_129", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_129", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_129", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_129", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_129", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_129", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_129", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_130", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_130", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_130", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_130", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_131", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_131", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_131", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_131", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_131", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_132", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_132", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_132", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_133", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_133", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_133", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_133", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_134", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_134", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_134", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_134", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_134", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_135", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_135", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_135", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_135", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_135", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_135", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_135", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_135", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_135", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_135", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_136", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_136", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_136", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_136", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_136", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_136", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_136", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_137", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_137", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_137", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_137", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_137", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_137", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_137", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_138", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_138", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_138", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_138", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_139", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_139", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_139", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_139", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_139", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_140", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_140", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_140", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_140", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_141", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_141", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_141", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_141", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_141", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_142", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_142", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_142", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_142", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_142", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_142", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_143", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_143", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_143", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_143", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_143", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_144", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_144", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_144", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_144", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_144", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_144", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_144", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_145", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_145", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_145", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_145", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_145", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_145", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_146", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_146", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_146", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_147", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_147", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_147", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_147", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_148", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_148", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_148", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_149", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_149", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_149", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_149", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_149", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_150", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_150", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_150", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_150", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_150", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_151", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_151", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_151", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_151", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_152", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_152", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_152", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_152", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_152", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_152", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_153", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_153", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_153", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_153", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_153", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_153", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_154", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_154", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_154", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_154", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_155", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_155", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_156", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_156", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_156", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_156", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_157", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_157", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_157", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_157", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_157", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_158", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_158", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_158", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_158", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_159", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_159", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_159", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_159", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_159", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_160", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_160", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_160", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_160", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_160", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_161", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_162", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_162", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_162", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_162", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_162", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_163", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_163", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_163", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_164", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_164", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_164", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_164", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_164", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_164", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_165", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_165", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_165", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_165", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_165", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_166", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_166", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_166", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_166", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_166", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_166", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_167", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_167", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_167", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_167", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_167", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_168", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_168", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_168", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_168", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_169", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_169", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_169", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_169", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_169", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_169", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_169", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_170", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_170", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_170", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_171", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_171", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_171", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_172", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "александр", "confidence": 0.9, "session_id": "session_172", "dialogue_id": "test_100k"}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "35 лет", "confidence": 0.9, "session_id": "session_172", "dialogue_id": "test_100k"}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "елена", "confidence": 0.9, "session_id": "session_172", "dialogue_id": "test_100k"}
+{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.9, "session_id": "session_173", "dialogue_id": "test_100k"}

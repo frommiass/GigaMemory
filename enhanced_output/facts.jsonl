@@ -1,0 +1,4 @@
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "петра", "confidence": 0.9, "session_id": 1, "dialogue_id": 1}
+{"type": "personal_age", "subject": "пользователь", "relation": "is", "object": "50 лет", "confidence": 0.9, "session_id": 6, "dialogue_id": 1}
+{"type": "sport_type", "subject": "пользователь", "relation": "has", "object": "не носит спортивные костюмы", "confidence": 0.8, "session_id": 33, "dialogue_id": 1}
+{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "лилия", "confidence": 0.9, "session_id": 2, "dialogue_id": 2}

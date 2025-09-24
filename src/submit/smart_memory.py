@@ -11,6 +11,7 @@ from submit_interface import ModelWithMemory
 
 from .llm_inference import ModelInference
 from .rag.compressed_rag_engine import CompressedRAGEngine, CompressedRAGConfig
+from .rag.fact_based_rag import FactBasedRAGEngine
 from .extraction import FactDatabase, SmartFactExtractor
 from .compression import CompressionLevel, CompressionMethod
 
@@ -35,6 +36,7 @@ class SmartMemoryConfig:
     
     # Интеграция
     use_hybrid_search: bool = True
+    use_fact_based_rag: bool = True  # Использовать факт-ориентированный RAG
     max_context_length: int = 2000
 
 
@@ -79,6 +81,12 @@ class SmartMemory:
         else:
             self.fact_extractor = None
             self.fact_database = None
+        
+        # Факт-ориентированный RAG движок
+        if self.config.use_fact_based_rag and self.fact_database:
+            self.fact_rag_engine = FactBasedRAGEngine(self.fact_database)
+        else:
+            self.fact_rag_engine = None
         
         # Статистика
         self.stats = {
@@ -177,6 +185,24 @@ class SmartMemory:
             if not memory_data:
                 return "У меня нет информации для ответа на этот вопрос."
             
+            # Используем факт-ориентированный RAG если доступен
+            if self.config.use_fact_based_rag and self.fact_rag_engine:
+                prompt, metadata = self.fact_rag_engine.process_question(question, dialogue_id)
+                
+                # Логируем для отладки
+                logger.info(f"Вопрос: {question}")
+                logger.info(f"Определен тип: {metadata.get('fact_type')}")
+                logger.info(f"Найдено фактов: {metadata.get('facts_found')}")
+                
+                # Если фактов нет, возвращаем готовый ответ
+                if metadata['strategy'] == 'no_info':
+                    return prompt
+                else:
+                    # Иначе используем модель
+                    context_message = Message('system', prompt)
+                    return self.model.inference([context_message])
+            
+            # Fallback к старому подходу
             # 1. Получаем релевантные факты
             facts_context = ""
             if self.config.use_fact_extraction and self.fact_database:
