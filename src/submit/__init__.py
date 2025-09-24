@@ -8,13 +8,11 @@ __author__ = "GigaMemory Team"
 
 from .model_inference import SubmitModelWithMemory
 from .smart_memory import SmartMemory, SmartMemoryConfig
-from .smart_memory_optimized import OptimizedSmartMemory
 
 __all__ = [
     'SubmitModelWithMemory',
     'SmartMemory',
-    'SmartMemoryConfig', 
-    'OptimizedSmartMemory'
+    'SmartMemoryConfig'
 ]
 
 # Конфигурация логирования

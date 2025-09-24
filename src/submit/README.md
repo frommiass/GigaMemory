@@ -6,7 +6,7 @@
 
 ```
 src/submit/
-├── smart_memory_optimized.py    # 🧠 Главный оптимизированный класс
+├── smart_memory.py             # 🧠 Главный класс интеллектуальной памяти
 ├── config.yaml                  # ⚙️ Конфигурация системы
 ├── config_loader.py             # 📋 Загрузчик конфигурации
 │
@@ -34,7 +34,7 @@ src/submit/
 
 ## 🚀 Основные компоненты
 
-### 1. **OptimizedSmartMemory** - Главный класс
+### 1. **SmartMemory** - Главный класс
 - Полная интеграция всех компонентов
 - Кэширование и батчевая обработка
 - Автоматическое сохранение состояния
@@ -104,10 +104,10 @@ cache:
 ### Базовое использование:
 
 ```python
-from submit.smart_memory_optimized import OptimizedSmartMemory
+from submit.smart_memory import SmartMemory, SmartMemoryConfig
 
 # Создание системы
-memory = OptimizedSmartMemory()
+memory = SmartMemory("model_path")
 
 # Обработка диалога
 stats = memory.process_dialogue_optimized("dialogue_1", messages)
@@ -127,7 +127,7 @@ from submit.config_loader import config_manager
 config = config_manager.load_config("custom_config.yaml")
 
 # Создание с конфигурацией
-memory = OptimizedSmartMemory(config.model_path)
+memory = SmartMemory(config.model_path)
 ```
 
 ### Мониторинг системы:
