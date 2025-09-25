@@ -1,14 +1,14 @@
 # src/submit/bootstrap.py
 
-from core.container import container
-from core.interfaces import *
-from core.orchestrator import MemoryOrchestrator
-from modules.storage.module import StorageModule
-from modules.embeddings.module import EmbeddingsModule
-from modules.extraction.module import ExtractionModule
-from modules.compression.module import CompressionModule
-from modules.rag.module import RAGModule
-from llm_inference import ModelInference
+from .core.container import container
+from .core.interfaces import *
+from .core.orchestrator import MemoryOrchestrator
+from .modules.storage.module import StorageModule
+from .modules.embeddings.module import EmbeddingsModule
+from .modules.extraction.module import ExtractionModule
+from .modules.compression.module import CompressionModule
+from .modules.rag.module import RAGModule
+from .llm_inference import ModelInference
 import yaml
 
 def bootstrap_system(config_path: str = None):

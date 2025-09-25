@@ -3,7 +3,7 @@
 from typing import List
 from models import Message
 from submit_interface import ModelWithMemory
-from bootstrap import bootstrap_system
+from .bootstrap import bootstrap_system
 
 class SubmitModelWithMemory(ModelWithMemory):
     """Реализация для соревнования"""
@@ -37,9 +37,9 @@ class SubmitModelWithMemory(ModelWithMemory):
 
 def bootstrap_system_with_config(config: dict):
     """Вспомогательная функция для инициализации"""
-    from core.container import container
-    from core.interfaces import *
-    from core.orchestrator import MemoryOrchestrator
+    from .core.container import container
+    from .core.interfaces import IStorage, IExtractor, ILLM, ProcessingResult
+    from .core.orchestrator import MemoryOrchestrator
     
     # ... регистрация модулей ...
     

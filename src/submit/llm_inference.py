@@ -4,7 +4,21 @@
 from dataclasses import asdict
 from typing import List
 from transformers import AutoTokenizer
-from vllm import LLM, SamplingParams
+try:
+    from vllm import LLM, SamplingParams
+    VLLM_AVAILABLE = True
+except ImportError:
+    VLLM_AVAILABLE = False
+    # Заглушки для случая отсутствия vllm
+    class LLM:
+        def __init__(self, *args, **kwargs):
+            pass
+        def generate(self, *args, **kwargs):
+            return [type('Output', (), {'outputs': [type('Output', (), {'text': 'Заглушка ответа'})]})()]
+    
+    class SamplingParams:
+        def __init__(self, *args, **kwargs):
+            pass
 from models import Message
 
 
@@ -24,16 +38,20 @@ class ModelInference:
                 self.model_path, 
                 trust_remote_code=True
             )
-            self.model = LLM(
-                model=self.model_path, 
-                trust_remote_code=True
-            )
-            self.sampling_params = SamplingParams(
-                temperature=0.0, 
-                max_tokens=100, 
-                seed=42, 
-                truncate_prompt_tokens=131072
-            )
+            if VLLM_AVAILABLE:
+                self.model = LLM(
+                    model=self.model_path, 
+                    trust_remote_code=True
+                )
+                self.sampling_params = SamplingParams(
+                    temperature=0.0, 
+                    max_tokens=100, 
+                    seed=42, 
+                    truncate_prompt_tokens=131072
+                )
+            else:
+                self.model = LLM()
+                self.sampling_params = SamplingParams()
         except Exception as e:
             raise RuntimeError(f"Ошибка загрузки модели {self.model_path}: {str(e)}")
     

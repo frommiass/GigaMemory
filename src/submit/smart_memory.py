@@ -10,10 +10,11 @@ from models import Message
 from submit_interface import ModelWithMemory
 
 from .llm_inference import ModelInference
-from .rag.compressed_rag_engine import CompressedRAGEngine, CompressedRAGConfig
-from .rag.fact_based_rag import FactBasedRAGEngine
-from .extraction import FactDatabase, SmartFactExtractor
-from .compression import CompressionLevel, CompressionMethod
+from .modules.rag.compressed_rag_engine import CompressedRAGEngine, CompressedRAGConfig
+from .modules.rag.fact_based_rag import FactBasedRAGEngine
+from .modules.extraction.fact_database import FactDatabase
+from .modules.extraction.fact_extractor import SmartFactExtractor
+from .modules.compression.compression_models import CompressionLevel, CompressionMethod
 
 logger = logging.getLogger(__name__)
 
@@ -121,7 +122,7 @@ class SmartMemory:
         }
         
         # 1. Группируем по сессиям
-        from .filters.session_grouper import SessionGrouper
+        from .modules.storage.filters.session_grouper import SessionGrouper
         grouper = SessionGrouper()
         sessions = grouper.group_messages_by_sessions(messages, dialogue_id)
         stats['sessions_count'] = len(sessions)
@@ -130,7 +131,7 @@ class SmartMemory:
         if self.config.use_fact_extraction and self.fact_extractor:
             all_facts = []
             for session_id, session_messages in sessions.items():
-                from .filters.session_grouper import extract_session_content
+                from .modules.storage.filters.session_grouper import extract_session_content
                 session_text = extract_session_content(session_messages)
                 
                 if session_text:
