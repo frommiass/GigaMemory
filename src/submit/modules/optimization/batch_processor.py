@@ -25,6 +25,21 @@ class BatchTask:
     def __post_init__(self):
         if self.created_at is None:
             self.created_at = datetime.now()
+    
+    def __lt__(self, other):
+        """Сравнение для сортировки по приоритету"""
+        if self.priority != other.priority:
+            return self.priority > other.priority  # Высокий приоритет первым
+        return self.created_at < other.created_at  # Старые задачи первыми
+    
+    def __le__(self, other):
+        return self < other or self == other
+    
+    def __gt__(self, other):
+        return not self <= other
+    
+    def __ge__(self, other):
+        return not self < other
 
 
 class BatchProcessor:

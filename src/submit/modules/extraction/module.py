@@ -177,12 +177,17 @@ class ExtractionModule(IFactExtractor):
                         metadata={'from_cache': True, 'cache_key': cache_key[:8]}
                     )
             
-            # АВТОНОМНОЕ ИЗВЛЕЧЕНИЕ ФАКТОВ
-            facts = self.extractor.extract_facts_from_text(
-                text=text,
-                session_id=session_id,
-                dialogue_id=dialogue_id
-            )
+            # АВТОНОМНОЕ ИЗВЛЕЧЕНИЕ ФАКТОВ с защитой от ошибок
+            try:
+                facts = self.extractor.extract_facts_from_text(
+                    text=text,
+                    session_id=session_id,
+                    dialogue_id=dialogue_id
+                )
+            except Exception as extract_error:
+                # Если извлечение упало, логируем но продолжаем работу
+                logger.warning(f"Extractor failed, returning empty: {extract_error}")
+                facts = []
             
             # Постобработка - улучшение качества фактов
             if facts:
@@ -196,9 +201,14 @@ class ExtractionModule(IFactExtractor):
             # Обновляем внутреннюю статистику
             self.stats['total_extracted'] += len(facts)
             for fact in facts:
-                fact_type = fact.type.value
-                self.stats['facts_by_type'][fact_type] = \
-                    self.stats['facts_by_type'].get(fact_type, 0) + 1
+                # Безопасное получение значения типа
+                if hasattr(fact.type, 'value'):
+                    fact_type_str = fact.type.value
+                else:
+                    fact_type_str = str(fact.type)
+                
+                self.stats['facts_by_type'][fact_type_str] = \
+                    self.stats['facts_by_type'].get(fact_type_str, 0) + 1
             
             # Кэшируем результат
             if self.optimizer and facts:
@@ -221,7 +231,10 @@ class ExtractionModule(IFactExtractor):
             )
             
         except Exception as e:
-            logger.error(f"Extraction failed: {e}")
+            # Более информативная обработка ошибок
+            import traceback
+            error_details = traceback.format_exc()
+            logger.error(f"Extraction failed: {str(e)}\nDetails: {error_details}")
             return ProcessingResult(
                 success=False,
                 data=[],

@@ -20,7 +20,10 @@ def test_module_autonomy():
     print("=" * 60)
     
     # Импортируем ТОЛЬКО модуль извлечения
-    from modules.extraction.module import ExtractionModule
+    import sys
+    import os
+    sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..'))
+    from src.submit.modules.extraction.module import ExtractionModule
     
     print("\n✅ Шаг 1: Создание модуля БЕЗ зависимостей")
     

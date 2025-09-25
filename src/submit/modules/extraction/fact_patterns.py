@@ -659,7 +659,7 @@ def get_relation_for_type(fact_type: FactType) -> FactRelation:
         FactType.PET_BREED: FactRelation.OWNS,
         
         # Хобби
-        FactType.HOBBY_SPORT: FactRelation.DOES,
+        FactType.HOBBY_ACTIVITY: FactRelation.DOES,
         FactType.HOBBY_ACTIVITY: FactRelation.DOES,
         FactType.HOBBY_GAMING: FactRelation.PLAYS,
         FactType.HOBBY_READING: FactRelation.READS,

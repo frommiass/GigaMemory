@@ -209,7 +209,6 @@ class OptimizationModule(IOptimizer):
     """Расширенный модуль оптимизации с многоуровневым кэшированием"""
     
     def __init__(self, config: Dict[str, Any]):
-        super().__init__(config)
         self.config = config
         
         # Многоуровневое кэширование

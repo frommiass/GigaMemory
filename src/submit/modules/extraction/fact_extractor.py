@@ -88,23 +88,25 @@ class RuleBasedFactExtractor(FactExtractor):
         }
     
     def extract_facts_from_text(self, text: str, session_id: str, dialogue_id: str) -> List[Fact]:
-        """Извлекает факты используя паттерны - АВТОНОМНО"""
+        """Извлекает факты используя паттерны - БЕЗОПАСНАЯ ВЕРСИЯ"""
         facts = []
         
         # Сначала извлекаем критические факты
         critical_facts = self._extract_critical_facts(text, session_id, dialogue_id)
         facts.extend(critical_facts)
         
-        # Затем все остальные
+        # Затем все остальные с обработкой ошибок
         for fact_type, patterns in FACT_PATTERNS.items():
-            # Пропускаем уже извлеченные критические типы
-            if fact_type in [FactType.PERSONAL_NAME, FactType.PERSONAL_AGE, FactType.FAMILY_STATUS]:
-                continue
-            
+            try:
+                # Пропускаем уже извлеченные критические типы
+                if fact_type in [FactType.PERSONAL_NAME, FactType.PERSONAL_AGE, FactType.FAMILY_STATUS]:
+                    continue
+                
             # Извлекаем все значения по паттернам
             values = extract_all_with_patterns(text, patterns)
             
             for i, value in enumerate(values):
+                    try:
                 # Нормализуем значение
                 normalized_value = normalize_value(value, fact_type)
                 
@@ -112,14 +114,20 @@ class RuleBasedFactExtractor(FactExtractor):
                 confidence_score = confidence_from_pattern_match(i, len(patterns))
                 
                 if confidence_score >= self.min_confidence:
-                    # Определяем отношение
+                            # Определяем отношение
                     relation = get_relation_for_type(fact_type)
                     
+                            # Безопасное получение значения relation
+                            if isinstance(relation, FactRelation):
+                                relation_value = relation.value
+                            else:
+                                relation_value = str(relation)
+                            
                     # Создаем факт
                     fact = Fact(
                         type=fact_type,
                         subject="пользователь",
-                        relation=relation.value if isinstance(relation, FactRelation) else relation,
+                                relation=relation_value,
                         object=normalized_value,
                         confidence=FactConfidence(
                             score=confidence_score,
@@ -127,21 +135,35 @@ class RuleBasedFactExtractor(FactExtractor):
                         ),
                         session_id=session_id,
                         dialogue_id=dialogue_id,
-                        raw_text=text[:200]  # Сохраняем фрагмент для контекста
+                                raw_text=text[:200]  # Сохраняем фрагмент для контекста
                     )
                     
                     facts.append(fact)
                     self.stats.total_extracted += 1
-                    self.stats.patterns_matched += 1
-                    self.stats.facts_by_type[fact_type.value] = \
-                        self.stats.facts_by_type.get(fact_type.value, 0) + 1
+                            self.stats.patterns_matched += 1
+                            
+                            # Безопасное обновление статистики
+                            fact_type_str = fact_type.value if hasattr(fact_type, 'value') else str(fact_type)
+                            self.stats.facts_by_type[fact_type_str] = \
+                                self.stats.facts_by_type.get(fact_type_str, 0) + 1
+                                
+                    except Exception as e:
+                        logger.debug(f"Failed to process value {value} for type {fact_type}: {e}")
+                        continue
+                        
+            except Exception as e:
+                logger.warning(f"Failed to process fact type {fact_type}: {e}")
+                continue
         
         self.stats.rules_used += 1
         
         # Детектируем временной контекст для фактов
-        temporal_context = detect_temporal_context(text)
-        if temporal_context and temporal_context != 'current':
-            facts = self._apply_temporal_context(facts, temporal_context)
+        try:
+            temporal_context = detect_temporal_context(text)
+            if temporal_context and temporal_context != 'current':
+                facts = self._apply_temporal_context(facts, temporal_context)
+        except Exception as e:
+            logger.debug(f"Temporal context detection failed: {e}")
         
         return facts
     
@@ -240,9 +262,9 @@ class SmartFactExtractor(FactExtractor):
         all_facts = []
         
         # Используем правила
-        rule_facts = self.rule_extractor.extract_facts_from_text(text, session_id, dialogue_id)
-        all_facts.extend(rule_facts)
-        self.stats.rules_used += 1
+            rule_facts = self.rule_extractor.extract_facts_from_text(text, session_id, dialogue_id)
+            all_facts.extend(rule_facts)
+            self.stats.rules_used += 1
         
         # Дополнительная логика для сложных паттернов
         complex_facts = self._extract_complex_patterns(text, session_id, dialogue_id)
