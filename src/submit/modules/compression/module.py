@@ -1,108 +1,162 @@
 # modules/compression/module.py
-
-from typing import Dict, Any
-from ...core.interfaces import ICompressor, ProcessingResult
-
-from .compression_models import CompressionConfig, CompressionLevel, CompressionMethod
-from .semantic_compressor import SemanticCompressor, HybridCompressor
-from .hierarchical_compressor import HierarchicalCompressor
-
+from core.interfaces import ICompressor, ProcessingResult
+from typing import Dict, Any, List
 
 class CompressionModule(ICompressor):
-    """Модуль семантического сжатия"""
-    
     def __init__(self, config: Dict[str, Any]):
         self.config = config
         
-        # Создаем конфигурацию сжатия
-        comp_config = CompressionConfig(
-            level=CompressionLevel(config.get('level', 'moderate')),
-            method=CompressionMethod(config.get('method', 'hybrid')),
-            target_ratio=config.get('target_ratio', 0.3),
-            use_cache=config.get('use_cache', True)
-        )
+        from .compressor import SemanticCompressor, HierarchicalCompressor
+        from .strategies import CompressionStrategy
         
-        # Выбираем компрессор
-        if config.get('use_hierarchical', False):
-            self.compressor = HierarchicalCompressor(comp_config)
-        elif config.get('method') == 'hybrid':
-            self.compressor = HybridCompressor(comp_config)
-        else:
-            self.compressor = SemanticCompressor(comp_config)
+        self.semantic = SemanticCompressor(config)
+        self.hierarchical = HierarchicalCompressor(config)
+        self.strategy = CompressionStrategy(config.get('method', 'hybrid'))
         
-        self.stats = self.compressor.stats
+        self.optimizer = None
+        self.stats = {
+            'total_compressed': 0,
+            'total_saved_chars': 0,
+            'compression_time': 0
+        }
+    
+    def set_optimizer(self, optimizer):
+        """Устанавливает оптимизатор"""
+        self.optimizer = optimizer
+        if optimizer:
+            optimizer.optimize_for_text()  # Включаем оптимизацию для текста
     
     def compress_text(self, text: str, level: str = "moderate") -> ProcessingResult:
         """Сжимает текст"""
         try:
-            compression_level = CompressionLevel(level)
-            result = self.compressor.compress(text, level=compression_level)
+            # Кэшируем результаты сжатия
+            if self.optimizer:
+                cache_key = f"compress_{hash(text)}_{level}"
+                cached = self.optimizer.cache_get(cache_key)
+                if cached:
+                    return ProcessingResult(
+                        success=True,
+                        data=cached,
+                        metadata={'from_cache': True, 'level': level}
+                    )
+            
+            # Выбираем метод сжатия
+            if level == "light":
+                compressed = self.semantic.compress_light(text)
+            elif level == "heavy":
+                compressed = self.hierarchical.compress_heavy(text)
+            else:
+                compressed = self.strategy.compress_adaptive(text)
+            
+            # Обновляем статистику
+            self.stats['total_compressed'] += 1
+            self.stats['total_saved_chars'] += len(text) - len(compressed)
+            
+            # Кэшируем
+            if self.optimizer:
+                self.optimizer.cache_put(cache_key, compressed, ttl=7200)
             
             return ProcessingResult(
                 success=True,
-                data=result.compressed_text,
+                data=compressed,
                 metadata={
-                    'original_length': result.original_length,
-                    'compressed_length': result.compressed_length,
-                    'compression_ratio': result.compression_ratio,
-                    'method': result.method_used.value
+                    'original_length': len(text),
+                    'compressed_length': len(compressed),
+                    'ratio': len(compressed) / len(text) if text else 0
                 }
             )
         except Exception as e:
             return ProcessingResult(
                 success=False,
-                data=text,  # Возвращаем оригинал при ошибке
-                metadata={},
+                data=text,
                 error=str(e)
             )
     
     def compress_sessions(self, sessions: Dict[str, str]) -> ProcessingResult:
         """Сжимает множество сессий"""
         try:
-            compressed_sessions = {}
+            compressed = {}
             total_original = 0
             total_compressed = 0
             
-            for session_id, text in sessions.items():
-                result = self.compressor.compress(text)
-                compressed_sessions[session_id] = result.compressed_text
-                total_original += result.original_length
-                total_compressed += result.compressed_length
-            
-            ratio = total_compressed / total_original if total_original > 0 else 1.0
+            # Батчевая обработка если есть оптимизатор
+            if self.optimizer and len(sessions) > 5:
+                tasks = [
+                    {'id': sid, 'text': text, 'priority': len(text)}
+                    for sid, text in sessions.items()
+                ]
+                
+                batch_result = self.optimizer.batch_process_priority(
+                    tasks,
+                    lambda t: self.compress_text(t['text']).data
+                )
+                
+                if batch_result.success:
+                    for i, (sid, _) in enumerate(sessions.items()):
+                        compressed[sid] = batch_result.data[i]
+                        total_original += len(sessions[sid])
+                        total_compressed += len(batch_result.data[i])
+            else:
+                # Обычное сжатие
+                for sid, text in sessions.items():
+                    result = self.compress_text(text)
+                    compressed[sid] = result.data
+                    total_original += len(text)
+                    total_compressed += len(result.data)
             
             return ProcessingResult(
                 success=True,
-                data=compressed_sessions,
+                data=compressed,
                 metadata={
                     'sessions_count': len(sessions),
-                    'total_original': total_original,
-                    'total_compressed': total_compressed,
-                    'ratio': ratio
+                    'total_ratio': total_compressed / total_original if total_original > 0 else 0
                 }
             )
         except Exception as e:
             return ProcessingResult(
                 success=False,
-                data=sessions,  # Возвращаем оригинал при ошибке
-                metadata={},
+                data=sessions,
                 error=str(e)
             )
     
     def get_compression_stats(self) -> ProcessingResult:
         """Получает статистику сжатия"""
-        try:
-            stats = self.stats.to_dict()
+        return ProcessingResult(
+            success=True,
+            data=self.stats.copy(),
+            metadata={'timestamp': __import__('datetime').datetime.now().isoformat()}
+        )
+    
+    # Дополнительный метод для RAG
+    def compress_for_context(self, text: str, max_length: int, preserve_keywords: List[str] = None) -> str:
+        """Специальное сжатие для контекста вопроса"""
+        if len(text) <= max_length:
+            return text
+        
+        if preserve_keywords:
+            # Сохраняем предложения с ключевыми словами
+            sentences = text.split('. ')
+            important = []
+            other = []
             
-            return ProcessingResult(
-                success=True,
-                data=stats,
-                metadata={}
-            )
-        except Exception as e:
-            return ProcessingResult(
-                success=False,
-                data={},
-                metadata={},
-                error=str(e)
-            )
+            for sent in sentences:
+                if any(kw.lower() in sent.lower() for kw in preserve_keywords):
+                    important.append(sent)
+                else:
+                    other.append(sent)
+            
+            # Собираем результат
+            result = '. '.join(important)
+            remaining_space = max_length - len(result)
+            
+            if remaining_space > 100:
+                for sent in other:
+                    if len(result) + len(sent) + 2 < max_length:
+                        result += '. ' + sent
+                    else:
+                        break
+            
+            return result[:max_length]
+        else:
+            # Адаптивное сжатие
+            return self.strategy.compress_to_length(text, max_length)

@@ -95,7 +95,7 @@ class RuleBasedFactExtractor(FactExtractor):
                     fact = Fact(
                         type=fact_type,
                         subject="пользователь",
-                        relation=relation,
+                        relation=relation.value,  # Преобразуем enum в строку
                         object=normalized_value,
                         confidence=FactConfidence(
                             score=confidence_score,
@@ -134,10 +134,11 @@ class SmartFactExtractor(FactExtractor):
             all_facts.extend(rule_facts)
             self.stats.rules_used += 1
         
-        # Затем используем LLM
-        llm_facts = self._extract_with_llm(text, session_id, dialogue_id)
-        all_facts.extend(llm_facts)
-        self.stats.llm_used += 1
+        # Затем используем LLM (если доступен)
+        if self.model_inference:
+            llm_facts = self._extract_with_llm(text, session_id, dialogue_id)
+            all_facts.extend(llm_facts)
+            self.stats.llm_used += 1
         
         # Обновляем статистику
         self.stats.total_extracted += len(all_facts)
@@ -150,6 +151,10 @@ class SmartFactExtractor(FactExtractor):
     def _extract_with_llm(self, text: str, session_id: str, dialogue_id: str) -> List[Fact]:
         """Извлекает факты используя LLM"""
         try:
+            # Если модель не доступна, возвращаем пустой список
+            if not self.model_inference:
+                return []
+            
             # Создаем промпт для извлечения фактов
             prompt = self._create_extraction_prompt(text)
             

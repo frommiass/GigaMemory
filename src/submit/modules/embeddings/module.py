@@ -1,134 +1,210 @@
 # modules/embeddings/module.py
-
-from typing import List, Dict, Any
+from core.interfaces import IEmbeddingEngine, ProcessingResult
+from typing import Dict, Any, List, Optional
 import numpy as np
-from models import Message
-from ...core.interfaces import IEmbeddingEngine, ProcessingResult
-
-# from .improved_vector_search import ImprovedEmbeddingEngine, EmbeddingConfig  # Убираем несуществующий модуль
-# from .improved_vector_store import ImprovedVectorStore  # Убираем несуществующий модуль
-
+import hashlib
 
 class EmbeddingsModule(IEmbeddingEngine):
-    """Модуль векторного поиска и эмбеддингов"""
-    
     def __init__(self, config: Dict[str, Any]):
         self.config = config
+        self.model_name = config.get('model_name', 'cointegrated/rubert-tiny2')
         
-        # Создаем конфигурацию
-        # emb_config = EmbeddingConfig(
-        #     model_name=config.get('model_name', 'cointegrated/rubert-tiny2'),
-        #     device=config.get('device', 'cuda'),
-        #     batch_size=config.get('batch_size', 32),
-        #     use_cache=config.get('use_cache', True)
-        # )
+        # Импортируем только при необходимости
+        from .embedding_engine import EmbeddingEngine
+        from .vector_store import VectorStore
         
-        # Инициализируем компоненты
-        # self.engine = ImprovedEmbeddingEngine(emb_config)  # Убираем из-за отсутствующего модуля
-        self.stores = {}  # dialogue_id -> dict (заглушка)
+        self.engine = EmbeddingEngine(self.model_name, config.get('device', 'cuda'))
+        self.vector_store = VectorStore(
+            metric=config.get('metric', 'cosine'),
+            index_type=config.get('index_type', 'flat')
+        )
+        
+        # Оптимизатор будет установлен позже через set_optimizer
+        self.optimizer = None
+        
+    def set_optimizer(self, optimizer):
+        """ВАЖНО: Устанавливает оптимизатор для кэширования"""
+        self.optimizer = optimizer
+        if optimizer:
+            # Включаем оптимизацию для эмбеддингов
+            optimizer.optimize_for_embeddings()
     
     def encode_texts(self, texts: List[str]) -> ProcessingResult:
-        """Создает эмбеддинги для текстов"""
+        """Кодирует тексты в векторы с кэшированием"""
         try:
-            # embeddings = self.engine.encode(texts)  # Убираем из-за отсутствующего модуля
-            embeddings = np.random.rand(len(texts), 384)  # Заглушка
+            # Создаем ключ кэша из первых 3 текстов
+            if self.optimizer and texts:
+                cache_key = self._create_cache_key('encode', texts[:3])
+                cached = self.optimizer.cache_get(cache_key)
+                if cached:
+                    return ProcessingResult(
+                        success=True,
+                        data=cached,
+                        metadata={'from_cache': True, 'count': len(cached)}
+                    )
+            
+            # Батчевая обработка через оптимизатор если доступен
+            if self.optimizer and len(texts) > 10:
+                tasks = [{'text': text, 'idx': i} for i, text in enumerate(texts)]
+                batch_result = self.optimizer.batch_process(
+                    tasks,
+                    lambda task: self.engine.encode_single(task['text'])
+                )
+                if batch_result.success:
+                    vectors = batch_result.data
+                else:
+                    vectors = self.engine.encode_batch(texts)
+            else:
+                vectors = self.engine.encode_batch(texts)
+            
+            # Кэшируем результат
+            if self.optimizer and vectors:
+                self.optimizer.cache_put(cache_key, vectors, ttl=7200)
+            
             return ProcessingResult(
                 success=True,
-                data=embeddings,
-                metadata={
-                    'count': len(texts),
-                    'dimension': embeddings.shape[1] if len(embeddings.shape) > 1 else None
-                }
+                data=vectors,
+                metadata={'encoded_count': len(vectors), 'model': self.model_name}
             )
+            
         except Exception as e:
             return ProcessingResult(
                 success=False,
                 data=None,
-                metadata={},
-                error=str(e)
+                error=f"Encoding failed: {str(e)}"
             )
     
     def vector_search(self, query: str, dialogue_id: str, top_k: int = 5) -> ProcessingResult:
-        """Векторный поиск по диалогу"""
+        """Поиск по векторам с кэшированием результатов"""
         try:
-            if dialogue_id not in self.stores:
-                return ProcessingResult(
-                    success=False,
-                    data=[],
-                    metadata={},
-                    error=f"Dialogue {dialogue_id} not indexed"
-                )
+            # Проверяем кэш
+            if self.optimizer:
+                cache_key = self._create_cache_key('search', dialogue_id, query, top_k)
+                cached = self.optimizer.cache_get(cache_key)
+                if cached:
+                    return ProcessingResult(
+                        success=True,
+                        data=cached,
+                        metadata={'from_cache': True, 'dialogue_id': dialogue_id}
+                    )
             
             # Кодируем запрос
-            # query_vector = self.engine.encode(query)  # Убираем из-за отсутствующего модуля
-            query_vector = np.random.rand(384)  # Заглушка
+            query_vector = self.engine.encode_single(query)
             
-            # Ищем в векторном хранилище
-            store = self.stores[dialogue_id]
-            # results = store.search(query_vector, k=top_k)  # Убираем из-за отсутствующего модуля
-            results = []  # Заглушка
+            # Ищем похожие
+            results = self.vector_store.search(
+                dialogue_id=dialogue_id,
+                query_vector=query_vector,
+                top_k=top_k
+            )
+            
+            # Кэшируем на 30 минут
+            if self.optimizer and results:
+                self.optimizer.cache_put(cache_key, results, ttl=1800)
             
             return ProcessingResult(
                 success=True,
                 data=results,
-                metadata={'found': len(results)}
+                metadata={
+                    'query': query,
+                    'dialogue_id': dialogue_id,
+                    'found_count': len(results)
+                }
             )
+            
         except Exception as e:
             return ProcessingResult(
                 success=False,
                 data=[],
-                metadata={},
-                error=str(e)
+                error=f"Search failed: {str(e)}"
             )
     
-    def index_dialogue(self, dialogue_id: str, sessions: Dict[str, List[Message]]) -> ProcessingResult:
+    def index_dialogue(self, dialogue_id: str, sessions: Dict[str, List]) -> ProcessingResult:
         """Индексирует диалог для поиска"""
         try:
-            # Создаем или получаем хранилище для диалога
-            if dialogue_id not in self.stores:
-                self.stores[dialogue_id] = {}  # Заглушка
+            indexed_count = 0
             
-            store = self.stores[dialogue_id]
-            vectors_count = 0
-            
-            # Индексируем каждую сессию
             for session_id, messages in sessions.items():
-                # Извлекаем текст из сообщений
-                texts = [msg.content for msg in messages if msg.role == 'user' and msg.content]
+                # Извлекаем тексты
+                texts = []
+                for msg in messages:
+                    if hasattr(msg, 'content'):
+                        texts.append(msg.content)
+                    elif isinstance(msg, dict) and 'content' in msg:
+                        texts.append(msg['content'])
                 
                 if not texts:
                     continue
                 
-                # Объединяем текст сессии
-                session_text = ' '.join(texts)
+                # Кодируем тексты
+                encode_result = self.encode_texts(texts)
+                if not encode_result.success:
+                    continue
                 
-                # Создаем эмбеддинг
-                # embedding = self.engine.encode(session_text)  # Убираем из-за отсутствующего модуля
-                embedding = np.random.rand(384)  # Заглушка
+                vectors = encode_result.data
                 
                 # Добавляем в хранилище
-                # store.add(
-                #     doc_id=f"{dialogue_id}_{session_id}",
-                #     vector=embedding,
-                #     metadata={'session_id': session_id, 'dialogue_id': dialogue_id},
-                #     text=session_text
-                # )  # Убираем из-за отсутствующего модуля
-                store[f"{dialogue_id}_{session_id}"] = {
-                    'vector': embedding,
-                    'metadata': {'session_id': session_id, 'dialogue_id': dialogue_id},
-                    'text': session_text
-                }
-                vectors_count += 1
+                self.vector_store.add_vectors(
+                    dialogue_id=dialogue_id,
+                    session_id=session_id,
+                    vectors=vectors,
+                    texts=texts
+                )
+                indexed_count += len(vectors)
             
             return ProcessingResult(
                 success=True,
-                data=None,
-                metadata={'vectors_count': vectors_count, 'sessions_indexed': len(sessions)}
+                data={'indexed_count': indexed_count},
+                metadata={
+                    'dialogue_id': dialogue_id,
+                    'sessions_count': len(sessions)
+                }
             )
+            
         except Exception as e:
             return ProcessingResult(
                 success=False,
-                data=None,
-                metadata={},
-                error=str(e)
+                data={'indexed_count': 0},
+                error=f"Indexing failed: {str(e)}"
             )
+    
+    # Дополнительные методы для интеграции
+    def hybrid_search(self, query: str, dialogue_id: str, keywords: List[str]) -> ProcessingResult:
+        """Комбинированный поиск: векторный + keyword"""
+        # Векторный поиск
+        vector_results = self.vector_search(query, dialogue_id, top_k=10)
+        
+        if not vector_results.success:
+            return vector_results
+        
+        # Фильтруем по ключевым словам
+        filtered = []
+        for result in vector_results.data:
+            text = result.get('text', '').lower()
+            if any(kw.lower() in text for kw in keywords):
+                result['boost'] = 1.2  # Увеличиваем релевантность
+                filtered.append(result)
+        
+        # Добавляем остальные результаты
+        for result in vector_results.data:
+            if result not in filtered:
+                filtered.append(result)
+        
+        return ProcessingResult(
+            success=True,
+            data=filtered[:5],
+            metadata={'hybrid': True, 'keywords': keywords}
+        )
+    
+    def save_index(self, dialogue_id: str, filepath: str):
+        """Сохраняет индекс на диск"""
+        return self.vector_store.save(dialogue_id, filepath)
+    
+    def load_index(self, dialogue_id: str, filepath: str):
+        """Загружает индекс с диска"""
+        return self.vector_store.load(dialogue_id, filepath)
+    
+    def _create_cache_key(self, *args) -> str:
+        """Создает ключ для кэша"""
+        key_str = '_'.join(str(arg)[:50] for arg in args)
+        return hashlib.md5(key_str.encode()).hexdigest()
