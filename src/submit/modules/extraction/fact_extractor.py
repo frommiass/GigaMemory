@@ -1,5 +1,6 @@
 """
-Извлекатели фактов из текста - УЛУЧШЕННАЯ ВЕРСИЯ
+Извлекатели фактов из текста - АВТОНОМНАЯ ВЕРСИЯ
+Не зависит от внешних модулей, работает изолированно
 """
 import json
 import re
@@ -23,7 +24,7 @@ class ExtractionStats:
     total_extracted: int = 0
     facts_by_type: Dict[str, int] = None
     rules_used: int = 0
-    llm_used: int = 0
+    patterns_matched: int = 0
     conflicts_found: int = 0
     
     def __post_init__(self):
@@ -35,13 +36,13 @@ class ExtractionStats:
             'total_extracted': self.total_extracted,
             'facts_by_type': self.facts_by_type,
             'rules_used': self.rules_used,
-            'llm_used': self.llm_used,
+            'patterns_matched': self.patterns_matched,
             'conflicts_found': self.conflicts_found
         }
 
 
 class FactExtractor:
-    """Базовый класс для извлечения фактов"""
+    """Базовый класс для извлечения фактов - АВТОНОМНЫЙ"""
     
     def __init__(self):
         self.stats = ExtractionStats()
@@ -66,17 +67,40 @@ class FactExtractor:
 
 
 class RuleBasedFactExtractor(FactExtractor):
-    """Извлекатель фактов на основе правил (регулярных выражений) - УЛУЧШЕННАЯ ВЕРСИЯ"""
+    """
+    Извлекатель фактов на основе правил - ПОЛНОСТЬЮ АВТОНОМНЫЙ
+    Использует только внутренние паттерны, не зависит от внешних модулей
+    """
     
     def __init__(self, min_confidence: float = 0.5):
         super().__init__()
         self.min_confidence = min_confidence
+        # Предкомпилируем критические паттерны для скорости
+        self._compile_critical_patterns()
+    
+    def _compile_critical_patterns(self):
+        """Предкомпилирует критические паттерны для ускорения"""
+        # Критические для конкурса
+        self.critical_patterns = {
+            'name': FACT_PATTERNS.get(FactType.PERSONAL_NAME, [])[:3],  # Топ-3 паттерна для имени
+            'age': FACT_PATTERNS.get(FactType.PERSONAL_AGE, [])[:3],
+            'status': FACT_PATTERNS.get(FactType.FAMILY_STATUS, [])[:2],
+        }
     
     def extract_facts_from_text(self, text: str, session_id: str, dialogue_id: str) -> List[Fact]:
-        """Извлекает факты используя паттерны"""
+        """Извлекает факты используя паттерны - АВТОНОМНО"""
         facts = []
         
+        # Сначала извлекаем критические факты
+        critical_facts = self._extract_critical_facts(text, session_id, dialogue_id)
+        facts.extend(critical_facts)
+        
+        # Затем все остальные
         for fact_type, patterns in FACT_PATTERNS.items():
+            # Пропускаем уже извлеченные критические типы
+            if fact_type in [FactType.PERSONAL_NAME, FactType.PERSONAL_AGE, FactType.FAMILY_STATUS]:
+                continue
+            
             # Извлекаем все значения по паттернам
             values = extract_all_with_patterns(text, patterns)
             
@@ -88,14 +112,14 @@ class RuleBasedFactExtractor(FactExtractor):
                 confidence_score = confidence_from_pattern_match(i, len(patterns))
                 
                 if confidence_score >= self.min_confidence:
-                    # Определяем отношение используя новую функцию
+                    # Определяем отношение
                     relation = get_relation_for_type(fact_type)
                     
                     # Создаем факт
                     fact = Fact(
                         type=fact_type,
                         subject="пользователь",
-                        relation=relation.value,  # Преобразуем enum в строку
+                        relation=relation.value if isinstance(relation, FactRelation) else relation,
                         object=normalized_value,
                         confidence=FactConfidence(
                             score=confidence_score,
@@ -103,42 +127,126 @@ class RuleBasedFactExtractor(FactExtractor):
                         ),
                         session_id=session_id,
                         dialogue_id=dialogue_id,
-                        raw_text=text
+                        raw_text=text[:200]  # Сохраняем фрагмент для контекста
                     )
                     
                     facts.append(fact)
                     self.stats.total_extracted += 1
+                    self.stats.patterns_matched += 1
                     self.stats.facts_by_type[fact_type.value] = \
                         self.stats.facts_by_type.get(fact_type.value, 0) + 1
         
         self.stats.rules_used += 1
+        
+        # Детектируем временной контекст для фактов
+        temporal_context = detect_temporal_context(text)
+        if temporal_context and temporal_context != 'current':
+            facts = self._apply_temporal_context(facts, temporal_context)
+        
         return facts
+    
+    def _extract_critical_facts(self, text: str, session_id: str, dialogue_id: str) -> List[Fact]:
+        """Извлекает критические факты с повышенной точностью"""
+        critical_facts = []
+        
+        # Извлечение имени - КРИТИЧНО!
+        for pattern in self.critical_patterns['name']:
+            match = pattern.search(text)
+            if match:
+                name = match.group(1).strip()
+                fact = Fact(
+                    type=FactType.PERSONAL_NAME,
+                    subject="пользователь",
+                    relation=FactRelation.IS.value,
+                    object=name.title(),  # Нормализуем имя
+                    confidence=FactConfidence(score=0.95, source="critical_pattern"),
+                    session_id=session_id,
+                    dialogue_id=dialogue_id,
+                    raw_text=text[:200]
+                )
+                critical_facts.append(fact)
+                self.stats.total_extracted += 1
+                break  # Берем первое найденное имя
+        
+        # Извлечение возраста
+        for pattern in self.critical_patterns['age']:
+            match = pattern.search(text)
+            if match:
+                age = match.group(1)
+                try:
+                    age_int = int(age)
+                    if 0 < age_int < 150:
+                        fact = Fact(
+                            type=FactType.PERSONAL_AGE,
+                            subject="пользователь",
+                            relation=FactRelation.IS.value,
+                            object=str(age_int),
+                            confidence=FactConfidence(score=0.9, source="critical_pattern"),
+                            session_id=session_id,
+                            dialogue_id=dialogue_id,
+                            raw_text=text[:200]
+                        )
+                        critical_facts.append(fact)
+                        self.stats.total_extracted += 1
+                        break
+                except:
+                    continue
+        
+        return critical_facts
+    
+    def _apply_temporal_context(self, facts: List[Fact], temporal_context: str) -> List[Fact]:
+        """Применяет временной контекст к фактам"""
+        temporal_facts = []
+        
+        for fact in facts:
+            # Создаем временной факт для изменяющихся типов
+            if fact.type in [FactType.FAMILY_STATUS, FactType.WORK_COMPANY, FactType.PERSONAL_LOCATION]:
+                temporal_fact = TemporalFact(
+                    type=fact.type,
+                    subject=fact.subject,
+                    relation=fact.relation,
+                    object=fact.object,
+                    confidence=fact.confidence,
+                    session_id=fact.session_id,
+                    dialogue_id=fact.dialogue_id,
+                    raw_text=fact.raw_text,
+                    is_current=(temporal_context == 'current')
+                )
+                temporal_facts.append(temporal_fact)
+            else:
+                temporal_facts.append(fact)
+        
+        return temporal_facts
 
 
 class SmartFactExtractor(FactExtractor):
-    """Умный извлекатель фактов с использованием LLM - УЛУЧШЕННАЯ ВЕРСИЯ"""
+    """
+    Умный извлекатель фактов - АВТОНОМНАЯ ВЕРСИЯ
+    Работает БЕЗ внешней модели, использует расширенные правила
+    """
     
-    def __init__(self, model_inference, use_rules_first: bool = True):
+    def __init__(self, model_inference=None, use_rules_first: bool = True, min_confidence: float = 0.6):
         super().__init__()
-        self.model_inference = model_inference
         self.use_rules_first = use_rules_first
-        self.rule_extractor = RuleBasedFactExtractor() if use_rules_first else None
+        self.min_confidence = min_confidence
+        self.rule_extractor = RuleBasedFactExtractor(min_confidence)
+        
+        # Если модель не предоставлена, используем только правила
+        if model_inference:
+            logger.warning("SmartFactExtractor: model_inference ignored in AUTONOMOUS mode")
     
     def extract_facts_from_text(self, text: str, session_id: str, dialogue_id: str) -> List[Fact]:
-        """Извлекает факты используя LLM и правила"""
+        """Извлекает факты используя умные правила"""
         all_facts = []
         
-        # Сначала используем правила если включено
-        if self.use_rules_first and self.rule_extractor:
-            rule_facts = self.rule_extractor.extract_facts_from_text(text, session_id, dialogue_id)
-            all_facts.extend(rule_facts)
-            self.stats.rules_used += 1
+        # Используем правила
+        rule_facts = self.rule_extractor.extract_facts_from_text(text, session_id, dialogue_id)
+        all_facts.extend(rule_facts)
+        self.stats.rules_used += 1
         
-        # Затем используем LLM (если доступен)
-        if self.model_inference:
-            llm_facts = self._extract_with_llm(text, session_id, dialogue_id)
-            all_facts.extend(llm_facts)
-            self.stats.llm_used += 1
+        # Дополнительная логика для сложных паттернов
+        complex_facts = self._extract_complex_patterns(text, session_id, dialogue_id)
+        all_facts.extend(complex_facts)
         
         # Обновляем статистику
         self.stats.total_extracted += len(all_facts)
@@ -146,167 +254,124 @@ class SmartFactExtractor(FactExtractor):
             self.stats.facts_by_type[fact.type.value] = \
                 self.stats.facts_by_type.get(fact.type.value, 0) + 1
         
+        # Убираем дубликаты
+        all_facts = self._deduplicate_facts(all_facts)
+        
         return all_facts
     
-    def _extract_with_llm(self, text: str, session_id: str, dialogue_id: str) -> List[Fact]:
-        """Извлекает факты используя LLM"""
-        try:
-            # Если модель не доступна, возвращаем пустой список
-            if not self.model_inference:
-                return []
-            
-            # Создаем промпт для извлечения фактов
-            prompt = self._create_extraction_prompt(text)
-            
-            # Вызываем модель
-            response = self.model_inference.inference([{"role": "user", "content": prompt}])
-            
-            # Парсим JSON ответ
-            facts_data = self._parse_llm_response(response)
-            
-            # Создаем факты
-            facts = []
-            for fact_data in facts_data:
-                try:
-                    fact = self._create_fact_from_llm_data(fact_data, text, session_id, dialogue_id)
-                    if fact:
-                        facts.append(fact)
-                except Exception as e:
-                    logger.warning(f"Ошибка создания факта из LLM данных: {e}")
-                    continue
-            
-            return facts
-            
-        except Exception as e:
-            logger.error(f"Ошибка извлечения фактов с LLM: {e}")
-            return []
+    def _extract_complex_patterns(self, text: str, session_id: str, dialogue_id: str) -> List[Fact]:
+        """Извлекает факты по сложным паттернам"""
+        complex_facts = []
+        
+        # Паттерн: "женился/вышла замуж" -> изменение статуса
+        marriage_patterns = [
+            r'(?:женился|женюсь|женился недавно|вчера женился)',
+            r'(?:вышла замуж|выхожу замуж|замуж вышла)',
+            r'(?:поженились|свадьба была|сыграли свадьбу)'
+        ]
+        
+        for pattern in marriage_patterns:
+            if re.search(pattern, text, re.IGNORECASE):
+                fact = Fact(
+                    type=FactType.FAMILY_STATUS,
+                    subject="пользователь",
+                    relation=FactRelation.IS.value,
+                    object="женат" if "женился" in text.lower() else "замужем",
+                    confidence=FactConfidence(score=0.9, source="complex_pattern"),
+                    session_id=session_id,
+                    dialogue_id=dialogue_id,
+                    raw_text=text[:200]
+                )
+                complex_facts.append(fact)
+                break
+        
+        # Паттерн: "развелся/разошлись"
+        divorce_patterns = [
+            r'(?:развелся|развелась|разводимся)',
+            r'(?:расстались|разошлись|больше не вместе)'
+        ]
+        
+        for pattern in divorce_patterns:
+            if re.search(pattern, text, re.IGNORECASE):
+                fact = Fact(
+                    type=FactType.FAMILY_STATUS,
+                    subject="пользователь",
+                    relation=FactRelation.IS.value,
+                    object="разведен",
+                    confidence=FactConfidence(score=0.85, source="complex_pattern"),
+                    session_id=session_id,
+                    dialogue_id=dialogue_id,
+                    raw_text=text[:200]
+                )
+                complex_facts.append(fact)
+                break
+        
+        # Паттерн: смена работы
+        job_change_patterns = [
+            r'(?:уволился|ушел с работы|больше не работаю)',
+            r'(?:перешел в|теперь работаю в|сменил работу)',
+            r'(?:новая работа|новое место)'
+        ]
+        
+        for pattern in job_change_patterns:
+            match = re.search(pattern, text, re.IGNORECASE)
+            if match:
+                # Ищем название новой компании
+                company_match = re.search(r'(?:в|на)\s+([А-ЯЁ][а-яё]+(?:\s+[А-ЯЁ]?[а-яё]+)*)', text[match.end():])
+                if company_match:
+                    fact = Fact(
+                        type=FactType.WORK_COMPANY,
+                        subject="пользователь",
+                        relation=FactRelation.WORKS_AT.value,
+                        object=company_match.group(1),
+                        confidence=FactConfidence(score=0.8, source="complex_pattern"),
+                        session_id=session_id,
+                        dialogue_id=dialogue_id,
+                        raw_text=text[:200]
+                    )
+                    complex_facts.append(fact)
+        
+        return complex_facts
     
-    def _create_extraction_prompt(self, text: str) -> str:
-        """Создает промпт для извлечения фактов - РАСШИРЕННАЯ ВЕРСИЯ"""
-        return f"""
-Извлеки структурированные факты из следующего текста на русском языке.
-
-Текст: "{text}"
-
-Верни результат в формате JSON массива. Каждый факт должен содержать:
-- type: тип факта (см. список ниже)
-- subject: субъект (обычно "пользователь")
-- relation: отношение (is, has, works_as, works_at, lives_in, married_to, owns, does, likes, studied_at, travels_to, earns, drinks, drives, invests_in, trains_at, prefers)
-- object: значение факта
-- confidence: уверенность от 0.0 до 1.0
-
-Основные типы фактов:
-ЛИЧНАЯ ИНФОРМАЦИЯ: personal_name, personal_nickname, personal_age, personal_birth, personal_location, personal_hometown, personal_district, personal_gender, personal_nationality, personal_language
-
-РАБОТА: work_occupation, work_company, work_position, work_department, work_salary, work_experience, work_skills, work_schedule, work_project
-
-ТРАНСПОРТ: transport_car_brand, transport_car_model, transport_car_year, transport_car_color, transport_motorcycle, transport_bicycle, transport_license
-
-ФИНАНСЫ: finance_income, finance_savings, finance_investment, finance_stocks, finance_crypto, finance_bank, finance_card, finance_credit, finance_mortgage, finance_debt, finance_budget
-
-ЕДА И НАПИТКИ: food_favorite, food_dislike, food_cuisine, food_restaurant, food_cafe, food_delivery, food_diet, drink_coffee, drink_tea, drink_alcohol, drink_beer, drink_wine
-
-ПУТЕШЕСТВИЯ: travel_country, travel_city, travel_hotel, travel_dream, travel_frequency, travel_budget
-
-СПОРТ: sport_type, sport_team, sport_gym, sport_trainer, sport_frequency, sport_equipment, sport_achievement
-
-СЕМЬЯ: family_status, family_spouse, family_children, family_parents, family_siblings
-
-ОБРАЗОВАНИЕ: education_institution, education_speciality, education_degree, education_course, education_year
-
-ХОББИ: hobby_activity, hobby_gaming, hobby_reading, hobby_music, hobby_instrument, hobby_photography, hobby_art
-
-ТЕХНОЛОГИИ: tech_phone, tech_laptop, tech_programming, tech_software
-
-ЗДОРОВЬЕ: health_condition, health_disease, health_allergy, health_medication, health_doctor
-
-ПИТОМЦЫ: pet_type, pet_name, pet_breed, pet_age
-
-НЕДВИЖИМОСТЬ: property_type, property_ownership, property_rooms, property_area
-
-КОНТАКТЫ: contact_phone, contact_email, contact_telegram, contact_instagram
-
-Пример:
-[
-  {{"type": "personal_name", "subject": "пользователь", "relation": "is", "object": "Иван", "confidence": 0.9}},
-  {{"type": "work_occupation", "subject": "пользователь", "relation": "works_as", "object": "программист", "confidence": 0.8}},
-  {{"type": "transport_car_brand", "subject": "пользователь", "relation": "drives", "object": "Toyota", "confidence": 0.85}},
-  {{"type": "drink_coffee", "subject": "пользователь", "relation": "drinks", "object": "капучино", "confidence": 0.75}},
-  {{"type": "finance_bank", "subject": "пользователь", "relation": "banks_with", "object": "Тинькофф", "confidence": 0.8}}
-]
-
-Извлеки только достоверные факты. Если факт неясен или сомнителен, не включай его.
-Обращай внимание на детали и извлекай максимум информации из текста.
-"""
-    
-    def _parse_llm_response(self, response: str) -> List[Dict]:
-        """Парсит ответ LLM в список фактов"""
-        try:
-            # Очищаем ответ от лишнего текста
-            response = response.strip()
+    def _deduplicate_facts(self, facts: List[Fact]) -> List[Fact]:
+        """Убирает дубликаты фактов"""
+        seen = set()
+        unique_facts = []
+        
+        for fact in facts:
+            # Создаем ключ для дедупликации
+            key = (fact.type.value, fact.subject, fact.object.lower())
             
-            # Ищем JSON в ответе
-            json_start = response.find('[')
-            json_end = response.rfind(']') + 1
-            
-            if json_start != -1 and json_end > json_start:
-                json_str = response[json_start:json_end]
-                return json.loads(json_str)
-            
-            return []
-            
-        except Exception as e:
-            logger.warning(f"Ошибка парсинга ответа LLM: {e}")
-            return []
-    
-    def _create_fact_from_llm_data(self, data: Dict, text: str, session_id: str, dialogue_id: str) -> Optional[Fact]:
-        """Создает факт из данных LLM"""
-        try:
-            # Валидируем обязательные поля
-            required_fields = ['type', 'subject', 'relation', 'object', 'confidence']
-            if not all(field in data for field in required_fields):
-                return None
-            
-            # Преобразуем тип факта
-            fact_type = FactType(data['type'])
-            
-            # Преобразуем отношение
-            relation = FactRelation(data['relation'])
-            
-            # Создаем уверенность
-            confidence = FactConfidence(
-                score=float(data['confidence']),
-                source="llm_extraction"
-            )
-            
-            # Создаем факт
-            fact = Fact(
-                type=fact_type,
-                subject=data['subject'],
-                relation=relation,
-                object=str(data['object']),
-                confidence=confidence,
-                session_id=session_id,
-                dialogue_id=dialogue_id,
-                raw_text=text
-            )
-            
-            return fact
-            
-        except Exception as e:
-            logger.warning(f"Ошибка создания факта: {e}")
-            return None
+            if key not in seen:
+                seen.add(key)
+                unique_facts.append(fact)
+            else:
+                # Если дубликат, повышаем уверенность у существующего
+                for existing in unique_facts:
+                    if (existing.type == fact.type and 
+                        existing.subject == fact.subject and
+                        existing.object.lower() == fact.object.lower()):
+                        existing.confidence.update(fact.confidence.score)
+                        existing.confidence.evidence_count += 1
+                        break
+        
+        return unique_facts
 
 
 class HybridFactExtractor(FactExtractor):
-    """Гибридный извлекатель, комбинирующий правила и LLM - УЛУЧШЕННАЯ ВЕРСИЯ"""
+    """
+    Гибридный извлекатель - АВТОНОМНАЯ ВЕРСИЯ
+    Комбинирует rule-based и smart подходы БЕЗ внешних зависимостей
+    """
     
-    def __init__(self, model_inference, rule_confidence_threshold: float = 0.7):
+    def __init__(self, model_inference=None, rule_confidence_threshold: float = 0.7):
         super().__init__()
-        self.model_inference = model_inference
         self.rule_extractor = RuleBasedFactExtractor()
-        self.smart_extractor = SmartFactExtractor(model_inference, use_rules_first=False)
+        self.smart_extractor = SmartFactExtractor(None, use_rules_first=False)
         self.rule_confidence_threshold = rule_confidence_threshold
+        
+        if model_inference:
+            logger.warning("HybridFactExtractor: model_inference ignored in AUTONOMOUS mode")
     
     def extract_facts_from_text(self, text: str, session_id: str, dialogue_id: str) -> List[Fact]:
         """Извлекает факты используя гибридный подход"""
@@ -314,19 +379,18 @@ class HybridFactExtractor(FactExtractor):
         rule_facts = self.rule_extractor.extract_facts_from_text(text, session_id, dialogue_id)
         self.stats.rules_used += 1
         
-        # Определяем, нужен ли LLM
+        # Определяем, нужны ли дополнительные методы
         high_confidence_rules = [f for f in rule_facts if f.confidence.score >= self.rule_confidence_threshold]
         
         if len(high_confidence_rules) >= 3:
-            # Если правилами извлечено достаточно фактов с высокой уверенностью, используем только их
+            # Если правилами извлечено достаточно фактов с высокой уверенностью
             all_facts = rule_facts
         else:
-            # Иначе дополняем LLM
-            llm_facts = self.smart_extractor._extract_with_llm(text, session_id, dialogue_id)
-            self.stats.llm_used += 1
+            # Дополняем умным извлечением
+            smart_facts = self.smart_extractor._extract_complex_patterns(text, session_id, dialogue_id)
             
-            # Объединяем результаты, избегая дубликатов
-            all_facts = self._merge_facts(rule_facts, llm_facts)
+            # Объединяем результаты
+            all_facts = self._merge_facts(rule_facts, smart_facts)
         
         # Обновляем статистику
         self.stats.total_extracted += len(all_facts)
@@ -336,119 +400,24 @@ class HybridFactExtractor(FactExtractor):
         
         return all_facts
     
-    def _merge_facts(self, rule_facts: List[Fact], llm_facts: List[Fact]) -> List[Fact]:
-        """Объединяет факты из правил и LLM, избегая дубликатов"""
+    def _merge_facts(self, rule_facts: List[Fact], smart_facts: List[Fact]) -> List[Fact]:
+        """Объединяет факты из разных источников"""
         merged = rule_facts.copy()
         
-        for llm_fact in llm_facts:
+        for smart_fact in smart_facts:
             # Проверяем, есть ли похожий факт из правил
             is_duplicate = False
             for rule_fact in rule_facts:
-                if (llm_fact.type == rule_fact.type and 
-                    llm_fact.subject == rule_fact.subject and
-                    llm_fact.object.lower() == rule_fact.object.lower()):
+                if (smart_fact.type == rule_fact.type and 
+                    smart_fact.subject == rule_fact.subject and
+                    smart_fact.object.lower() == rule_fact.object.lower()):
                     is_duplicate = True
                     # Обновляем уверенность существующего факта
-                    rule_fact.confidence.update(llm_fact.confidence.score)
+                    rule_fact.confidence.update(smart_fact.confidence.score)
+                    self.stats.conflicts_found += 1
                     break
             
             if not is_duplicate:
-                merged.append(llm_fact)
+                merged.append(smart_fact)
         
         return merged
-
-
-class AdvancedFactExtractor(FactExtractor):
-    """Продвинутый извлекатель с дополнительными возможностями"""
-    
-    def __init__(self, model_inference=None, use_context: bool = True, 
-                 context_window: int = 3, min_confidence: float = 0.5):
-        super().__init__()
-        self.model_inference = model_inference
-        self.use_context = use_context
-        self.context_window = context_window
-        self.min_confidence = min_confidence
-        self.rule_extractor = RuleBasedFactExtractor(min_confidence)
-        
-        # Кэш для контекста
-        self.context_cache = []
-    
-    def extract_facts_from_text(self, text: str, session_id: str, dialogue_id: str) -> List[Fact]:
-        """Извлекает факты с учетом контекста"""
-        facts = []
-        
-        # Добавляем текст в контекст
-        if self.use_context:
-            self.context_cache.append(text)
-            if len(self.context_cache) > self.context_window:
-                self.context_cache.pop(0)
-        
-        # Извлекаем базовые факты
-        facts = self.rule_extractor.extract_facts_from_text(text, session_id, dialogue_id)
-        
-        # Анализируем контекст для повышения уверенности
-        if self.use_context and len(self.context_cache) > 1:
-            facts = self._enhance_with_context(facts)
-        
-        # Извлекаем составные факты
-        composite_facts = self._extract_composite_facts(text, facts, session_id, dialogue_id)
-        facts.extend(composite_facts)
-        
-        # Обновляем статистику
-        self.stats.total_extracted += len(facts)
-        for fact in facts:
-            self.stats.facts_by_type[fact.type.value] = \
-                self.stats.facts_by_type.get(fact.type.value, 0) + 1
-        
-        return facts
-    
-    def _enhance_with_context(self, facts: List[Fact]) -> List[Fact]:
-        """Улучшает факты используя контекст"""
-        enhanced_facts = []
-        
-        for fact in facts:
-            # Проверяем, упоминался ли факт в контексте
-            context_mentions = 0
-            for context_text in self.context_cache:
-                if fact.object.lower() in context_text.lower():
-                    context_mentions += 1
-            
-            # Увеличиваем уверенность если факт упоминался ранее
-            if context_mentions > 1:
-                fact.confidence.update(
-                    min(1.0, fact.confidence.score + 0.1 * context_mentions)
-                )
-            
-            enhanced_facts.append(fact)
-        
-        return enhanced_facts
-    
-    def _extract_composite_facts(self, text: str, base_facts: List[Fact], 
-                                session_id: str, dialogue_id: str) -> List[Fact]:
-        """Извлекает составные факты на основе базовых"""
-        composite_facts = []
-        
-        # Пример: если есть марка и модель авто, создаем составной факт
-        car_brand = None
-        car_model = None
-        
-        for fact in base_facts:
-            if fact.type == FactType.TRANSPORT_CAR_BRAND:
-                car_brand = fact.object
-            elif fact.type == FactType.TRANSPORT_CAR_MODEL:
-                car_model = fact.object
-        
-        if car_brand and car_model:
-            composite = Fact(
-                type=FactType.TRANSPORT_CAR_BRAND,
-                subject="пользователь",
-                relation=FactRelation.DRIVES,
-                object=f"{car_brand} {car_model}",
-                confidence=FactConfidence(score=0.9, source="composite"),
-                session_id=session_id,
-                dialogue_id=dialogue_id,
-                raw_text=text
-            )
-            composite_facts.append(composite)
-        
-        return composite_facts

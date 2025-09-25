@@ -117,27 +117,6 @@ class ICompressor(ABC):
         pass
 
 
-# ============== RAG INTERFACE ==============
-
-class IRAGEngine(ABC):
-    """Интерфейс RAG модуля"""
-    
-    @abstractmethod
-    def process_question(self, question: str, dialogue_id: str) -> ProcessingResult:
-        """Обрабатывает вопрос и генерирует промпт"""
-        pass
-    
-    @abstractmethod
-    def find_relevant_sessions(self, question: str, dialogue_id: str) -> ProcessingResult:
-        """Находит релевантные сессии"""
-        pass
-    
-    @abstractmethod
-    def generate_answer(self, question: str, context: str) -> ProcessingResult:
-        """Генерирует ответ на основе контекста"""
-        pass
-
-
 # ============== OPTIMIZATION INTERFACE ==============
 
 class IOptimizer(ABC):
@@ -156,6 +135,27 @@ class IOptimizer(ABC):
     @abstractmethod
     def batch_process(self, tasks: List[Dict], processor_func: callable) -> ProcessingResult:
         """Батчевая обработка задач"""
+        pass
+
+
+# ============== RAG INTERFACE ==============
+
+class IRAGEngine(ABC):
+    """Интерфейс RAG модуля"""
+    
+    @abstractmethod
+    def process_question(self, question: str, dialogue_id: str) -> ProcessingResult:
+        """Обрабатывает вопрос и генерирует промпт"""
+        pass
+    
+    @abstractmethod
+    def find_relevant_sessions(self, question: str, dialogue_id: str) -> ProcessingResult:
+        """Находит релевантные сессии"""
+        pass
+    
+    @abstractmethod
+    def generate_answer(self, question: str, context: str) -> ProcessingResult:
+        """Генерирует ответ на основе контекста"""
         pass
 
 

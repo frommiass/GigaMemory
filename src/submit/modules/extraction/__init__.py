@@ -35,10 +35,10 @@ from .fact_patterns import (
     get_relation_for_type
 )
 
-from .patterns import (
-    FactPattern,
-    FactPatterns
-)
+# from .patterns import (
+#     FactPattern,
+#     FactPatterns
+# )
 
 from .module import ExtractionModule
 
@@ -52,7 +52,6 @@ __all__ = [
     "SmartFactExtractor",
     "FactDatabase",
     "ExtractionModule",
-    "FactPatterns",
     
     # Модели данных
     "Fact",
@@ -61,7 +60,6 @@ __all__ = [
     "FactIndex",
     "FactConflictResolver",
     "ExtractionStats",
-    "FactPattern",
     
     # Перечисления
     "FactType",

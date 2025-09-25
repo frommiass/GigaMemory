@@ -1,17 +1,26 @@
 # modules/compression/module.py
-from core.interfaces import ICompressor, ProcessingResult
+from ...core.interfaces import ICompressor, ProcessingResult
 from typing import Dict, Any, List
 
 class CompressionModule(ICompressor):
     def __init__(self, config: Dict[str, Any]):
         self.config = config
         
-        from .compressor import SemanticCompressor, HierarchicalCompressor
-        from .strategies import CompressionStrategy
+        from .semantic_compressor import SemanticCompressor
+        from .hierarchical_compressor import HierarchicalCompressor
+        from .compression_strategies import get_strategy
+        from .compression_models import CompressionConfig, CompressionLevel, CompressionMethod
         
-        self.semantic = SemanticCompressor(config)
-        self.hierarchical = HierarchicalCompressor(config)
-        self.strategy = CompressionStrategy(config.get('method', 'hybrid'))
+        # Создаем объект конфигурации
+        compression_config = CompressionConfig()
+        compression_config.level = CompressionLevel.MODERATE
+        compression_config.method = CompressionMethod.HYBRID
+        compression_config.use_cache = config.get('use_cache', True)
+        compression_config.max_length = config.get('max_text_length', 10000)
+        
+        self.semantic = SemanticCompressor(compression_config)
+        self.hierarchical = HierarchicalCompressor(compression_config)
+        self.strategy = get_strategy(config.get('method', 'hybrid'), compression_config)
         
         self.optimizer = None
         self.stats = {
@@ -28,6 +37,8 @@ class CompressionModule(ICompressor):
     
     def compress_text(self, text: str, level: str = "moderate") -> ProcessingResult:
         """Сжимает текст"""
+        from .compression_models import CompressionLevel
+        from .hierarchical_compressor import HierarchyLevel
         try:
             # Кэшируем результаты сжатия
             if self.optimizer:
@@ -42,11 +53,13 @@ class CompressionModule(ICompressor):
             
             # Выбираем метод сжатия
             if level == "light":
-                compressed = self.semantic.compress_light(text)
+                result = self.semantic.compress(text, level=CompressionLevel.LIGHT)
+                compressed = result.compressed_text if hasattr(result, 'compressed_text') else str(result)
             elif level == "heavy":
-                compressed = self.hierarchical.compress_heavy(text)
+                result = self.hierarchical.compress_hierarchically(text, target_level=HierarchyLevel.DOCUMENT)
+                compressed = result.compressed_text
             else:
-                compressed = self.strategy.compress_adaptive(text)
+                compressed = self.strategy.compress(text)
             
             # Обновляем статистику
             self.stats['total_compressed'] += 1
@@ -69,6 +82,7 @@ class CompressionModule(ICompressor):
             return ProcessingResult(
                 success=False,
                 data=text,
+                metadata={'error': str(e)},
                 error=str(e)
             )
     
@@ -116,6 +130,7 @@ class CompressionModule(ICompressor):
             return ProcessingResult(
                 success=False,
                 data=sessions,
+                metadata={'error': str(e)},
                 error=str(e)
             )
     
@@ -159,4 +174,5 @@ class CompressionModule(ICompressor):
             return result[:max_length]
         else:
             # Адаптивное сжатие
-            return self.strategy.compress_to_length(text, max_length)
+            compressed = self.strategy.compress(text)
+            return compressed[:max_length] if len(compressed) > max_length else compressed
