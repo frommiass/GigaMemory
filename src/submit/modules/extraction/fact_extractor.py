@@ -102,44 +102,44 @@ class RuleBasedFactExtractor(FactExtractor):
                 if fact_type in [FactType.PERSONAL_NAME, FactType.PERSONAL_AGE, FactType.FAMILY_STATUS]:
                     continue
                 
-            # Извлекаем все значения по паттернам
-            values = extract_all_with_patterns(text, patterns)
-            
-            for i, value in enumerate(values):
+                # Извлекаем все значения по паттернам
+                values = extract_all_with_patterns(text, patterns)
+                
+                for i, value in enumerate(values):
                     try:
-                # Нормализуем значение
-                normalized_value = normalize_value(value, fact_type)
-                
-                # Рассчитываем уверенность
-                confidence_score = confidence_from_pattern_match(i, len(patterns))
-                
-                if confidence_score >= self.min_confidence:
+                        # Нормализуем значение
+                        normalized_value = normalize_value(value, fact_type)
+                        
+                        # Рассчитываем уверенность
+                        confidence_score = confidence_from_pattern_match(i, len(patterns))
+                        
+                        if confidence_score >= self.min_confidence:
                             # Определяем отношение
-                    relation = get_relation_for_type(fact_type)
-                    
+                            relation = get_relation_for_type(fact_type)
+                            
                             # Безопасное получение значения relation
                             if isinstance(relation, FactRelation):
                                 relation_value = relation.value
                             else:
                                 relation_value = str(relation)
                             
-                    # Создаем факт
-                    fact = Fact(
-                        type=fact_type,
-                        subject="пользователь",
+                            # Создаем факт
+                            fact = Fact(
+                                type=fact_type,
+                                subject="пользователь",
                                 relation=relation_value,
-                        object=normalized_value,
-                        confidence=FactConfidence(
-                            score=confidence_score,
-                            source="rule_based"
-                        ),
-                        session_id=session_id,
-                        dialogue_id=dialogue_id,
+                                object=normalized_value,
+                                confidence=FactConfidence(
+                                    score=confidence_score,
+                                    source="rule_based"
+                                ),
+                                session_id=session_id,
+                                dialogue_id=dialogue_id,
                                 raw_text=text[:200]  # Сохраняем фрагмент для контекста
-                    )
-                    
-                    facts.append(fact)
-                    self.stats.total_extracted += 1
+                            )
+                            
+                            facts.append(fact)
+                            self.stats.total_extracted += 1
                             self.stats.patterns_matched += 1
                             
                             # Безопасное обновление статистики
@@ -262,9 +262,9 @@ class SmartFactExtractor(FactExtractor):
         all_facts = []
         
         # Используем правила
-            rule_facts = self.rule_extractor.extract_facts_from_text(text, session_id, dialogue_id)
-            all_facts.extend(rule_facts)
-            self.stats.rules_used += 1
+        rule_facts = self.rule_extractor.extract_facts_from_text(text, session_id, dialogue_id)
+        all_facts.extend(rule_facts)
+        self.stats.rules_used += 1
         
         # Дополнительная логика для сложных паттернов
         complex_facts = self._extract_complex_patterns(text, session_id, dialogue_id)

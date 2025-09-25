@@ -54,22 +54,17 @@ class SmartMemory:
         """
         self.config = config or SmartMemoryConfig()
         
-        # Инициализируем модель
-        self.model = ModelInference(model_path)
+        # Инициализируем модель (если путь указан)
+        if model_path:
+            self.model = ModelInference(model_path)
+        else:
+            self.model = None
         
         # Создаем конфигурацию для RAG движка
         rag_config = CompressedRAGConfig(
-            # Векторный поиск
-            embedding_model=self.config.embedding_model,
-            vector_search_top_k=self.config.vector_top_k,
-            use_hybrid_search=self.config.use_hybrid_search,
-            
             # Сжатие
             enable_compression=self.config.use_compression,
-            compression_level=self.config.compression_level,
-            
-            # Общие настройки
-            max_relevant_sessions=self.config.vector_top_k
+            compression_level=self.config.compression_level
         )
         
         # Создаем RAG движок со всеми компонентами
@@ -199,9 +194,12 @@ class SmartMemory:
                 if metadata['strategy'] == 'no_info':
                     return prompt
                 else:
-                    # Иначе используем модель
-                    context_message = Message('system', prompt)
-                    return self.model.inference([context_message])
+                    # Иначе используем модель (если доступна)
+                    if self.model:
+                        context_message = Message('system', prompt)
+                        return self.model.inference([context_message])
+                    else:
+                        return prompt
             
             # Fallback к старому подходу
             # 1. Получаем релевантные факты
@@ -230,9 +228,12 @@ class SmartMemory:
             if len(prompt) > self.config.max_context_length:
                 prompt = self._truncate_context(prompt, self.config.max_context_length)
             
-            # 5. Генерируем ответ через модель
-            context_message = Message('system', prompt)
-            answer = self.model.inference([context_message])
+            # 5. Генерируем ответ через модель (если доступна)
+            if self.model:
+                context_message = Message('system', prompt)
+                answer = self.model.inference([context_message])
+            else:
+                answer = prompt
             
             # Обновляем статистику
             self.stats['queries_answered'] += 1

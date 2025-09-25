@@ -29,7 +29,7 @@ class CompressionModule(ICompressor):
             'compression_time': 0
         }
     
-    def set_optimizer(self, optimizer):
+    def set_dependencies(self, optimizer=None):
         """Устанавливает оптимизатор"""
         self.optimizer = optimizer
         if optimizer:

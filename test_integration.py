@@ -26,7 +26,8 @@ def test_integration():
     
     # Инициализируем SmartMemory
     try:
-        smart_memory = SmartMemory("dummy_model_path", config)
+        # Используем None для модели, чтобы избежать загрузки
+        smart_memory = SmartMemory(None, config)
         print("✅ SmartMemory инициализирована успешно")
     except Exception as e:
         print(f"❌ Ошибка инициализации: {e}")

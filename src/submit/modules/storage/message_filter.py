@@ -1,11 +1,11 @@
 """
 Центральный модуль для фильтрации сообщений от копипаста и технического контента.
-
-Этот модуль содержит всю логику фильтрации, которая используется всеми компонентами системы.
-Принцип: "Фильтруй один раз, используй везде"
+ОПТИМИЗИРОВАННАЯ ВЕРСИЯ с улучшенным определением личной информации
 """
-from typing import List, Dict, Tuple
+from typing import List, Dict, Tuple, Set
 from models import Message, Dialog
+import re
+from functools import lru_cache
 
 from .filters.message_cleaner import (
     is_copy_paste_content,
@@ -16,32 +16,125 @@ from .filters.message_cleaner import (
 
 
 class MessageFilter:
-    """Центральный класс для фильтрации сообщений"""
+    """Центральный класс для фильтрации сообщений с оптимизацией"""
     
     def __init__(self):
         """Инициализация фильтра сообщений"""
-        pass
+        # Расширенный список личных маркеров с весами
+        self.weighted_personal_markers = {
+            # Сильные личные маркеры (вес 1.0)
+            'я': 1.0, 'меня': 1.0, 'мне': 1.0, 'мной': 1.0, 'мною': 1.0,
+            'мой': 1.0, 'моя': 1.0, 'моё': 1.0, 'мое': 1.0, 'мои': 1.0,
+            
+            # Средние личные маркеры (вес 0.7)
+            'мы': 0.7, 'нас': 0.7, 'нам': 0.7, 'нами': 0.7,
+            'наш': 0.7, 'наша': 0.7, 'наше': 0.7, 'наши': 0.7,
+            
+            # Слабые личные маркеры (вес 0.5)
+            'свой': 0.5, 'своя': 0.5, 'своё': 0.5, 'свое': 0.5, 'свои': 0.5,
+            'сам': 0.5, 'сама': 0.5, 'само': 0.5, 'сами': 0.5,
+            
+            # Контекстные личные слова (вес 0.3)
+            'люблю': 0.3, 'хочу': 0.3, 'думаю': 0.3, 'считаю': 0.3,
+            'нравится': 0.3, 'интересно': 0.3, 'важно': 0.3,
+        }
+        
+        # Контекстные фразы, которые делают копипаст личным
+        self.personal_copypaste_phrases = {
+            'помоги мне', 'моя задача', 'мой вопрос', 'я хочу', 
+            'мне нужно', 'я не понимаю', 'объясни мне', 'расскажи мне',
+            'мой проект', 'моя работа', 'мое задание', 'для меня'
+        }
+        
+        # Кэш для результатов анализа
+        self._analysis_cache = {}
+        self._cache_size = 500
+    
+    @lru_cache(maxsize=1000)
+    def _calculate_personal_score(self, content: str) -> float:
+        """
+        Рассчитывает персональный скор сообщения с учетом весов
+        
+        Args:
+            content: Содержимое сообщения
+            
+        Returns:
+            Скор от 0.0 до 1.0
+        """
+        if not content:
+            return 0.0
+        
+        content_lower = content.lower()
+        words = re.findall(r'\b[а-яёa-z]+\b', content_lower)
+        
+        if not words:
+            return 0.0
+        
+        total_score = 0.0
+        personal_words_count = 0
+        
+        # Подсчитываем взвешенный скор
+        for word in words:
+            if word in self.weighted_personal_markers:
+                weight = self.weighted_personal_markers[word]
+                total_score += weight
+                personal_words_count += 1
+        
+        # Проверяем личные фразы
+        for phrase in self.personal_copypaste_phrases:
+            if phrase in content_lower:
+                total_score += 2.0  # Фразы имеют больший вес
+        
+        # Нормализуем скор
+        if personal_words_count > 0:
+            # Учитываем плотность личных слов
+            density = personal_words_count / len(words)
+            final_score = (total_score / len(words)) * (1 + density)
+            return min(1.0, final_score)
+        
+        return 0.0
+    
+    def _is_personal_copypaste(self, content: str) -> bool:
+        """
+        Определяет, является ли копипаст личным (содержит личный контекст)
+        
+        Args:
+            content: Содержимое сообщения
+            
+        Returns:
+            True если копипаст содержит личную информацию
+        """
+        content_lower = content.lower()
+        
+        # Проверяем личные фразы в копипасте
+        for phrase in self.personal_copypaste_phrases:
+            if phrase in content_lower:
+                return True
+        
+        # Проверяем персональный скор
+        personal_score = self._calculate_personal_score(content)
+        
+        # Если скор высокий, то даже копипаст считаем личным
+        return personal_score > 0.3
     
     def filter_dialogs(self, dialogs: List[Dialog]) -> List[Dialog]:
         """
-        Фильтрует диалоги, удаляя копипаст и технический контент
-        
-        Args:
-            dialogs: Список диалогов для фильтрации
-            
-        Returns:
-            Список отфильтрованных диалогов
+        Фильтрует диалоги с оптимизацией
         """
         filtered_dialogs = []
         
         for dialog in dialogs:
-            # Фильтруем сообщения в каждой сессии диалога
+            # Используем контекст диалога для лучшей фильтрации
+            dialog_context = self._build_dialog_context(dialog)
+            
             filtered_sessions = []
             for session in dialog.sessions:
-                filtered_messages = self.filter_messages(session.messages)
+                filtered_messages = self._filter_with_context(
+                    session.messages, 
+                    dialog_context
+                )
                 
-                # Создаем новую сессию с отфильтрованными сообщениями
-                if filtered_messages:  # Добавляем сессию только если в ней остались сообщения
+                if filtered_messages:
                     from models import Session
                     filtered_session = Session(
                         id=session.id,
@@ -49,8 +142,7 @@ class MessageFilter:
                     )
                     filtered_sessions.append(filtered_session)
             
-            # Создаем новый диалог с отфильтрованными сессиями
-            if filtered_sessions:  # Добавляем диалог только если в нем остались сессии
+            if filtered_sessions:
                 filtered_dialog = Dialog(
                     id=dialog.id,
                     question=dialog.question,
@@ -62,51 +154,164 @@ class MessageFilter:
     
     def filter_messages(self, messages: List[Message]) -> List[Message]:
         """
-        Фильтрует сообщения, удаляя копипаст и технический контент
-        
-        Args:
-            messages: Список сообщений для фильтрации
-            
-        Returns:
-            Список отфильтрованных сообщений
+        Фильтрует сообщения с оптимизированным определением личной информации
         """
         if not messages:
             return []
         
-        filtered_messages = []
-        previous_was_copypaste = False
+        # Строим контекст из всех сообщений
+        context = self._build_message_context(messages)
         
-        for msg in messages:
+        # Фильтруем с учетом контекста
+        return self._filter_with_context(messages, context)
+    
+    def _filter_with_context(self, messages: List[Message], context: Dict) -> List[Message]:
+        """
+        Фильтрация с учетом контекста диалога
+        """
+        filtered = []
+        previous_was_copypaste = False
+        personal_streak = 0  # Счетчик последовательных личных сообщений
+        
+        for i, msg in enumerate(messages):
             if msg.role == "user" and msg.content.strip():
-                # Проверяем, не является ли сообщение копипастом
-                is_copypaste = is_copy_paste_content(msg.content)
+                # Проверяем кэш
+                cache_key = hash(msg.content[:100])
+                if cache_key in self._analysis_cache:
+                    analysis = self._analysis_cache[cache_key]
+                else:
+                    # Анализируем сообщение
+                    analysis = self._analyze_message(msg.content, context)
+                    
+                    # Кэшируем результат
+                    if len(self._analysis_cache) < self._cache_size:
+                        self._analysis_cache[cache_key] = analysis
                 
-                # Если предыдущее сообщение было копипастом, то и это тоже копипаст
-                if previous_was_copypaste:
-                    is_copypaste = True
+                # Решение о включении сообщения
+                should_include = False
                 
-                # Фильтруем копипаст, но сохраняем личную информацию
-                if not is_copypaste and is_personal_message(msg.content):
-                    filtered_messages.append(msg)
+                if analysis['is_personal']:
+                    # Личное сообщение - включаем
+                    should_include = True
+                    personal_streak += 1
+                elif analysis['is_personal_copypaste']:
+                    # Копипаст с личным контекстом - включаем
+                    should_include = True
+                    personal_streak = 0
+                elif personal_streak >= 2 and not analysis['is_pure_copypaste']:
+                    # После 2+ личных сообщений более лояльны к следующим
+                    should_include = True
+                    personal_streak += 1
+                else:
+                    personal_streak = 0
+                
+                # Дополнительная проверка на предыдущий копипаст
+                if previous_was_copypaste and analysis['is_copypaste']:
+                    should_include = False
+                
+                if should_include:
+                    filtered.append(msg)
                     previous_was_copypaste = False
                 else:
-                    previous_was_copypaste = True
-            else:
-                # Сохраняем сообщения ассистента
-                filtered_messages.append(msg)
+                    previous_was_copypaste = analysis['is_copypaste']
+                    
+            elif msg.role == "assistant":
+                # Сохраняем ответы ассистента если есть контекст
+                if filtered or personal_streak > 0:
+                    filtered.append(msg)
                 previous_was_copypaste = False
         
-        return filtered_messages
+        return filtered
+    
+    def _analyze_message(self, content: str, context: Dict) -> Dict:
+        """
+        Полный анализ сообщения с учетом контекста
+        """
+        personal_score = self._calculate_personal_score(content)
+        is_copypaste = is_copy_paste_content(content)
+        is_technical = is_technical_content(content)
+        
+        # Определяем тип сообщения
+        is_personal = personal_score > 0.2 and not is_copypaste
+        is_personal_copypaste = is_copypaste and self._is_personal_copypaste(content)
+        is_pure_copypaste = is_copypaste and not is_personal_copypaste
+        
+        # Учитываем контекст диалога
+        if context.get('has_strong_personal_context'):
+            # В личном контексте снижаем порог
+            is_personal = personal_score > 0.1
+        
+        return {
+            'personal_score': personal_score,
+            'is_copypaste': is_copypaste,
+            'is_technical': is_technical,
+            'is_personal': is_personal,
+            'is_personal_copypaste': is_personal_copypaste,
+            'is_pure_copypaste': is_pure_copypaste
+        }
+    
+    def _build_dialog_context(self, dialog: Dialog) -> Dict:
+        """
+        Строит контекст диалога для улучшенной фильтрации
+        """
+        context = {
+            'has_strong_personal_context': False,
+            'main_topics': set(),
+            'personal_words_count': 0
+        }
+        
+        # Анализируем вопрос диалога
+        if dialog.question:
+            question_score = self._calculate_personal_score(dialog.question)
+            if question_score > 0.3:
+                context['has_strong_personal_context'] = True
+        
+        # Быстрый анализ первых сообщений для определения контекста
+        for session in dialog.sessions[:2]:  # Смотрим первые 2 сессии
+            for msg in session.messages[:5]:  # Первые 5 сообщений
+                if msg.role == "user":
+                    score = self._calculate_personal_score(msg.content)
+                    if score > 0.3:
+                        context['personal_words_count'] += 1
+        
+        if context['personal_words_count'] >= 2:
+            context['has_strong_personal_context'] = True
+        
+        return context
+    
+    def _build_message_context(self, messages: List[Message]) -> Dict:
+        """
+        Строит контекст из списка сообщений
+        """
+        context = {
+            'has_strong_personal_context': False,
+            'personal_messages_ratio': 0.0
+        }
+        
+        if not messages:
+            return context
+        
+        # Считаем личные сообщения
+        personal_count = 0
+        user_count = 0
+        
+        for msg in messages[:10]:  # Анализируем первые 10 сообщений
+            if msg.role == "user":
+                user_count += 1
+                score = self._calculate_personal_score(msg.content)
+                if score > 0.3:
+                    personal_count += 1
+        
+        if user_count > 0:
+            context['personal_messages_ratio'] = personal_count / user_count
+            if context['personal_messages_ratio'] > 0.5:
+                context['has_strong_personal_context'] = True
+        
+        return context
     
     def filter_messages_simple(self, messages: List[Message]) -> List[Message]:
         """
         Простая фильтрация сообщений (только удаление копипаста)
-        
-        Args:
-            messages: Список сообщений для фильтрации
-            
-        Returns:
-            Список отфильтрованных сообщений
         """
         if not messages:
             return []
@@ -114,11 +319,11 @@ class MessageFilter:
         filtered_messages = []
         for msg in messages:
             if msg.role == "user" and msg.content.strip():
-                # Проверяем, не является ли сообщение копипастом
-                if not is_copy_paste_content(msg.content):
+                # Простая проверка без контекста
+                if not is_copy_paste_content(msg.content) or \
+                   self._is_personal_copypaste(msg.content):
                     filtered_messages.append(msg)
             else:
-                # Сохраняем сообщения ассистента
                 filtered_messages.append(msg)
         
         return filtered_messages
@@ -126,12 +331,6 @@ class MessageFilter:
     def get_message_analysis(self, messages: List[Message]) -> Dict[str, any]:
         """
         Анализирует сообщения и возвращает статистику фильтрации
-        
-        Args:
-            messages: Список сообщений для анализа
-            
-        Returns:
-            Словарь с анализом сообщений
         """
         if not messages:
             return {
@@ -141,7 +340,9 @@ class MessageFilter:
                 'copypaste_messages': 0,
                 'technical_messages': 0,
                 'personal_messages': 0,
-                'filter_ratio': 0.0
+                'personal_copypaste_messages': 0,
+                'filter_ratio': 0.0,
+                'avg_personal_score': 0.0
             }
         
         total_messages = len(messages)
@@ -150,15 +351,25 @@ class MessageFilter:
         copypaste_count = 0
         technical_count = 0
         personal_count = 0
+        personal_copypaste_count = 0
+        total_personal_score = 0.0
+        
+        context = self._build_message_context(messages)
         
         for msg in messages:
             if msg.role == "user" and msg.content.strip():
-                if is_copy_paste_content(msg.content):
+                analysis = self._analyze_message(msg.content, context)
+                
+                if analysis['is_copypaste']:
                     copypaste_count += 1
-                elif is_technical_content(msg.content):
+                if analysis['is_technical']:
                     technical_count += 1
-                elif is_personal_message(msg.content):
+                if analysis['is_personal']:
                     personal_count += 1
+                if analysis['is_personal_copypaste']:
+                    personal_copypaste_count += 1
+                
+                total_personal_score += analysis['personal_score']
         
         filtered_messages = self.filter_messages(messages)
         filtered_count = len(filtered_messages)
@@ -170,37 +381,33 @@ class MessageFilter:
             'copypaste_messages': copypaste_count,
             'technical_messages': technical_count,
             'personal_messages': personal_count,
-            'filter_ratio': (user_messages - filtered_count) / user_messages if user_messages > 0 else 0.0
+            'personal_copypaste_messages': personal_copypaste_count,
+            'filter_ratio': (user_messages - filtered_count) / user_messages if user_messages > 0 else 0.0,
+            'avg_personal_score': total_personal_score / user_messages if user_messages > 0 else 0.0
         }
     
     def get_message_quality_analysis(self, messages: List[Message]) -> List[Dict[str, any]]:
         """
-        Анализирует качество каждого сообщения
-        
-        Args:
-            messages: Список сообщений для анализа
-            
-        Returns:
-            Список словарей с анализом каждого сообщения
+        Анализирует качество каждого сообщения с детальным анализом
         """
         analysis = []
+        context = self._build_message_context(messages)
         
         for i, msg in enumerate(messages):
             if msg.role == "user" and msg.content.strip():
-                quality_score = get_message_quality_score(msg.content)
-                is_copypaste = is_copy_paste_content(msg.content)
-                is_technical = is_technical_content(msg.content)
-                is_personal = is_personal_message(msg.content)
+                detailed_analysis = self._analyze_message(msg.content, context)
                 
                 analysis.append({
                     'index': i,
                     'content_preview': msg.content[:100] + "..." if len(msg.content) > 100 else msg.content,
                     'content_length': len(msg.content),
-                    'quality_score': quality_score,
-                    'is_copypaste': is_copypaste,
-                    'is_technical': is_technical,
-                    'is_personal': is_personal,
-                    'will_be_filtered': is_copypaste or not is_personal
+                    'personal_score': detailed_analysis['personal_score'],
+                    'quality_score': get_message_quality_score(msg.content),
+                    'is_copypaste': detailed_analysis['is_copypaste'],
+                    'is_personal_copypaste': detailed_analysis['is_personal_copypaste'],
+                    'is_technical': detailed_analysis['is_technical'],
+                    'is_personal': detailed_analysis['is_personal'],
+                    'will_be_filtered': detailed_analysis['is_pure_copypaste'] and not detailed_analysis['is_personal']
                 })
         
         return analysis
@@ -214,12 +421,6 @@ def filter_dialogs(dialogs: List[Dialog]) -> List[Dialog]:
     """
     Простая функция для фильтрации диалогов
     (для обратной совместимости)
-    
-    Args:
-        dialogs: Список диалогов для фильтрации
-        
-    Returns:
-        Список отфильтрованных диалогов
     """
     return message_filter.filter_dialogs(dialogs)
 
@@ -228,73 +429,5 @@ def filter_messages(messages: List[Message]) -> List[Message]:
     """
     Простая функция для фильтрации сообщений
     (для обратной совместимости)
-    
-    Args:
-        messages: Список сообщений для фильтрации
-        
-    Returns:
-        Список отфильтрованных сообщений
     """
     return message_filter.filter_messages(messages)
-
-
-def calculate_personal_markers_score(messages: List[Message]) -> Dict[str, any]:
-    """
-    Анализирует личные сообщения пользователя и подсчитывает скор по PERSONAL_MARKERS
-    
-    Args:
-        messages: Список сообщений для анализа
-        
-    Returns:
-        Словарь с анализом личных маркеров
-    """
-    from .filters.regex_patterns import PERSONAL_MARKERS
-    import re
-    
-    # Получаем только сообщения пользователя
-    user_messages = [msg for msg in messages if msg.role == "user" and msg.content.strip()]
-    
-    if not user_messages:
-        return {
-            'total_user_messages': 0,
-            'personal_markers_found': 0,
-            'personal_score': 0.0,
-            'messages_with_personal_markers': 0,
-            'personal_markers_per_message': 0.0,
-            'top_personal_markers': []
-        }
-    
-    total_personal_markers = 0
-    messages_with_markers = 0
-    marker_counts = {}
-    
-    for msg in user_messages:
-        content = msg.content.lower()
-        message_markers = 0
-        
-        # Ищем личные маркеры в сообщении
-        for marker in PERSONAL_MARKERS:
-            # Используем регулярное выражение для точного поиска слов
-            pattern = r'\b' + re.escape(marker) + r'\b'
-            matches = re.findall(pattern, content)
-            count = len(matches)
-            
-            if count > 0:
-                message_markers += count
-                total_personal_markers += count
-                marker_counts[marker] = marker_counts.get(marker, 0) + count
-        
-        if message_markers > 0:
-            messages_with_markers += 1
-    
-    # Сортируем маркеры по частоте
-    top_markers = sorted(marker_counts.items(), key=lambda x: x[1], reverse=True)[:10]
-    
-    return {
-        'total_user_messages': len(user_messages),
-        'personal_markers_found': total_personal_markers,
-        'personal_score': total_personal_markers,
-        'messages_with_personal_markers': messages_with_markers,
-        'personal_markers_per_message': total_personal_markers / len(user_messages) if user_messages else 0.0,
-        'top_personal_markers': [{'marker': marker, 'count': count} for marker, count in top_markers]
-    }

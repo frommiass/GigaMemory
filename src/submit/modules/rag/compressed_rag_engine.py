@@ -19,6 +19,9 @@ from ..compression.compression_models import (
 logger = logging.getLogger(__name__)
 
 
+from dataclasses import dataclass
+
+@dataclass
 class CompressedRAGConfig:  # Убираем наследование от VectorRAGConfig
     """Конфигурация для RAG с сжатием"""
     

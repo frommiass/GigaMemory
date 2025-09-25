@@ -1,23 +1,59 @@
 # modules/extraction/module.py
 """
 ExtractionModule - АВТОНОМНЫЙ модуль извлечения фактов для GigaMemory
-Версия 3.0 - полностью изолированный, взаимодействует только через Orchestrator
+Версия 3.1 - с улучшенным кэшированием и быстрым доступом к критическим фактам
 """
 
-from core.interfaces import IFactExtractor, ProcessingResult
-from typing import Dict, Any, List, Optional
-from datetime import datetime
+import sys
+import os
+import time
 import hashlib
 import logging
+from typing import Dict, Any, List, Optional, Tuple
+from datetime import datetime, timedelta
+
+# Добавляем путь к models
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
+
+try:
+    from models import Message
+except ImportError:
+    # Fallback если models недоступны
+    Message = None
+    logging.warning("Could not import Message model, using dict fallback")
+
+from core.interfaces import IFactExtractor, ProcessingResult
 
 logger = logging.getLogger(__name__)
 
 
 class ExtractionModule(IFactExtractor):
     """
-    АВТОНОМНЫЙ модуль извлечения фактов
-    Не знает о других модулях кроме Optimizer для кэширования
+    АВТОНОМНЫЙ модуль извлечения фактов с улучшенным кэшированием
     """
+    
+    # TTL для разных типов фактов (в секундах)
+    FACT_TTL = {
+        'personal_name': 86400,        # 24 часа - имя редко меняется
+        'personal_age': 43200,          # 12 часов - возраст меняется редко
+        'personal_location': 3600,      # 1 час - может переехать
+        'work_occupation': 7200,        # 2 часа
+        'work_company': 7200,           # 2 часа
+        'family_status': 21600,         # 6 часов
+        'family_spouse': 86400,         # 24 часа
+        'pet_name': 86400,              # 24 часа
+        'default': 1800                 # 30 минут по умолчанию
+    }
+    
+    # Критические факты для быстрого доступа
+    CRITICAL_FACT_TYPES = [
+        'personal_name',
+        'personal_age',
+        'personal_location',
+        'work_occupation',
+        'work_company',
+        'family_status'
+    ]
     
     def __init__(self, config: Dict[str, Any]):
         """
@@ -25,12 +61,6 @@ class ExtractionModule(IFactExtractor):
         
         Args:
             config: Конфигурация модуля
-                - min_confidence: Минимальная уверенность для фактов (default: 0.5)
-                - use_llm: Использовать LLM для извлечения (default: False)
-                - use_rules: Использовать правила (default: True)
-                - conflict_strategy: Стратегия разрешения конфликтов (default: 'latest')
-                - filter_copypaste: Фильтровать копипаст (default: True)
-                - max_text_length: Максимальная длина текста (default: 10000)
         """
         self.config = config
         
@@ -60,27 +90,28 @@ class ExtractionModule(IFactExtractor):
         use_rules = config.get('use_rules', True)
         
         if use_llm and use_rules:
-            # Гибридный подход
             self.extractor = HybridFactExtractor(
-                model_inference=None,  # LLM пока не используем
+                model_inference=None,
                 rule_confidence_threshold=config.get('rule_confidence_threshold', 0.7)
             )
         elif use_rules:
-            # Только правила - БЫСТРО и НАДЕЖНО
             self.extractor = RuleBasedFactExtractor(
                 min_confidence=config.get('min_confidence', 0.5)
             )
         else:
-            # Только LLM
             self.extractor = SmartFactExtractor(
                 model_inference=None,
                 use_rules_first=False
             )
         
-        # ВНУТРЕННЯЯ база данных фактов с версионированием
+        # ВНУТРЕННЯЯ база данных фактов
         self.database = FactDatabase(
             conflict_strategy=config.get('conflict_strategy', 'latest')
         )
+        
+        # Кэш для критических фактов
+        self.critical_facts_cache = {}
+        self.cache_timestamps = {}
         
         # ЕДИНСТВЕННАЯ внешняя зависимость - optimizer для кэширования
         self.optimizer = None
@@ -91,42 +122,46 @@ class ExtractionModule(IFactExtractor):
             'facts_by_type': {},
             'conflicts_resolved': 0,
             'cache_hits': 0,
+            'critical_cache_hits': 0,
             'copypaste_filtered': 0,
-            'processing_time_ms': 0
+            'processing_time_ms': 0,
+            'info_updates_detected': 0
         }
         
-        logger.info(f"ExtractionModule initialized (AUTONOMOUS): rules={use_rules}, llm={use_llm}")
+        logger.info(f"ExtractionModule v3.1 initialized: rules={use_rules}, llm={use_llm}")
     
     def set_dependencies(self, optimizer=None):
         """
         Устанавливает ТОЛЬКО optimizer для кэширования
-        Модуль остается полностью автономным
         
         Args:
-            optimizer: Модуль оптимизации для кэширования (опционально)
+            optimizer: Модуль оптимизации для кэширования
         """
         self.optimizer = optimizer
         
-        # Регистрируем обработчики для кэширования фактов
         if self.optimizer and hasattr(self.optimizer, 'type_handler'):
             try:
+                # Регистрируем обработчики для сериализации фактов
                 self.optimizer.type_handler.register(
                     'fact',
-                    compress_func=lambda f: {
-                        'type': f.type.value,
-                        'object': f.object,
-                        'confidence': f.confidence.score
-                    },
-                    decompress_func=lambda d: self._create_fact_from_cache(d)
+                    compress_func=self._compress_fact,
+                    decompress_func=self._decompress_fact
+                )
+                
+                # Регистрируем обработчик для критических фактов
+                self.optimizer.type_handler.register(
+                    'critical_facts',
+                    compress_func=lambda cf: cf,
+                    decompress_func=lambda cf: cf
                 )
             except Exception as e:
-                logger.debug(f"Could not register fact handler: {e}")
+                logger.debug(f"Could not register handlers: {e}")
         
         logger.info(f"Dependencies set: optimizer={optimizer is not None}")
     
     def extract_facts(self, text: str, context: Dict[str, Any]) -> ProcessingResult:
         """
-        АВТОНОМНО извлекает факты из текста
+        АВТОНОМНО извлекает факты из текста с улучшенным кэшированием
         
         Args:
             text: Исходный текст для анализа
@@ -135,7 +170,6 @@ class ExtractionModule(IFactExtractor):
         Returns:
             ProcessingResult с извлеченными фактами
         """
-        import time
         start_time = time.time()
         
         try:
@@ -150,12 +184,12 @@ class ExtractionModule(IFactExtractor):
                     metadata={'empty_text': True}
                 )
             
+            # Обработка длинных текстов
             if len(text) > self.config.get('max_text_length', 10000):
-                # Обрезаем текст вместо отказа
                 text = text[:self.config.get('max_text_length', 10000)]
                 logger.warning(f"Text truncated to {len(text)} chars")
             
-            # ФИЛЬТРАЦИЯ КОПИПАСТА - критично для конкурса!
+            # ФИЛЬТРАЦИЯ КОПИПАСТА
             if self.config.get('filter_copypaste', True) and self._is_copypaste(text):
                 self.stats['copypaste_filtered'] += 1
                 return ProcessingResult(
@@ -164,10 +198,19 @@ class ExtractionModule(IFactExtractor):
                     metadata={'filtered': 'copypaste', 'reason': 'no personal markers'}
                 )
             
-            # КЭШИРОВАНИЕ - единственное внешнее взаимодействие
+            # Определяем тип сообщения для оптимизации кэширования
+            is_info_update = self._detect_info_update(text)
+            if is_info_update:
+                self.stats['info_updates_detected'] += 1
+                # Для обновлений информации используем короткий TTL
+                cache_ttl = 300  # 5 минут
+            else:
+                cache_ttl = 3600  # 1 час для обычных сообщений
+            
+            # КЭШИРОВАНИЕ с учетом типа сообщения
             cache_key = self._create_cache_key('extract', text[:200], dialogue_id, session_id)
             
-            if self.optimizer:
+            if self.optimizer and not is_info_update:  # Не используем кэш для обновлений
                 cached = self.optimizer.cache_get(cache_key)
                 if cached:
                     self.stats['cache_hits'] += 1
@@ -177,44 +220,47 @@ class ExtractionModule(IFactExtractor):
                         metadata={'from_cache': True, 'cache_key': cache_key[:8]}
                     )
             
-            # АВТОНОМНОЕ ИЗВЛЕЧЕНИЕ ФАКТОВ с защитой от ошибок
+            # ИЗВЛЕЧЕНИЕ ФАКТОВ
             try:
                 facts = self.extractor.extract_facts_from_text(
                     text=text,
                     session_id=session_id,
                     dialogue_id=dialogue_id
                 )
+                
+                # Дополнительное извлечение для info_updating вопросов
+                if is_info_update:
+                    update_facts = self._extract_update_facts(text, session_id, dialogue_id)
+                    facts.extend(update_facts)
+                
             except Exception as extract_error:
-                # Если извлечение упало, логируем но продолжаем работу
-                logger.warning(f"Extractor failed, returning empty: {extract_error}")
+                logger.warning(f"Extractor failed: {extract_error}")
                 facts = []
             
-            # Постобработка - улучшение качества фактов
+            # Постобработка
             if facts:
                 facts = self._postprocess_facts(facts, context)
             
-            # Сохраняем во ВНУТРЕННЮЮ базу данных
+            # Сохраняем во внутреннюю базу данных
             if facts and dialogue_id:
                 self.database.add_facts(dialogue_id, facts)
-                self.stats['conflicts_resolved'] += self.database.conflict_resolver.conflict_log.__len__()
+                self.stats['conflicts_resolved'] += len(self.database.conflict_resolver.conflict_log)
+                
+                # Обновляем кэш критических фактов
+                self._update_critical_facts_cache(dialogue_id, facts)
             
-            # Обновляем внутреннюю статистику
+            # Обновляем статистику
             self.stats['total_extracted'] += len(facts)
             for fact in facts:
-                # Безопасное получение значения типа
-                if hasattr(fact.type, 'value'):
-                    fact_type_str = fact.type.value
-                else:
-                    fact_type_str = str(fact.type)
-                
+                fact_type_str = self._get_fact_type_string(fact)
                 self.stats['facts_by_type'][fact_type_str] = \
                     self.stats['facts_by_type'].get(fact_type_str, 0) + 1
             
-            # Кэшируем результат
+            # Кэшируем результат с TTL в зависимости от типа фактов
             if self.optimizer and facts:
-                self.optimizer.cache_put(cache_key, facts, ttl=3600)
+                ttl = self._calculate_ttl_for_facts(facts)
+                self.optimizer.cache_put(cache_key, facts, ttl=ttl)
             
-            # Измеряем производительность
             processing_time = (time.time() - start_time) * 1000
             self.stats['processing_time_ms'] = processing_time
             
@@ -226,30 +272,82 @@ class ExtractionModule(IFactExtractor):
                     'session_id': session_id,
                     'dialogue_id': dialogue_id,
                     'processing_time_ms': processing_time,
+                    'is_info_update': is_info_update,
                     'used_cache': False
                 }
             )
             
         except Exception as e:
-            # Более информативная обработка ошибок
             import traceback
             error_details = traceback.format_exc()
-            logger.error(f"Extraction failed: {str(e)}\nDetails: {error_details}")
+            logger.error(f"Extraction failed: {str(e)}\n{error_details}")
             return ProcessingResult(
                 success=False,
                 data=[],
                 error=f"Extraction failed: {str(e)}"
             )
     
-    def get_user_profile(self, dialogue_id: str) -> ProcessingResult:
+    def get_critical_facts(self, dialogue_id: str) -> Dict[str, str]:
         """
-        Строит профиль пользователя из ВНУТРЕННЕЙ базы фактов
+        Возвращает критические факты для быстрого доступа
         
         Args:
             dialogue_id: ID диалога
             
         Returns:
-            ProcessingResult с полным профилем пользователя
+            Словарь с критическими фактами
+        """
+        # Проверяем кэш критических фактов
+        cache_key = f"critical_{dialogue_id}"
+        
+        # Проверяем свежесть кэша
+        if cache_key in self.critical_facts_cache:
+            cache_time = self.cache_timestamps.get(cache_key, 0)
+            if time.time() - cache_time < 300:  # 5 минут
+                self.stats['critical_cache_hits'] += 1
+                return self.critical_facts_cache[cache_key]
+        
+        # Извлекаем критические факты из базы
+        critical_facts = {}
+        
+        critical_types = {
+            'name': self.FactType.PERSONAL_NAME,
+            'age': self.FactType.PERSONAL_AGE,
+            'location': self.FactType.PERSONAL_LOCATION,
+            'occupation': self.FactType.WORK_OCCUPATION,
+            'company': self.FactType.WORK_COMPANY,
+            'marital_status': self.FactType.FAMILY_STATUS,
+            'spouse': self.FactType.FAMILY_SPOUSE,
+            'children_count': self.FactType.FAMILY_CHILDREN
+        }
+        
+        for key, fact_type in critical_types.items():
+            fact = self.database.find_fact_by_type_and_subject(
+                dialogue_id, fact_type, 'пользователь'
+            )
+            if fact:
+                critical_facts[key] = fact.object
+                # Добавляем уверенность для критических фактов
+                critical_facts[f"{key}_confidence"] = fact.confidence.score
+        
+        # Дополнительная информация о детях (количество)
+        if 'children_count' in critical_facts:
+            children_facts = self.database.query_facts(
+                dialogue_id, 
+                fact_type=self.FactType.FAMILY_CHILDREN
+            )
+            critical_facts['children_count'] = str(len(children_facts))
+            critical_facts['children_names'] = [f.object for f in children_facts]
+        
+        # Кэшируем результат
+        self.critical_facts_cache[cache_key] = critical_facts
+        self.cache_timestamps[cache_key] = time.time()
+        
+        return critical_facts
+    
+    def get_user_profile(self, dialogue_id: str) -> ProcessingResult:
+        """
+        Строит профиль пользователя с критическими фактами
         """
         try:
             # Используем кэш для профилей
@@ -265,12 +363,15 @@ class ExtractionModule(IFactExtractor):
                         metadata={'from_cache': True}
                     )
             
-            # Строим профиль из ВНУТРЕННЕЙ базы данных
+            # Строим профиль из базы данных
             profile = self.database.get_user_profile(dialogue_id)
             
-            # Дополняем критическими фактами для конкурса
+            # Добавляем критические факты для быстрого доступа
+            critical_facts = self.get_critical_facts(dialogue_id)
+            
             enhanced_profile = {
                 'dialogue_id': dialogue_id,
+                'critical_facts': critical_facts,  # Критические факты в начале
                 'personal': profile.get('personal', {}),
                 'family': profile.get('family', {}),
                 'work': profile.get('work', {}),
@@ -281,17 +382,6 @@ class ExtractionModule(IFactExtractor):
                 'health': profile.get('health', {}),
                 'events': profile.get('events', []),
                 'contacts': profile.get('contacts', {}),
-                
-                # Критические факты для быстрого доступа
-                'critical_facts': {
-                    'name': self._get_critical_fact(dialogue_id, self.FactType.PERSONAL_NAME),
-                    'age': self._get_critical_fact(dialogue_id, self.FactType.PERSONAL_AGE),
-                    'location': self._get_critical_fact(dialogue_id, self.FactType.PERSONAL_LOCATION),
-                    'marital_status': self._get_critical_fact(dialogue_id, self.FactType.FAMILY_STATUS),
-                    'occupation': self._get_critical_fact(dialogue_id, self.FactType.WORK_OCCUPATION)
-                },
-                
-                # Статистика
                 'stats': {
                     'total_facts': self.database.stats.total_facts,
                     'facts_by_type': self.database.stats.facts_by_type,
@@ -300,7 +390,7 @@ class ExtractionModule(IFactExtractor):
                 }
             }
             
-            # Кэшируем профиль на 5 минут
+            # Кэшируем профиль
             if self.optimizer:
                 self.optimizer.cache_put(cache_key, enhanced_profile, ttl=300)
             
@@ -309,6 +399,7 @@ class ExtractionModule(IFactExtractor):
                 data=enhanced_profile,
                 metadata={
                     'total_facts': self.database.stats.total_facts,
+                    'has_critical_facts': bool(critical_facts),
                     'last_updated': datetime.now().isoformat()
                 }
             )
@@ -321,189 +412,209 @@ class ExtractionModule(IFactExtractor):
                 error=f"Profile creation failed: {str(e)}"
             )
     
-    def query_facts(self, dialogue_id: str, query: str) -> ProcessingResult:
-        """
-        АВТОНОМНЫЙ поиск фактов во ВНУТРЕННЕЙ базе данных
-        
-        Args:
-            dialogue_id: ID диалога
-            query: Поисковый запрос
-            
-        Returns:
-            ProcessingResult с найденными фактами
-        """
-        try:
-            # Кэшируем частые запросы
-            cache_key = self._create_cache_key('query', dialogue_id, query)
-            
-            if self.optimizer:
-                cached = self.optimizer.cache_get(cache_key)
-                if cached:
-                    self.stats['cache_hits'] += 1
-                    return ProcessingResult(
-                        success=True,
-                        data=cached,
-                        metadata={'from_cache': True, 'query': query}
-                    )
-            
-            # Определяем тип факта из запроса
-            fact_type = self._detect_fact_type_from_query(query)
-            
-            # АВТОНОМНЫЙ поиск во ВНУТРЕННЕЙ базе данных
-            facts = self.database.query_facts(
-                dialogue_id=dialogue_id,
-                query=query,
-                fact_type=fact_type,
-                min_confidence=self.config.get('min_confidence', 0.5)
-            )
-            
-            # Дополнительный поиск по ключевым словам
-            if not facts and query:
-                facts = self._fallback_keyword_search(dialogue_id, query)
-            
-            # Сортируем по релевантности
-            facts = sorted(facts, key=lambda f: f.confidence.score, reverse=True)
-            
-            # Ограничиваем количество
-            facts = facts[:10]
-            
-            # Кэшируем результат на 15 минут
-            if self.optimizer and facts:
-                self.optimizer.cache_put(cache_key, facts, ttl=900)
-            
-            return ProcessingResult(
-                success=True,
-                data=facts,
-                metadata={
-                    'query': query,
-                    'found_count': len(facts),
-                    'fact_type': fact_type.value if fact_type else None,
-                    'used_fallback': len(facts) > 0 and not fact_type
-                }
-            )
-            
-        except Exception as e:
-            logger.error(f"Query failed: {e}")
-            return ProcessingResult(
-                success=False,
-                data=[],
-                error=f"Query failed: {str(e)}"
-            )
+    # === НОВЫЕ МЕТОДЫ ДЛЯ УЛУЧШЕННОГО ИЗВЛЕЧЕНИЯ ===
     
-    # === ДОПОЛНИТЕЛЬНЫЕ МЕТОДЫ ДЛЯ КОНКУРСА ===
-    
-    def get_fact_timeline(self, dialogue_id: str, fact_type: str) -> List[Dict]:
+    def _detect_info_update(self, text: str) -> bool:
         """
-        История изменения факта во времени
+        Определяет, является ли текст обновлением информации
+        """
+        update_markers = [
+            'теперь', 'сейчас', 'изменилось', 'обновление',
+            'больше не', 'уже не', 'стал', 'стала',
+            'переехал', 'сменил', 'новый', 'новая',
+            'был', 'была', 'раньше', 'прежде',
+            'вышла замуж', 'женился', 'развелся',
+            'родился', 'родилась', 'умер', 'умерла',
+            'уволился', 'устроился', 'повысили'
+        ]
         
-        Args:
-            dialogue_id: ID диалога
-            fact_type: Тип факта
-            
-        Returns:
-            Timeline изменений факта
+        text_lower = text.lower()
+        return any(marker in text_lower for marker in update_markers)
+    
+    def _extract_update_facts(self, text: str, session_id: str, dialogue_id: str) -> List:
         """
-        try:
-            # Преобразуем строку в FactType
-            fact_type_enum = self._parse_fact_type(fact_type)
-            if not fact_type_enum:
-                return []
+        Специальное извлечение для обновлений информации
+        """
+        import re
+        update_facts = []
+        
+        # Паттерны для обнаружения изменений
+        update_patterns = [
+            # Изменение имени
+            (r'теперь (?:меня зовут|мое имя)\s+([А-ЯЁ][а-яё]+)', 
+             self.FactType.PERSONAL_NAME),
             
-            # Получаем все версии факта из ВНУТРЕННЕЙ базы
-            facts = self.database.query_facts(
-                dialogue_id=dialogue_id,
-                fact_type=fact_type_enum
-            )
+            # Изменение возраста
+            (r'(?:мне уже|мне исполнилось|мне теперь)\s+(\d+)', 
+             self.FactType.PERSONAL_AGE),
             
-            # Строим timeline
-            timeline = []
-            for fact in facts:
-                entry = {
-                    'value': fact.object,
-                    'confidence': fact.confidence.score,
-                    'session_id': fact.session_id,
-                    'timestamp': fact.extracted_at.isoformat() if hasattr(fact, 'extracted_at') else None,
-                    'is_current': True
-                }
+            # Изменение места жительства
+            (r'переехал(?:а)?\s+в\s+([А-ЯЁ][а-яё]+)', 
+             self.FactType.PERSONAL_LOCATION),
+            
+            # Изменение работы
+            (r'(?:теперь работаю|устроился|устроилась)\s+(?:в\s+)?([А-ЯЁ][а-яё]+)',
+             self.FactType.WORK_COMPANY),
+            
+            # Изменение семейного статуса
+            (r'(?:женился|вышла замуж|теперь женат|теперь замужем)',
+             self.FactType.FAMILY_STATUS),
+            
+            (r'(?:развелся|развелась|больше не женат|больше не замужем)',
+             self.FactType.FAMILY_STATUS),
+            
+            # Новый питомец
+            (r'(?:завел|завела|появился|появилась)\s+([а-яё]+)',
+             self.FactType.PET_TYPE)
+        ]
+        
+        for pattern_str, fact_type in update_patterns:
+            pattern = re.compile(pattern_str, re.IGNORECASE)
+            match = pattern.search(text)
+            
+            if match:
+                # Определяем значение для факта
+                if fact_type == self.FactType.FAMILY_STATUS:
+                    if 'женился' in text.lower() or 'женат' in text.lower():
+                        value = 'женат'
+                    elif 'замужем' in text.lower() or 'вышла замуж' in text.lower():
+                        value = 'замужем'
+                    elif 'развел' in text.lower():
+                        value = 'разведен'
+                    else:
+                        continue
+                else:
+                    value = match.group(1) if match.groups() else match.group(0)
                 
-                if isinstance(fact, self.TemporalFact):
-                    entry['is_current'] = fact.is_current
+                # Создаем временной факт
+                fact = self.TemporalFact(
+                    type=fact_type,
+                    subject='пользователь',
+                    relation=self._get_relation_for_type(fact_type),
+                    object=value,
+                    confidence=self.FactConfidence(
+                        score=0.95,  # Высокая уверенность для явных обновлений
+                        source='info_update'
+                    ),
+                    session_id=session_id,
+                    dialogue_id=dialogue_id,
+                    raw_text=text[:200],
+                    is_current=True,  # Это текущая информация
+                    timestamp=datetime.now()
+                )
                 
-                timeline.append(entry)
-            
-            # Сортируем по времени
-            timeline.sort(key=lambda x: x['timestamp'] if x['timestamp'] else '')
-            
-            # Помечаем только последний как текущий
-            if timeline:
-                for entry in timeline[:-1]:
-                    entry['is_current'] = False
-            
-            return timeline
-            
-        except Exception as e:
-            logger.error(f"Timeline generation failed: {e}")
-            return []
-    
-    def resolve_fact_conflicts(self, facts: List[Any]) -> Any:
-        """
-        Разрешает конфликты между версиями фактов
+                update_facts.append(fact)
         
-        Args:
-            facts: Список конфликтующих фактов
-            
-        Returns:
-            Выбранный факт после разрешения
+        return update_facts
+    
+    def _calculate_ttl_for_facts(self, facts: List) -> int:
+        """
+        Рассчитывает TTL для кэширования на основе типов фактов
         """
         if not facts:
-            return None
+            return self.FACT_TTL['default']
         
-        if len(facts) == 1:
-            return facts[0]
+        # Берем минимальный TTL среди всех фактов
+        min_ttl = self.FACT_TTL['default']
         
-        # Используем ВНУТРЕННИЙ resolver
-        conflicting = self.ConflictingFacts(facts=facts)
-        resolved = self.database.conflict_resolver.resolve(conflicting)
+        for fact in facts:
+            fact_type_str = self._get_fact_type_string(fact)
+            ttl = self.FACT_TTL.get(fact_type_str, self.FACT_TTL['default'])
+            min_ttl = min(min_ttl, ttl)
         
-        self.stats['conflicts_resolved'] += 1
-        
-        return resolved
+        return min_ttl
     
-    def get_facts_for_prompt(self, dialogue_id: str, question: str) -> str:
+    def _update_critical_facts_cache(self, dialogue_id: str, facts: List):
         """
-        Форматирует топ-5 фактов для промпта
-        ИСПОЛЬЗУЕТСЯ В ORCHESTRATOR ДЛЯ FALLBACK
-        
-        Args:
-            dialogue_id: ID диалога
-            question: Вопрос пользователя
-            
-        Returns:
-            Отформатированная строка с фактами
+        Обновляет кэш критических фактов при добавлении новых
         """
-        result = self.query_facts(dialogue_id, question)
+        cache_key = f"critical_{dialogue_id}"
         
-        if not result.success or not result.data:
-            return ""
-        
-        facts_lines = []
-        for i, fact in enumerate(result.data[:5], 1):
-            if hasattr(fact, 'to_natural_text'):
-                fact_text = fact.to_natural_text()
-            else:
-                fact_text = f"{fact.subject} {fact.relation} {fact.object}"
+        # Если кэш существует, обновляем только изменившиеся факты
+        if cache_key in self.critical_facts_cache:
+            critical_facts = self.critical_facts_cache[cache_key]
             
-            confidence = fact.confidence.score if hasattr(fact, 'confidence') else 0.5
-            facts_lines.append(f"{i}. {fact_text} (уверенность: {confidence:.0%})")
-        
-        if facts_lines:
-            return "Известные факты о пользователе:\n" + "\n".join(facts_lines)
-        return ""
+            for fact in facts:
+                fact_type_str = self._get_fact_type_string(fact)
+                
+                # Обновляем только критические факты
+                if fact_type_str in self.CRITICAL_FACT_TYPES:
+                    # Маппинг типов фактов на ключи в critical_facts
+                    key_map = {
+                        'personal_name': 'name',
+                        'personal_age': 'age',
+                        'personal_location': 'location',
+                        'work_occupation': 'occupation',
+                        'work_company': 'company',
+                        'family_status': 'marital_status'
+                    }
+                    
+                    key = key_map.get(fact_type_str)
+                    if key:
+                        critical_facts[key] = fact.object
+                        critical_facts[f"{key}_confidence"] = fact.confidence.score
+                        
+            # Обновляем временную метку
+            self.cache_timestamps[cache_key] = time.time()
     
-    # === ВНУТРЕННИЕ ВСПОМОГАТЕЛЬНЫЕ МЕТОДЫ ===
+    def _compress_fact(self, fact) -> Dict:
+        """
+        Сжимает факт для кэширования
+        """
+        return {
+            't': self._get_fact_type_string(fact),  # type
+            'o': fact.object,                        # object
+            'c': round(fact.confidence.score, 2),    # confidence
+            's': fact.subject[:10] if len(fact.subject) > 10 else fact.subject,  # subject
+            'r': fact.relation.value if hasattr(fact.relation, 'value') else str(fact.relation)[:10]
+        }
+    
+    def _decompress_fact(self, data: Dict):
+        """
+        Восстанавливает факт из кэша
+        """
+        try:
+            fact_type = self.FactType(data['t'])
+        except:
+            # Fallback для неизвестных типов
+            fact_type = self.FactType.GENERAL
+        
+        return self.Fact(
+            type=fact_type,
+            subject=data.get('s', 'пользователь'),
+            relation=data.get('r', 'is'),
+            object=data['o'],
+            confidence=self.FactConfidence(
+                score=data['c'],
+                source='cached'
+            ),
+            session_id='',
+            dialogue_id=''
+        )
+    
+    def _get_fact_type_string(self, fact) -> str:
+        """
+        Безопасно получает строковое представление типа факта
+        """
+        if hasattr(fact.type, 'value'):
+            return fact.type.value
+        return str(fact.type)
+    
+    def _get_relation_for_type(self, fact_type) -> str:
+        """
+        Определяет отношение для типа факта
+        """
+        from .fact_patterns import get_relation_for_type
+        relation = get_relation_for_type(fact_type)
+        
+        if hasattr(relation, 'value'):
+            return relation.value
+        return str(relation)
     
     def _is_copypaste(self, text: str) -> bool:
-        """Определяет является ли текст копипастом"""
+        """
+        Определяет является ли текст копипастом
+        """
         # Признаки копипаста
         if len(text) > 5000:
             return True
@@ -529,23 +640,25 @@ class ExtractionModule(IFactExtractor):
         return sum(copypaste_indicators) >= 2
     
     def _postprocess_facts(self, facts: List, context: Dict) -> List:
-        """Постобработка для улучшения качества фактов"""
+        """
+        Постобработка для улучшения качества фактов
+        """
         processed = []
         
         for fact in facts:
             # Повышаем уверенность для критических фактов
-            if fact.type in [self.FactType.PERSONAL_NAME, self.FactType.PERSONAL_AGE]:
+            fact_type_str = self._get_fact_type_string(fact)
+            if fact_type_str in ['personal_name', 'personal_age']:
                 fact.confidence.score = min(1.0, fact.confidence.score * 1.2)
             
             # Нормализуем значения
             if fact.type == self.FactType.PERSONAL_AGE:
-                # Убедимся что возраст - число
                 try:
                     age = int(''.join(filter(str.isdigit, fact.object)))
                     if 0 < age < 150:
                         fact.object = str(age)
                     else:
-                        continue  # Пропускаем невалидный возраст
+                        continue
                 except:
                     continue
             
@@ -553,107 +666,88 @@ class ExtractionModule(IFactExtractor):
         
         return processed
     
-    def _detect_fact_type_from_query(self, query: str) -> Optional:
-        """Определяет тип факта из запроса"""
-        query_lower = query.lower()
-        
-        # Маппинг ключевых слов на типы фактов
-        type_keywords = {
-            self.FactType.PERSONAL_NAME: ['имя', 'зовут', 'фио', 'как меня', 'как зовут'],
-            self.FactType.PERSONAL_AGE: ['возраст', 'сколько лет', 'лет'],
-            self.FactType.PERSONAL_LOCATION: ['где живу', 'город', 'адрес', 'где я живу'],
-            self.FactType.WORK_OCCUPATION: ['профессия', 'работа', 'кем работаю', 'должность'],
-            self.FactType.WORK_COMPANY: ['где работаю', 'компания', 'фирма'],
-            self.FactType.FAMILY_STATUS: ['женат', 'замужем', 'холост', 'семейное положение'],
-            self.FactType.FAMILY_SPOUSE: ['жена', 'муж', 'супруг'],
-            self.FactType.FAMILY_CHILDREN: ['дети', 'сын', 'дочь', 'ребенок'],
-            self.FactType.PET_NAME: ['питомец', 'кот', 'кошка', 'собака', 'кличка'],
-            self.FactType.PET_TYPE: ['какие питомцы', 'животные'],
-            self.FactType.HOBBY_ACTIVITY: ['хобби', 'увлечения', 'интересы'],
-        }
-        
-        for fact_type, keywords in type_keywords.items():
-            if any(kw in query_lower for kw in keywords):
-                return fact_type
-        
-        return None
-    
-    def _fallback_keyword_search(self, dialogue_id: str, query: str) -> List:
-        """Резервный поиск по ключевым словам"""
-        all_facts = self.database.get_facts(dialogue_id)
-        query_words = set(query.lower().split())
-        
-        relevant_facts = []
-        for fact in all_facts:
-            fact_text = f"{fact.subject} {fact.object}".lower()
-            fact_words = set(fact_text.split())
-            
-            # Считаем пересечение слов
-            overlap = len(query_words & fact_words)
-            if overlap > 0:
-                # Временно увеличиваем score для сортировки
-                fact._temp_relevance = overlap / len(query_words)
-                relevant_facts.append(fact)
-        
-        # Сортируем по релевантности
-        relevant_facts.sort(key=lambda f: f._temp_relevance, reverse=True)
-        
-        # Убираем временное поле
-        for fact in relevant_facts:
-            delattr(fact, '_temp_relevance')
-        
-        return relevant_facts[:5]
-    
-    def _parse_fact_type(self, type_str: str):
-        """Парсит строку в FactType"""
-        try:
-            return self.FactType(type_str)
-        except ValueError:
-            # Пробуем найти по частичному совпадению
-            type_str_upper = type_str.upper()
-            for fact_type in self.FactType:
-                if type_str_upper in fact_type.value.upper():
-                    return fact_type
-            return None
-    
-    def _get_critical_fact(self, dialogue_id: str, fact_type) -> Optional[str]:
-        """Получает критический факт для конкурса"""
-        fact = self.database.find_fact_by_type_and_subject(
-            dialogue_id, fact_type, 'пользователь'
-        )
-        return fact.object if fact else None
-    
-    def _create_fact_from_cache(self, data: Dict):
-        """Создает факт из кэшированных данных"""
-        return self.Fact(
-            type=self.FactType(data['type']),
-            subject='пользователь',
-            relation=self.FactRelation.IS,
-            object=data['object'],
-            confidence=self.FactConfidence(
-                score=data['confidence'],
-                source='cached'
-            ),
-            session_id='',
-            dialogue_id=''
-        )
-    
     def _create_cache_key(self, *args) -> str:
-        """Создает ключ для кэша"""
+        """
+        Создает ключ для кэша
+        """
         key_str = '_'.join(str(arg)[:50] for arg in args if arg)
         return hashlib.md5(key_str.encode()).hexdigest()
     
-    # === МЕТОДЫ ДЛЯ ОТЛАДКИ И МОНИТОРИНГА ===
+    # === МЕТОДЫ СОВМЕСТИМОСТИ С ПРЕДЫДУЩЕЙ ВЕРСИЕЙ ===
+    
+    def query_facts(self, dialogue_id: str, query: str) -> ProcessingResult:
+        """Поиск фактов (для совместимости)"""
+        try:
+            # Проверяем критические факты сначала
+            if any(word in query.lower() for word in ['имя', 'зовут', 'возраст', 'работа']):
+                critical = self.get_critical_facts(dialogue_id)
+                if critical:
+                    # Преобразуем в список фактов
+                    facts = []
+                    for key, value in critical.items():
+                        if not key.endswith('_confidence') and value:
+                            # Создаем псевдо-факт для ответа
+                            fact = type('Fact', (), {
+                                'object': value,
+                                'subject': 'пользователь',
+                                'relation': 'is',
+                                'confidence': type('Confidence', (), {
+                                    'score': critical.get(f'{key}_confidence', 0.8)
+                                })(),
+                                'to_natural_text': lambda: f"пользователь - {value}"
+                            })()
+                            facts.append(fact)
+                    
+                    if facts:
+                        return ProcessingResult(
+                            success=True,
+                            data=facts[:5],
+                            metadata={'from_critical_cache': True}
+                        )
+            
+            # Fallback к обычному поиску
+            facts = self.database.query_facts(
+                dialogue_id=dialogue_id,
+                query=query,
+                min_confidence=self.config.get('min_confidence', 0.5)
+            )
+            
+            return ProcessingResult(
+                success=True,
+                data=facts[:10],
+                metadata={'query': query, 'found_count': len(facts)}
+            )
+            
+        except Exception as e:
+            logger.error(f"Query failed: {e}")
+            return ProcessingResult(
+                success=False,
+                data=[],
+                error=str(e)
+            )
     
     def get_stats(self) -> Dict:
         """Возвращает статистику работы модуля"""
         return {
             'module_stats': self.stats,
             'database_stats': self.database.get_stats().to_dict() if hasattr(self.database, 'get_stats') else {},
-            'extractor_stats': self.extractor.get_stats() if hasattr(self.extractor, 'get_stats') else {}
+            'extractor_stats': self.extractor.get_stats() if hasattr(self.extractor, 'get_stats') else {},
+            'cache_info': {
+                'critical_facts_cached': len(self.critical_facts_cache),
+                'cache_timestamps': len(self.cache_timestamps)
+            }
         }
     
     def clear_dialogue(self, dialogue_id: str):
-        """Очищает все факты диалога"""
+        """Очищает все данные диалога включая кэши"""
+        # Очищаем базу данных
         self.database.clear_dialogue(dialogue_id)
-        logger.info(f"Dialogue {dialogue_id} cleared from internal database")
+        
+        # Очищаем кэши критических фактов
+        cache_key = f"critical_{dialogue_id}"
+        if cache_key in self.critical_facts_cache:
+            del self.critical_facts_cache[cache_key]
+        if cache_key in self.cache_timestamps:
+            del self.cache_timestamps[cache_key]
+        
+        logger.info(f"Dialogue {dialogue_id} fully cleared including caches")

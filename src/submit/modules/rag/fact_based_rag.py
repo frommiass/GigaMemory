@@ -62,8 +62,8 @@ class FactBasedRAGEngine(RAGInterface):
         """
         max_results = max_results or self.config.max_facts
         
-        # Получаем все факты из базы данных
-        all_facts = self.fact_database.get_all_facts()
+        # Получаем все факты из базы данных (используем query_facts для получения всех)
+        all_facts = self.fact_database.query_facts("all", query=None)
         
         if not all_facts:
             self.logger.warning("База данных фактов пуста")

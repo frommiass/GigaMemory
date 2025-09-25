@@ -1,3 +1,4 @@
+from core.interfaces import IModelInference, ProcessingResult
 """
 Модуль для инференса и работы с языковой моделью GigaChat
 """
@@ -55,7 +56,28 @@ class ModelInference:
         except Exception as e:
             raise RuntimeError(f"Ошибка загрузки модели {self.model_path}: {str(e)}")
     
-    def inference(self, messages: List[Message]) -> str:
+    
+    def generate(self, messages: List[Message]) -> ProcessingResult:
+        """Реализация метода интерфейса IModelInference"""
+        try:
+            result = self.inference(messages)
+            return ProcessingResult(
+                success=True,
+                data=result,
+                metadata={
+                    'model_path': self.model_path,
+                    'messages_count': len(messages)
+                }
+            )
+        except Exception as e:
+            return ProcessingResult(
+                success=False,
+                data="Ошибка генерации.",
+                metadata={'error': str(e)},
+                error=str(e)
+            )
+
+def inference(self, messages: List[Message]) -> str:
         """
         Выполняет инференс модели
         

@@ -93,7 +93,7 @@ class EmbeddingsModule(IEmbeddingEngine):
                 metric=self.config.get('metric', 'cosine')
             )
     
-    def set_optimizer(self, optimizer):
+    def set_dependencies(self, optimizer=None, storage=None, embeddings=None):
         """Установка оптимизатора"""
         self.optimizer = optimizer
     

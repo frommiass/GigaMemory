@@ -16,15 +16,15 @@ def test_components():
     
     # Тестируем импорт классификатора
     try:
-        from submit.questions.fact_based_classifier import FactBasedQuestionClassifier
-        print("✅ FactBasedQuestionClassifier импортирован успешно")
+        from submit.modules.rag.questions.classifier import QuestionClassifier
+        print("✅ QuestionClassifier импортирован успешно")
     except Exception as e:
         print(f"❌ Ошибка импорта FactBasedQuestionClassifier: {e}")
         return False
     
     # Тестируем импорт RAG движка
     try:
-        from submit.rag.fact_based_rag import FactBasedRAGEngine
+        from submit.modules.rag.fact_based_rag import FactBasedRAGEngine
         print("✅ FactBasedRAGEngine импортирован успешно")
     except Exception as e:
         print(f"❌ Ошибка импорта FactBasedRAGEngine: {e}")
@@ -32,7 +32,7 @@ def test_components():
     
     # Тестируем импорт моделей фактов
     try:
-        from submit.extraction.fact_models import FactType, Fact, FactConfidence, FactRelation
+        from submit.modules.extraction.fact_models import FactType, Fact, FactConfidence, FactRelation
         print("✅ Модели фактов импортированы успешно")
     except Exception as e:
         print(f"❌ Ошибка импорта моделей фактов: {e}")
@@ -40,7 +40,7 @@ def test_components():
     
     # Тестируем импорт базы фактов
     try:
-        from submit.extraction.fact_database import FactDatabase
+        from submit.modules.extraction.fact_database import FactDatabase
         print("✅ FactDatabase импортирована успешно")
     except Exception as e:
         print(f"❌ Ошибка импорта FactDatabase: {e}")
@@ -48,8 +48,8 @@ def test_components():
     
     # Тестируем создание классификатора
     try:
-        classifier = FactBasedQuestionClassifier()
-        print("✅ FactBasedQuestionClassifier создан успешно")
+        classifier = QuestionClassifier()
+        print("✅ QuestionClassifier создан успешно")
     except Exception as e:
         print(f"❌ Ошибка создания FactBasedQuestionClassifier: {e}")
         return False
@@ -89,14 +89,14 @@ def test_components():
             print(f"  ❌ Ошибка классификации '{question}': {e}")
             return False
     
-    # Тестируем обработку вопросов
-    print("\n🔍 Тестирование обработки вопросов:")
+    # Тестируем поиск фактов
+    print("\n🔍 Тестирование поиска фактов:")
     for question in test_questions:
         try:
-            prompt, metadata = rag_engine.process_question(question, "test_dialogue")
-            print(f"  '{question}' -> {metadata['strategy']} (фактов: {metadata['facts_found']})")
+            facts = rag_engine.search(question, max_results=3)
+            print(f"  '{question}' -> найдено {len(facts)} фактов")
         except Exception as e:
-            print(f"  ❌ Ошибка обработки '{question}': {e}")
+            print(f"  ❌ Ошибка поиска '{question}': {e}")
             return False
     
     print("\n✅ Все компоненты работают корректно!")
