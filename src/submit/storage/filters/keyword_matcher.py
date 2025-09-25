@@ -6,7 +6,7 @@ import re
 from typing import List, Dict, Set, Tuple, Optional
 from models import Message
 
-from ..questions.topics import get_all_topics, get_topic_keywords, Topic
+from ...questions.topics import get_all_topics, get_topic_keywords, Topic
 from .session_grouper import extract_session_content
 
 

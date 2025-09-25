@@ -5,8 +5,8 @@
 from typing import List, Dict, Tuple, Optional, Set
 from models import Message
 
-from ..questions.classifier import QuestionClassifier
-from ..questions.confidence import calculate_confidence_with_threshold
+from ...questions.classifier import QuestionClassifier
+from ...questions.confidence import calculate_confidence_with_threshold
 from .keyword_matcher import KeywordMatcher
 from .session_grouper import extract_session_content, extract_session_content_for_search
 from .message_cleaner import is_copy_paste_content

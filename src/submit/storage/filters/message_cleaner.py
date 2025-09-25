@@ -116,7 +116,7 @@ def clean_messages(messages: List[Message]) -> List[Message]:
         Список очищенных сообщений пользователя
     """
     # Импортируем центральный фильтр
-    from ..core.message_filter import message_filter
+    from ..message_filter import message_filter
     return message_filter.filter_messages(messages)
 
 

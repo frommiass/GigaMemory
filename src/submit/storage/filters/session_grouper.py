@@ -6,8 +6,7 @@ from collections import defaultdict
 from typing import List, Dict, Tuple, Optional
 from models import Message
 
-from ..prompts import get_session_marker_prompt
-from ..storage import SessionManager
+from ..session_manager import SessionManager
 from .message_cleaner import is_copy_paste_content
 
 
@@ -105,7 +104,7 @@ class SessionGrouper:
         Returns:
             Список ID сессий
         """
-        return list(self.grouped_sessions.get(dialogue_id, {}).keys())
+        return self.session_manager.get_session_ids(dialogue_id)
     
     def clear_dialogue_sessions(self, dialogue_id: str) -> None:
         """Очищает все сессии диалога"""
